@@ -45,5 +45,13 @@ namespace ELST
                 dirNode.Nodes.Add(new TreeNode(file.Name));
             return dirNode;
         }
+
+        private void DirTreeViewNode_DoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            // Perform actions based on the clicked node
+            MessageBox.Show("Double-clicked node: " + e.Node.Text);
+        }
+
+
     }
 }
