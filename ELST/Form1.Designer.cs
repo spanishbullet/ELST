@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             openLogToolStripMenuItem = new ToolStripMenuItem();
@@ -40,15 +43,18 @@
             panel1 = new Panel();
             splitContainer1 = new SplitContainer();
             splitContainer2 = new SplitContainer();
+            dataGridView1 = new DataGridView();
             menuStrip1.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
+            splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer2).BeginInit();
             splitContainer2.Panel1.SuspendLayout();
             splitContainer2.Panel2.SuspendLayout();
             splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
@@ -110,7 +116,7 @@
             dirTreeView.Location = new Point(2, 3);
             dirTreeView.Margin = new Padding(2);
             dirTreeView.Name = "dirTreeView";
-            dirTreeView.Size = new Size(170, 598);
+            dirTreeView.Size = new Size(170, 600);
             dirTreeView.TabIndex = 1;
             dirTreeView.NodeMouseDoubleClick += DirTreeViewNode_DoubleClick;
             // 
@@ -130,7 +136,7 @@
             panel1.Controls.Add(splitContainer1);
             panel1.Location = new Point(0, 29);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1064, 603);
+            panel1.Size = new Size(1064, 605);
             panel1.TabIndex = 3;
             // 
             // splitContainer1
@@ -142,7 +148,11 @@
             // splitContainer1.Panel1
             // 
             splitContainer1.Panel1.Controls.Add(splitContainer2);
-            splitContainer1.Size = new Size(1064, 603);
+            // 
+            // splitContainer1.Panel2
+            // 
+            splitContainer1.Panel2.Controls.Add(dataGridView1);
+            splitContainer1.Size = new Size(1064, 605);
             splitContainer1.SplitterDistance = 384;
             splitContainer1.TabIndex = 0;
             // 
@@ -159,9 +169,44 @@
             // splitContainer2.Panel2
             // 
             splitContainer2.Panel2.Controls.Add(checkedListBox1);
-            splitContainer2.Size = new Size(384, 603);
+            splitContainer2.Size = new Size(384, 605);
             splitContainer2.SplitterDistance = 174;
             splitContainer2.TabIndex = 0;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.AllowUserToOrderColumns = true;
+            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridView1.Location = new Point(3, 3);
+            dataGridView1.Name = "dataGridView1";
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(670, 599);
+            dataGridView1.TabIndex = 0;
             // 
             // Form1
             // 
@@ -178,12 +223,14 @@
             menuStrip1.PerformLayout();
             panel1.ResumeLayout(false);
             splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
             splitContainer2.Panel1.ResumeLayout(false);
             splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer2).EndInit();
             splitContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -202,5 +249,6 @@
         private Panel panel1;
         private SplitContainer splitContainer1;
         private SplitContainer splitContainer2;
+        private DataGridView dataGridView1;
     }
 }
