@@ -10,6 +10,7 @@ namespace ELST
         public Form1()
         {
             InitializeComponent();
+            InitializedgvEvents();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -88,7 +89,17 @@ namespace ELST
                 EventRecord eventRecord;
                 while ((eventRecord = reader.ReadEvent()) != null)
                 {
-                    DisplayEvent(eventRecord);
+                    //DisplayEvent(eventRecord);
+                    // Add a row to the DataGridView
+                    dgvEvents.Rows.Add(
+                        eventRecord.Id,
+                        eventRecord.ProviderName,
+                        eventRecord.LevelDisplayName,
+                        eventRecord.TimeCreated,
+                        eventRecord.FormatDescription()
+                    );
+
+                    eventRecord.Dispose();
                     eventRecord.Dispose();
                 }
             }
@@ -110,6 +121,19 @@ namespace ELST
             // You can display the event details in a TextBox, ListBox, or any other control.
             // For simplicity, we are showing it in a MessageBox here.
             MessageBox.Show(eventDetails);
+        }
+
+        private void InitializedgvEvents()
+        {
+            // Set up the DataGridView columns
+            dgvEvents.Columns.Add("EventId", "Event ID");
+            dgvEvents.Columns.Add("ProviderName", "Provider Name");
+            dgvEvents.Columns.Add("Level", "Level");
+            dgvEvents.Columns.Add("TimeCreated", "Time Created");
+            dgvEvents.Columns.Add("Message", "Message");
+
+            // Adjust column widths
+            dgvEvents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
     }
