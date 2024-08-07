@@ -71,8 +71,46 @@ namespace ELST
 
             string selectedEvtxFilePath = selectedFolderPath + "\\" + e.Node.Text;
             MessageBox.Show(selectedEvtxFilePath);
+            LoadEvtxFile(selectedEvtxFilePath);
         }
 
+        private void LoadEvtxFile(string evtxFilePath)
+        {
+            try
+            {
+                // Create an EventLogQuery object for the .evtx file
+                EventLogQuery query = new EventLogQuery(evtxFilePath, PathType.FilePath);
+
+                // Create an EventLogReader object
+                EventLogReader reader = new EventLogReader(query);
+
+                // Read and display the events
+                EventRecord eventRecord;
+                while ((eventRecord = reader.ReadEvent()) != null)
+                {
+                    DisplayEvent(eventRecord);
+                    eventRecord.Dispose();
+                }
+            }
+            catch (EventLogException e)
+            {
+                MessageBox.Show("Error reading the event log file: " + e.Message);
+            }
+        }
+
+        private void DisplayEvent(EventRecord eventRecord)
+        {
+            string eventDetails = $"Event ID: {eventRecord.Id}\n" +
+                                  $"Provider Name: {eventRecord.ProviderName}\n" +
+                                  $"Level: {eventRecord.LevelDisplayName}\n" +
+                                  $"Time Created: {eventRecord.TimeCreated}\n" +
+                                  $"Message: {eventRecord.FormatDescription()}\n" +
+                                  new string('-', 50) + "\n";
+
+            // You can display the event details in a TextBox, ListBox, or any other control.
+            // For simplicity, we are showing it in a MessageBox here.
+            MessageBox.Show(eventDetails);
+        }
 
     }
 }
