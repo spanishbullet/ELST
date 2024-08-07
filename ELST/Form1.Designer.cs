@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             openLogToolStripMenuItem = new ToolStripMenuItem();
@@ -39,22 +39,16 @@
             infoToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem1 = new ToolStripMenuItem();
             dirTreeView = new TreeView();
-            checkedListBox1 = new CheckedListBox();
+            dgvEvents = new DataGridView();
             panel1 = new Panel();
             splitContainer1 = new SplitContainer();
-            splitContainer2 = new SplitContainer();
-            dgvEvents = new DataGridView();
             menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvEvents).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)splitContainer2).BeginInit();
-            splitContainer2.Panel1.SuspendLayout();
-            splitContainer2.Panel2.SuspendLayout();
-            splitContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvEvents).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
@@ -112,32 +106,58 @@
             // 
             // dirTreeView
             // 
-            dirTreeView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dirTreeView.Location = new Point(2, 3);
+            dirTreeView.Dock = DockStyle.Fill;
+            dirTreeView.Location = new Point(0, 0);
             dirTreeView.Margin = new Padding(2);
             dirTreeView.Name = "dirTreeView";
-            dirTreeView.Size = new Size(170, 600);
+            dirTreeView.Size = new Size(227, 609);
             dirTreeView.TabIndex = 1;
             dirTreeView.NodeMouseDoubleClick += DirTreeViewNode_DoubleClick;
             // 
-            // checkedListBox1
+            // dgvEvents
             // 
-            checkedListBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            checkedListBox1.FormattingEnabled = true;
-            checkedListBox1.Items.AddRange(new object[] { "TimeCreated SystemTime", "Drive Capacity", "Manufacturer", "Model", "Revision", "Serial Number", "Parent ID" });
-            checkedListBox1.Location = new Point(3, 3);
-            checkedListBox1.Name = "checkedListBox1";
-            checkedListBox1.Size = new Size(200, 598);
-            checkedListBox1.TabIndex = 2;
+            dgvEvents.AllowUserToOrderColumns = true;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvEvents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvEvents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvEvents.DefaultCellStyle = dataGridViewCellStyle2;
+            dgvEvents.Dock = DockStyle.Fill;
+            dgvEvents.Location = new Point(0, 0);
+            dgvEvents.Name = "dgvEvents";
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvEvents.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dgvEvents.RowHeadersWidth = 51;
+            dgvEvents.Size = new Size(833, 609);
+            dgvEvents.TabIndex = 0;
+            dgvEvents.MouseClick += dgvEvents_MouseClick;
             // 
             // panel1
             // 
-            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel1.Controls.Add(splitContainer1);
-            panel1.Location = new Point(0, 29);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 26);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1064, 605);
-            panel1.TabIndex = 3;
+            panel1.Size = new Size(1064, 609);
+            panel1.TabIndex = 2;
             // 
             // splitContainer1
             // 
@@ -147,66 +167,14 @@
             // 
             // splitContainer1.Panel1
             // 
-            splitContainer1.Panel1.Controls.Add(splitContainer2);
+            splitContainer1.Panel1.Controls.Add(dirTreeView);
             // 
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(dgvEvents);
-            splitContainer1.Size = new Size(1064, 605);
-            splitContainer1.SplitterDistance = 384;
+            splitContainer1.Size = new Size(1064, 609);
+            splitContainer1.SplitterDistance = 227;
             splitContainer1.TabIndex = 0;
-            // 
-            // splitContainer2
-            // 
-            splitContainer2.Dock = DockStyle.Fill;
-            splitContainer2.Location = new Point(0, 0);
-            splitContainer2.Name = "splitContainer2";
-            // 
-            // splitContainer2.Panel1
-            // 
-            splitContainer2.Panel1.Controls.Add(dirTreeView);
-            // 
-            // splitContainer2.Panel2
-            // 
-            splitContainer2.Panel2.Controls.Add(checkedListBox1);
-            splitContainer2.Size = new Size(384, 605);
-            splitContainer2.SplitterDistance = 174;
-            splitContainer2.TabIndex = 0;
-            // 
-            // dgvEvents
-            // 
-            dgvEvents.AllowUserToOrderColumns = true;
-            dgvEvents.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvEvents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            dgvEvents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.Window;
-            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
-            dgvEvents.DefaultCellStyle = dataGridViewCellStyle5;
-            dgvEvents.Location = new Point(3, 3);
-            dgvEvents.Name = "dgvEvents";
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.Control;
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            dgvEvents.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            dgvEvents.RowHeadersWidth = 51;
-            dgvEvents.Size = new Size(670, 599);
-            dgvEvents.TabIndex = 0;
             // 
             // Form1
             // 
@@ -221,16 +189,12 @@
             Text = "ELST Main Menu";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvEvents).EndInit();
             panel1.ResumeLayout(false);
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
-            splitContainer2.Panel1.ResumeLayout(false);
-            splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)splitContainer2).EndInit();
-            splitContainer2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvEvents).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -245,10 +209,8 @@
         private ToolStripMenuItem infoToolStripMenuItem;
         private ToolStripMenuItem aboutToolStripMenuItem1;
         private TreeView dirTreeView;
-        private CheckedListBox checkedListBox1;
+        private DataGridView dgvEvents;
         private Panel panel1;
         private SplitContainer splitContainer1;
-        private SplitContainer splitContainer2;
-        private DataGridView dgvEvents;
     }
 }
