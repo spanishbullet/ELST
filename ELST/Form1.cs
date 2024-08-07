@@ -1,4 +1,7 @@
+using System;
 using System.IO;
+using System.Diagnostics.Eventing.Reader;
+using System.Windows.Forms;
 
 namespace ELST
 {
@@ -24,9 +27,24 @@ namespace ELST
             MessageBox.Show("Tool not yet funcitonal.");
         }
 
+        private string selectedFolderPath = "D:\\Windows\\System32\\winevt\\TraceFormat";
+
         private void openLogToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ListDirectory(dirTreeView, "D:\\Windows\\System32\\winevt\\Logs");
+            // Open a folder dialog to let the user select a folder
+            using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
+            {
+                folderBrowserDialog.Description = "Select a folder";
+                folderBrowserDialog.ShowNewFolderButton = true;
+                folderBrowserDialog.RootFolder = Environment.SpecialFolder.MyComputer;
+
+                if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Store the selected folder path in the class-level variable
+                    selectedFolderPath = folderBrowserDialog.SelectedPath;
+                }
+            }
+            ListDirectory(dirTreeView, selectedFolderPath);
         }
 
         private void ListDirectory(TreeView treeView, string path)
@@ -49,7 +67,10 @@ namespace ELST
         private void DirTreeViewNode_DoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             // Perform actions based on the clicked node
-            MessageBox.Show("Double-clicked node: " + e.Node.Text);
+            //MessageBox.Show("Double-clicked node: " + e.Node.Text);
+
+            string selectedEvtxFilePath = selectedFolderPath + "\\" + e.Node.Text;
+            MessageBox.Show(selectedEvtxFilePath);
         }
 
 
