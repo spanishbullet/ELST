@@ -30,7 +30,7 @@ namespace ELST
             MessageBox.Show("Tool not yet funcitonal.");
         }
 
-        private string selectedFolderPath = "D:\\Windows\\System32\\winevt\\TraceFormat";
+        private string selectedFolderPath;
 
         private void openLogToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -59,23 +59,29 @@ namespace ELST
 
         private static TreeNode CreateDirectoryNode(DirectoryInfo dirInfo)
         {
-            var dirNode = new TreeNode(dirInfo.FullName);
+            var dirNode = new TreeNode(dirInfo.Name) { Tag = dirInfo.FullName };
             foreach (var dir in dirInfo.GetDirectories())
+            {
                 dirNode.Nodes.Add(CreateDirectoryNode(dir));
+            }
             foreach (var file in dirInfo.GetFiles())
-                dirNode.Nodes.Add(new TreeNode(file.Name));
+            {
+                var fileNode = new TreeNode(file.Name) { Tag = file.FullName };
+                dirNode.Nodes.Add(fileNode);
+            }
             return dirNode;
         }
 
         private void DirTreeViewNode_DoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            // Perform actions based on the clicked node
-            //MessageBox.Show("Double-clicked node: " + e.Node.Text);
-
-            string selectedEvtxFilePath = selectedFolderPath + "\\" + e.Node.Text;
-            MessageBox.Show(selectedEvtxFilePath);
-            LoadEvtxFile(selectedEvtxFilePath);
+            // Check if the node is a file
+            if (e.Node.Tag is string filePath && File.Exists(filePath))
+            {
+                MessageBox.Show(filePath);
+                LoadEvtxFile(filePath);
+            }
         }
+
 
         private void LoadEvtxFile(string evtxFilePath)
         {
@@ -108,13 +114,14 @@ namespace ELST
                     var parentId = GetXmlField(eventXml, "ParentId");
 
                     // Add a row to the DataGridView
+                    //ORDER MATTERS*******************
                     dgvEvents.Rows.Add(
                         eventRecord.Id,                          // Event ID
                         eventRecord.ProviderName,                // Provider Name
                         eventRecord.LevelDisplayName,            // Level
-                        eventRecord.TimeCreated,                 // Time Created
                         eventRecord.FormatDescription(),         // Message
                         eventRecord.RecordId,                    // Record Number
+                        eventRecord.TimeCreated,                 // Time Created
                         capacity,                                // Capacity
                         manufacturer,                            // Manufacturer
                         model,                                   // Model
@@ -175,18 +182,28 @@ namespace ELST
         private void InitializeDGVEvents()
         {
             // Set up the DataGridView columns
+            //ORDER MATTERS*******************
             dgvEvents.Columns.Add("EventId", "Event ID");
             dgvEvents.Columns.Add("ProviderName", "Provider Name");
             dgvEvents.Columns.Add("Level", "Level");
-            dgvEvents.Columns.Add("TimeCreated", "Time Created");
             dgvEvents.Columns.Add("Message", "Message");
             dgvEvents.Columns.Add("RecordId", "Record Number");
+            dgvEvents.Columns.Add("TimeCreated", "Time Created");
             dgvEvents.Columns.Add("Capacity", "Capacity");
             dgvEvents.Columns.Add("Manufacturer", "Manufacturer");
             dgvEvents.Columns.Add("Model", "Model");
             dgvEvents.Columns.Add("Revision", "Revision");
             dgvEvents.Columns.Add("SerialNumber", "Serial Number");
             dgvEvents.Columns.Add("ParentID", "Parent ID");
+
+            //Hide Columns
+            dgvEvents.Columns["EventId"].Visible = false;
+            dgvEvents.Columns["Message"].Visible = false;
+            dgvEvents.Columns["ProviderName"].Visible = false;
+            dgvEvents.Columns["Level"].Visible = false;
+
+
+
 
             // Adjust column widths
             dgvEvents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
