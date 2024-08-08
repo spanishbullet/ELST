@@ -49,7 +49,7 @@ The application requires elevated permissions. Ensure the application manifest (
 1. **Launch the Application**:
     - Start the application from Visual Studio or by running the compiled executable.
 2. **Open Event Log File**:
-    - Click the "File" button on the main form menu and then "Open" to launch a folder dialog.
+    - Click the "File" button on the main form menu and then "Open Log" to launch a folder dialog.
     - Select a folder containing the .evtx file(s) you want to use.
 3. **View Event Data**:
     - Select and double click the desired .evtx file.
