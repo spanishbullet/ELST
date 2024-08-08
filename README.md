@@ -49,11 +49,19 @@ The application requires elevated permissions. Ensure the application manifest (
 1. **Launch the Application**:
     - Start the application from Visual Studio or by running the compiled executable.
 2. **Open Event Log File**:
-    - Click the "Open" button on the main form to launch a file dialog.
-    - Select an .evtx file to load.
+    - Click the "File" button on the main form menu and then "Open" to launch a folder dialog.
+    - Select a folder containing the .evtx file(s) you want to use.
 3. **View Event Data**:
-    - The event log data will be displayed in a table format within the DataGridView.
+    - Select and double click the desired .evtx file.
+    - The event log data will automatically populate in table format within the DataGridView.
     - Columns include Event ID, Provider, Level, Time Created, and specific fields like Capacity, Manufacturer, Model, etc.
+4. **Configure Fields**
+    - There are default fields that automatically populate. You can change the visible feilds by right clicking any of the column headers.
+    - A dropdown menu will apear and you can select or deselect the feilds you wish to see.
+    - You can also drag a column header left or right to change the other the feilds apear in.
+5. **Exit**
+    - You can click the red "X" in the top right corner of the window.
+    - Alternatively you can select "File" in the menu bar and then select "Exit".
 
 ## License
 
