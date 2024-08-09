@@ -38,10 +38,15 @@
             aboutToolStripMenuItem = new ToolStripMenuItem();
             infoToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem1 = new ToolStripMenuItem();
+            analyzeToolStripMenuItem = new ToolStripMenuItem();
+            recordNumbersToolStripMenuItem = new ToolStripMenuItem();
+            timeCToolStripMenuItem = new ToolStripMenuItem();
             dirTreeView = new TreeView();
             dgvEvents = new DataGridView();
             panel1 = new Panel();
             splitContainer1 = new SplitContainer();
+            resetToolStripMenuItem = new ToolStripMenuItem();
+            resetToolStripMenuItem1 = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEvents).BeginInit();
             panel1.SuspendLayout();
@@ -54,7 +59,7 @@
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aboutToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aboutToolStripMenuItem, analyzeToolStripMenuItem, resetToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(4, 1, 0, 1);
@@ -93,16 +98,36 @@
             // infoToolStripMenuItem
             // 
             infoToolStripMenuItem.Name = "infoToolStripMenuItem";
-            infoToolStripMenuItem.Size = new Size(133, 26);
+            infoToolStripMenuItem.Size = new Size(224, 26);
             infoToolStripMenuItem.Text = "&Help";
             infoToolStripMenuItem.Click += infoToolStripMenuItem_Click;
             // 
             // aboutToolStripMenuItem1
             // 
             aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            aboutToolStripMenuItem1.Size = new Size(133, 26);
+            aboutToolStripMenuItem1.Size = new Size(224, 26);
             aboutToolStripMenuItem1.Text = "&About";
             aboutToolStripMenuItem1.Click += aboutToolStripMenuItem1_Click;
+            // 
+            // analyzeToolStripMenuItem
+            // 
+            analyzeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { recordNumbersToolStripMenuItem, timeCToolStripMenuItem });
+            analyzeToolStripMenuItem.Name = "analyzeToolStripMenuItem";
+            analyzeToolStripMenuItem.Size = new Size(75, 24);
+            analyzeToolStripMenuItem.Text = "&Analyze";
+            // 
+            // recordNumbersToolStripMenuItem
+            // 
+            recordNumbersToolStripMenuItem.Name = "recordNumbersToolStripMenuItem";
+            recordNumbersToolStripMenuItem.Size = new Size(203, 26);
+            recordNumbersToolStripMenuItem.Text = "&Record Numbers";
+            recordNumbersToolStripMenuItem.Click += recordNumbersToolStripMenuItem_Click;
+            // 
+            // timeCToolStripMenuItem
+            // 
+            timeCToolStripMenuItem.Name = "timeCToolStripMenuItem";
+            timeCToolStripMenuItem.Size = new Size(203, 26);
+            timeCToolStripMenuItem.Text = "&Time Change";
             // 
             // dirTreeView
             // 
@@ -176,6 +201,20 @@
             splitContainer1.SplitterDistance = 227;
             splitContainer1.TabIndex = 0;
             // 
+            // resetToolStripMenuItem
+            // 
+            resetToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { resetToolStripMenuItem1 });
+            resetToolStripMenuItem.Name = "resetToolStripMenuItem";
+            resetToolStripMenuItem.Size = new Size(59, 24);
+            resetToolStripMenuItem.Text = "&Reset";
+            // 
+            // resetToolStripMenuItem1
+            // 
+            resetToolStripMenuItem1.Name = "resetToolStripMenuItem1";
+            resetToolStripMenuItem1.Size = new Size(224, 26);
+            resetToolStripMenuItem1.Text = "&Reset";
+            resetToolStripMenuItem1.Click += resetToolStripMenuItem1_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -212,5 +251,10 @@
         private DataGridView dgvEvents;
         private Panel panel1;
         private SplitContainer splitContainer1;
+        private ToolStripMenuItem analyzeToolStripMenuItem;
+        private ToolStripMenuItem recordNumbersToolStripMenuItem;
+        private ToolStripMenuItem timeCToolStripMenuItem;
+        private ToolStripMenuItem resetToolStripMenuItem;
+        private ToolStripMenuItem resetToolStripMenuItem1;
     }
 }
