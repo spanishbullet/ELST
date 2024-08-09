@@ -100,9 +100,9 @@ public partial class Form1 : Form
         {
             //MessageBox.Show(filePath);
             LoadEvtxFile(filePath);
+            GetEvents(filePath);
         }
     }
-
 
     private void LoadEvtxFile(string evtxFilePath)
     {
@@ -123,6 +123,7 @@ public partial class Form1 : Form
             {
                 // Get the XML representation of the event
                 string eventXml = eventRecord.ToXml();
+
 
                 // Parse the XML to extract desired fields
                 var capacity = XmlExtract.GetField(eventXml, "Capacity");
@@ -162,6 +163,45 @@ public partial class Form1 : Form
         catch (EventLogException e)
         {
             MessageBox.Show("Error reading the event log file: " + e.Message);
+        }
+    }
+
+    public void GetEvents(string evtxFilePath)
+    {
+        List<CustomEvent> customEvents = new List<CustomEvent>();
+        try
+        {
+            // Create an EventLogQuery object for the .evtx file
+            EventLogQuery query = new EventLogQuery(evtxFilePath, PathType.FilePath);
+
+            // Create an EventLogReader object
+            EventLogReader reader = new EventLogReader(query);
+
+            // Read and display the events
+            EventRecord eventRecord;
+            while ((eventRecord = reader.ReadEvent()) != null)
+            {                
+                // Creat event object to store events.
+                CustomEvent customEvent = new CustomEvent(eventRecord);
+                customEvents.Add(customEvent);
+
+                eventRecord.Dispose(); // Release resources
+            }
+
+            MessageBox.Show(customEvents.Count.ToString());
+        }
+        catch (UnauthorizedAccessException)
+        {
+            MessageBox.Show("Error: Unauthorized access. Please run the application as Administrator.");
+        }
+        catch (EventLogException e)
+        {
+            MessageBox.Show("Error reading the event log file: " + e.Message);
+        }
+        foreach (CustomEvent ce in customEvents)
+        {
+            string message = ce.recordNumber;
+            MessageBox.Show(ce.Display());
         }
     }
 
