@@ -4,13 +4,15 @@ using System.IO;
 using System.Diagnostics.Eventing.Reader;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Linq;
 
 
 namespace ELST;
 
-public partial class Form1 : Form
+public partial class MainMenu : Form
 {
-    public Form1()
+    public MainMenu()
     {
         InitializeComponent();
         InitializeDGVEvents();
@@ -18,6 +20,8 @@ public partial class Form1 : Form
     }
 
     public List<CustomEvent> customEvents = new List<CustomEvent>();
+
+    public List<Device> devices = new List<Device>();
 
     private void exitToolStripMenuItem_Click(object sender, EventArgs e)
     {
@@ -127,7 +131,7 @@ public partial class Form1 : Form
             // Read and display the events
             EventRecord eventRecord;
             while ((eventRecord = reader.ReadEvent()) != null)
-            {                
+            {
                 // Creat event object to store events.
                 CustomEvent customEvent = new CustomEvent(eventRecord);
                 customEvents.Add(customEvent);
@@ -142,6 +146,27 @@ public partial class Form1 : Form
         catch (EventLogException e)
         {
             MessageBox.Show("Error reading the event log file: " + e.Message);
+        }
+    }
+
+    public void GetDevices()
+    {
+        foreach (CustomEvent customEvent in customEvents)
+        {
+            if (devices.Count == 0)
+            {
+                Device device = new Device(customEvent);
+                devices.Add(device);
+            }
+            if (devices.Any(d => d.serialNumber == customEvent.serialNumber))
+            {
+                devices.FirstOrDefault(d => d.serialNumber == customEvent.serialNumber).AddEvent(customEvent);
+            }
+            else
+            {
+                Device device = new Device(customEvent);
+                devices.Add(device);
+            }
         }
     }
 
@@ -165,6 +190,7 @@ public partial class Form1 : Form
         dgvEvents.Columns.Add("RecordId", "Record Number");
         dgvEvents.Columns.Add("TimeCreated", "Time Created");
         dgvEvents.Columns.Add("Capacity", "Capacity");
+        dgvEvents.Columns.Add("Action", "Action");
         dgvEvents.Columns.Add("Manufacturer", "Manufacturer");
         dgvEvents.Columns.Add("Model", "Model");
         dgvEvents.Columns.Add("Revision", "Revision");
@@ -186,6 +212,7 @@ public partial class Form1 : Form
 
         GetEvents(defaultFilePath);
         PopulatDGVEvents(customEvents);
+        GetDevices();
     }
 
     private void dgvEvents_MouseClick(object sender, MouseEventArgs e)
@@ -262,5 +289,16 @@ public partial class Form1 : Form
         {
             row.DefaultCellStyle.BackColor = Color.White;
         }
+    }
+
+    private void timeCToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        MessageBox.Show(Analyze.TimeChange2(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "TimeCreated")));
+    }
+
+    private void devicesToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        DevicesPage devicePage = new DevicesPage(devices);
+        devicePage.Show();
     }
 }

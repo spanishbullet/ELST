@@ -19,6 +19,9 @@ public class CustomEvent
     public string recordNumber { get; }
 
     public string capacity { get; }
+
+    public string action { get; }
+
     public string manufacturer { get; }
 
     public string model { get; }
@@ -56,6 +59,15 @@ public class CustomEvent
         parentId = XmlExtract.GetField(eventXml, "ParentId");
         vbr0 = XmlExtract.GetField(eventXml, "Vbr0");
         extractedVbr0 = FormatVbr0.Extract(vbr0);
+
+        if (long.Parse(capacity) != 0)
+        {
+            action = "Plugged In";
+        }
+        else
+        {
+            action = "Ejected";
+        }
     }
 
     public string Display()
@@ -73,6 +85,7 @@ public class CustomEvent
         result.Add(recordNumber);
         result.Add(TimeCreated.ToString());
         result.Add(capacity);
+        result.Add(action);
         result.Add(manufacturer);
         result.Add(model);
         result.Add(revision);
@@ -82,4 +95,20 @@ public class CustomEvent
 
         return result;
     }
+
+    public List<string> GetUniqueAttributes()
+    {
+        List<string> result = new List<string>();
+        result.Add(Id.ToString());
+        result.Add(ProviderName);
+        result.Add(Level);
+        result.Add(Message);
+        result.Add(recordNumber);
+        result.Add(TimeCreated.ToString());
+        result.Add(action);
+        result.Add(extractedVbr0);
+
+        return result;
+    }
+
 }
