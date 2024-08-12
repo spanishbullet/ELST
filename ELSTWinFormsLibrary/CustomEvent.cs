@@ -62,4 +62,24 @@ public class CustomEvent
     {
         return recordNumber;
     }
+
+    public List<string> GetAllAttributes()
+    {
+        List<string> result = new List<string>();
+        result.Add(Id.ToString());
+        result.Add(ProviderName);
+        result.Add(Level);
+        result.Add(Message);
+        result.Add(recordNumber);
+        result.Add(TimeCreated.ToString());
+        result.Add(capacity);
+        result.Add(manufacturer);
+        result.Add(model);
+        result.Add(revision);
+        result.Add(serialNumber);
+        result.Add(parentId);
+        result.Add(extractedVbr0);
+
+        return result;
+    }
 }

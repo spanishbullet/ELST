@@ -14,7 +14,10 @@ public partial class Form1 : Form
     {
         InitializeComponent();
         InitializeDGVEvents();
+        AutoLoadFilePath();
     }
+
+    public List<CustomEvent> customEvents = new List<CustomEvent>();
 
     private void exitToolStripMenuItem_Click(object sender, EventArgs e)
     {
@@ -47,7 +50,13 @@ public partial class Form1 : Form
         MessageBox.Show(helpMessage); ;
     }
 
-    private string selectedFolderPath;
+    private string selectedFolderPath = "D:\\Windows\\System32\\winevt\\Logs";
+    private string defaultFilePath = "D:\\Windows\\System32\\winevt\\Logs\\Microsoft-Windows-Partition%4Diagnostic.evtx";
+    private void AutoLoadFilePath()
+    {
+        ListDirectory(dirTreeView, selectedFolderPath);
+        ActualPathTSSLabel.Text = defaultFilePath;
+    }
 
     private void openLogToolStripMenuItem_Click(object sender, EventArgs e)
     {
@@ -99,76 +108,14 @@ public partial class Form1 : Form
         if (e.Node.Tag is string filePath && File.Exists(filePath))
         {
             //MessageBox.Show(filePath);
-            LoadEvtxFile(filePath);
             GetEvents(filePath);
-        }
-    }
-
-    private void LoadEvtxFile(string evtxFilePath)
-    {
-        // Clear existing data
-        dgvEvents.Rows.Clear();
-
-        try
-        {
-            // Create an EventLogQuery object for the .evtx file
-            EventLogQuery query = new EventLogQuery(evtxFilePath, PathType.FilePath);
-
-            // Create an EventLogReader object
-            EventLogReader reader = new EventLogReader(query);
-
-            // Read and display the events
-            EventRecord eventRecord;
-            while ((eventRecord = reader.ReadEvent()) != null)
-            {
-                // Get the XML representation of the event
-                string eventXml = eventRecord.ToXml();
-
-
-                // Parse the XML to extract desired fields
-                var capacity = XmlExtract.GetField(eventXml, "Capacity");
-                var manufacturer = XmlExtract.GetField(eventXml, "Manufacturer");
-                var model = XmlExtract.GetField(eventXml, "Model");
-                var revision = XmlExtract.GetField(eventXml, "Revision");
-                var serialNumber = XmlExtract.GetField(eventXml, "SerialNumber");
-                var parentId = XmlExtract.GetField(eventXml, "ParentId");
-                var vbr0 = XmlExtract.GetField(eventXml, "Vbr0");
-                var extractedVbr0 = FormatVbr0.Extract(vbr0);
-
-                // Add a row to the DataGridView
-                //ORDER MATTERS*******************
-                dgvEvents.Rows.Add(
-                    eventRecord.Id,                          // Event ID
-                    eventRecord.ProviderName,                // Provider Name
-                    eventRecord.LevelDisplayName,            // Level
-                    eventRecord.FormatDescription(),         // Message
-                    eventRecord.RecordId,                    // Record Number
-                    eventRecord.TimeCreated,                 // Time Created
-                    capacity,                                // Capacity
-                    manufacturer,                            // Manufacturer
-                    model,                                   // Model
-                    revision,                                // Revision
-                    serialNumber,                            // Serial Number
-                    parentId,                                // Parent ID
-                    extractedVbr0                            // Extracted Data From Vbr0
-                );
-
-                eventRecord.Dispose(); // Release resources
-            }
-        }
-        catch (UnauthorizedAccessException)
-        {
-            MessageBox.Show("Error: Unauthorized access. Please run the application as Administrator.");
-        }
-        catch (EventLogException e)
-        {
-            MessageBox.Show("Error reading the event log file: " + e.Message);
+            PopulatDGVEvents(customEvents);
+            ActualPathTSSLabel.Text = filePath;
         }
     }
 
     public void GetEvents(string evtxFilePath)
     {
-        List<CustomEvent> customEvents = new List<CustomEvent>();
         try
         {
             // Create an EventLogQuery object for the .evtx file
@@ -187,8 +134,6 @@ public partial class Form1 : Form
 
                 eventRecord.Dispose(); // Release resources
             }
-
-            MessageBox.Show(customEvents.Count.ToString());
         }
         catch (UnauthorizedAccessException)
         {
@@ -198,25 +143,15 @@ public partial class Form1 : Form
         {
             MessageBox.Show("Error reading the event log file: " + e.Message);
         }
-        foreach (CustomEvent ce in customEvents)
-        {
-            string message = ce.recordNumber;
-            MessageBox.Show(ce.Display());
-        }
     }
 
-    private void DisplayEvent(EventRecord eventRecord)
+    private void PopulatDGVEvents(List<CustomEvent> customEvents)
     {
-        string eventDetails = $"Event ID: {eventRecord.Id}\n" +
-                              $"Provider Name: {eventRecord.ProviderName}\n" +
-                              $"Level: {eventRecord.LevelDisplayName}\n" +
-                              $"Time Created: {eventRecord.TimeCreated}\n" +
-                              $"Message: {eventRecord.FormatDescription()}\n" +
-                              new string('-', 50) + "\n";
-
-        // You can display the event details in a TextBox, ListBox, or any other control.
-        // For simplicity, we are showing it in a MessageBox here.
-        MessageBox.Show(eventDetails);
+        dgvEvents.Rows.Clear();
+        foreach (CustomEvent ce in customEvents)
+        {
+            dgvEvents.Rows.Add(ce.GetAllAttributes().ToArray());
+        }
     }
 
     private void InitializeDGVEvents()
@@ -248,6 +183,9 @@ public partial class Form1 : Form
 
         // Adjust column widths
         dgvEvents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+        GetEvents(defaultFilePath);
+        PopulatDGVEvents(customEvents);
     }
 
     private void dgvEvents_MouseClick(object sender, MouseEventArgs e)
