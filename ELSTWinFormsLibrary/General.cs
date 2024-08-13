@@ -129,6 +129,10 @@ public class Analyze
 {
     public static string RecordNumber(DataGridView dgv, List<object> columnData)
     {
+        /*foreach (DataGridViewRow row in dgv.Rows)
+        {
+            row.DefaultCellStyle.BackColor = Color.White;
+        }*/
         string message = "";
         List<int> recordIds = columnData.ConvertAll(new Converter<object, int>(Convert.ToInt32));
         List<int> result = new List<int>();
@@ -185,6 +189,10 @@ public class Analyze
 
     public static string TimeChange(DataGridView dgv, List<CustomEvent> customEvents)
     {
+        /*foreach (DataGridViewRow row in dgv.Rows)
+        {
+            row.DefaultCellStyle.BackColor = Color.White;
+        }*/
         string message = "";
         List<DateTime> times = new List<DateTime>();
         List<int> rows = new List<int>();

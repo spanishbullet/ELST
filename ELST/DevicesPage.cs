@@ -37,6 +37,7 @@ namespace ELST
             {
                 devicesTV.Nodes.Add(device.serialNumber);
             }
+            devicesTVSSTLabel.Text = $"{devices.Count} Devices:";
         }
 
         public void InitializeDGVDevices()

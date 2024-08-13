@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             openLogToolStripMenuItem = new ToolStripMenuItem();
@@ -42,16 +42,28 @@
             recordNumbersToolStripMenuItem = new ToolStripMenuItem();
             timeCToolStripMenuItem = new ToolStripMenuItem();
             resetToolStripMenuItem = new ToolStripMenuItem();
-            resetToolStripMenuItem1 = new ToolStripMenuItem();
+            resetCellsToolStripMenuItem1 = new ToolStripMenuItem();
+            resetTimeToolStripMenuItem = new ToolStripMenuItem();
+            viewToolStripMenuItem = new ToolStripMenuItem();
+            devicesToolStripMenuItem = new ToolStripMenuItem();
+            adjustToolStripMenuItem = new ToolStripMenuItem();
+            timeframeToolStripMenuItem = new ToolStripMenuItem();
             dirTreeView = new TreeView();
             dgvEvents = new DataGridView();
             panel1 = new Panel();
             splitContainer1 = new SplitContainer();
-            statusStrip1 = new StatusStrip();
+            timeframeStatusStrip = new StatusStrip();
+            timeframeTSSLabel = new ToolStripStatusLabel();
+            timeControlGB = new GroupBox();
+            cancelTimeFrameButton = new Button();
+            applyTimeFrameButton = new Button();
+            endDTP = new DateTimePicker();
+            endTimeLabel = new Label();
+            startTimeLabel = new Label();
+            startDTP = new DateTimePicker();
+            pathStatusStrip = new StatusStrip();
             PathTSSLabel = new ToolStripStatusLabel();
             ActualPathTSSLabel = new ToolStripStatusLabel();
-            viewToolStripMenuItem = new ToolStripMenuItem();
-            devicesToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEvents).BeginInit();
             panel1.SuspendLayout();
@@ -59,13 +71,15 @@
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
-            statusStrip1.SuspendLayout();
+            timeframeStatusStrip.SuspendLayout();
+            timeControlGB.SuspendLayout();
+            pathStatusStrip.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aboutToolStripMenuItem, analyzeToolStripMenuItem, resetToolStripMenuItem, viewToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aboutToolStripMenuItem, analyzeToolStripMenuItem, resetToolStripMenuItem, viewToolStripMenuItem, adjustToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(4, 1, 0, 1);
@@ -138,17 +152,52 @@
             // 
             // resetToolStripMenuItem
             // 
-            resetToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { resetToolStripMenuItem1 });
+            resetToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { resetCellsToolStripMenuItem1, resetTimeToolStripMenuItem });
             resetToolStripMenuItem.Name = "resetToolStripMenuItem";
             resetToolStripMenuItem.Size = new Size(59, 24);
             resetToolStripMenuItem.Text = "&Reset";
             // 
-            // resetToolStripMenuItem1
+            // resetCellsToolStripMenuItem1
             // 
-            resetToolStripMenuItem1.Name = "resetToolStripMenuItem1";
-            resetToolStripMenuItem1.Size = new Size(128, 26);
-            resetToolStripMenuItem1.Text = "&Reset";
-            resetToolStripMenuItem1.Click += resetToolStripMenuItem1_Click;
+            resetCellsToolStripMenuItem1.Name = "resetCellsToolStripMenuItem1";
+            resetCellsToolStripMenuItem1.Size = new Size(204, 26);
+            resetCellsToolStripMenuItem1.Text = "Reset &Cells";
+            resetCellsToolStripMenuItem1.Click += resetToolStripMenuItem1_Click;
+            // 
+            // resetTimeToolStripMenuItem
+            // 
+            resetTimeToolStripMenuItem.Name = "resetTimeToolStripMenuItem";
+            resetTimeToolStripMenuItem.Size = new Size(204, 26);
+            resetTimeToolStripMenuItem.Text = "Reset &Timeframe";
+            resetTimeToolStripMenuItem.Click += resetTimeToolStripMenuItem_Click;
+            // 
+            // viewToolStripMenuItem
+            // 
+            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { devicesToolStripMenuItem });
+            viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            viewToolStripMenuItem.Size = new Size(55, 24);
+            viewToolStripMenuItem.Text = "&View";
+            // 
+            // devicesToolStripMenuItem
+            // 
+            devicesToolStripMenuItem.Name = "devicesToolStripMenuItem";
+            devicesToolStripMenuItem.Size = new Size(143, 26);
+            devicesToolStripMenuItem.Text = "&Devices";
+            devicesToolStripMenuItem.Click += devicesToolStripMenuItem_Click;
+            // 
+            // adjustToolStripMenuItem
+            // 
+            adjustToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { timeframeToolStripMenuItem });
+            adjustToolStripMenuItem.Name = "adjustToolStripMenuItem";
+            adjustToolStripMenuItem.Size = new Size(65, 24);
+            adjustToolStripMenuItem.Text = "A&djust";
+            // 
+            // timeframeToolStripMenuItem
+            // 
+            timeframeToolStripMenuItem.Name = "timeframeToolStripMenuItem";
+            timeframeToolStripMenuItem.Size = new Size(164, 26);
+            timeframeToolStripMenuItem.Text = "&Timeframe";
+            timeframeToolStripMenuItem.Click += timeframeToolStripMenuItem_Click;
             // 
             // dirTreeView
             // 
@@ -163,36 +212,36 @@
             // dgvEvents
             // 
             dgvEvents.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvEvents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dgvEvents.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvEvents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvEvents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.Window;
-            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
-            dgvEvents.DefaultCellStyle = dataGridViewCellStyle5;
-            dgvEvents.Dock = DockStyle.Fill;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvEvents.DefaultCellStyle = dataGridViewCellStyle2;
             dgvEvents.Location = new Point(0, 0);
             dgvEvents.Name = "dgvEvents";
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.Control;
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            dgvEvents.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvEvents.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgvEvents.RowHeadersWidth = 51;
-            dgvEvents.Size = new Size(833, 609);
+            dgvEvents.Size = new Size(833, 554);
             dgvEvents.TabIndex = 0;
             dgvEvents.MouseClick += dgvEvents_MouseClick;
             // 
@@ -217,21 +266,110 @@
             // 
             // splitContainer1.Panel2
             // 
-            splitContainer1.Panel2.Controls.Add(statusStrip1);
+            splitContainer1.Panel2.Controls.Add(timeframeStatusStrip);
+            splitContainer1.Panel2.Controls.Add(timeControlGB);
+            splitContainer1.Panel2.Controls.Add(pathStatusStrip);
             splitContainer1.Panel2.Controls.Add(dgvEvents);
             splitContainer1.Size = new Size(1064, 609);
             splitContainer1.SplitterDistance = 227;
             splitContainer1.TabIndex = 0;
             // 
-            // statusStrip1
+            // timeframeStatusStrip
             // 
-            statusStrip1.ImageScalingSize = new Size(20, 20);
-            statusStrip1.Items.AddRange(new ToolStripItem[] { PathTSSLabel, ActualPathTSSLabel });
-            statusStrip1.Location = new Point(0, 583);
-            statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(833, 26);
-            statusStrip1.TabIndex = 1;
-            statusStrip1.Text = "statusStrip1";
+            timeframeStatusStrip.ImageScalingSize = new Size(20, 20);
+            timeframeStatusStrip.Items.AddRange(new ToolStripItem[] { timeframeTSSLabel });
+            timeframeStatusStrip.Location = new Point(0, 557);
+            timeframeStatusStrip.Name = "timeframeStatusStrip";
+            timeframeStatusStrip.Size = new Size(833, 26);
+            timeframeStatusStrip.TabIndex = 3;
+            timeframeStatusStrip.Text = "statusStrip2";
+            // 
+            // timeframeTSSLabel
+            // 
+            timeframeTSSLabel.Name = "timeframeTSSLabel";
+            timeframeTSSLabel.Size = new Size(124, 20);
+            timeframeTSSLabel.Text = "Timeframe: None";
+            // 
+            // timeControlGB
+            // 
+            timeControlGB.BackColor = SystemColors.Control;
+            timeControlGB.Controls.Add(cancelTimeFrameButton);
+            timeControlGB.Controls.Add(applyTimeFrameButton);
+            timeControlGB.Controls.Add(endDTP);
+            timeControlGB.Controls.Add(endTimeLabel);
+            timeControlGB.Controls.Add(startTimeLabel);
+            timeControlGB.Controls.Add(startDTP);
+            timeControlGB.Location = new Point(452, 3);
+            timeControlGB.Name = "timeControlGB";
+            timeControlGB.Size = new Size(378, 205);
+            timeControlGB.TabIndex = 2;
+            timeControlGB.TabStop = false;
+            timeControlGB.Text = "Adjust Timeframe";
+            timeControlGB.Visible = false;
+            // 
+            // cancelTimeFrameButton
+            // 
+            cancelTimeFrameButton.Location = new Point(248, 158);
+            cancelTimeFrameButton.Name = "cancelTimeFrameButton";
+            cancelTimeFrameButton.Size = new Size(94, 29);
+            cancelTimeFrameButton.TabIndex = 5;
+            cancelTimeFrameButton.Text = "Cancel";
+            cancelTimeFrameButton.UseVisualStyleBackColor = true;
+            cancelTimeFrameButton.Click += cancelTimeFrameButton_Click;
+            // 
+            // applyTimeFrameButton
+            // 
+            applyTimeFrameButton.Location = new Point(92, 158);
+            applyTimeFrameButton.Name = "applyTimeFrameButton";
+            applyTimeFrameButton.Size = new Size(94, 29);
+            applyTimeFrameButton.TabIndex = 4;
+            applyTimeFrameButton.Text = "Apply";
+            applyTimeFrameButton.UseVisualStyleBackColor = true;
+            applyTimeFrameButton.Click += applyTimeFrameButton_Click;
+            // 
+            // endDTP
+            // 
+            endDTP.Format = DateTimePickerFormat.Custom;
+            endDTP.Location = new Point(92, 102);
+            endDTP.Name = "endDTP";
+            endDTP.Size = new Size(250, 27);
+            endDTP.TabIndex = 3;
+            // 
+            // endTimeLabel
+            // 
+            endTimeLabel.AutoSize = true;
+            endTimeLabel.Location = new Point(17, 107);
+            endTimeLabel.Name = "endTimeLabel";
+            endTimeLabel.Size = new Size(34, 20);
+            endTimeLabel.TabIndex = 2;
+            endTimeLabel.Text = "End";
+            // 
+            // startTimeLabel
+            // 
+            startTimeLabel.AutoSize = true;
+            startTimeLabel.Location = new Point(17, 56);
+            startTimeLabel.Name = "startTimeLabel";
+            startTimeLabel.Size = new Size(40, 20);
+            startTimeLabel.TabIndex = 1;
+            startTimeLabel.Text = "Start";
+            // 
+            // startDTP
+            // 
+            startDTP.Format = DateTimePickerFormat.Custom;
+            startDTP.Location = new Point(92, 51);
+            startDTP.Name = "startDTP";
+            startDTP.Size = new Size(250, 27);
+            startDTP.TabIndex = 0;
+            // 
+            // pathStatusStrip
+            // 
+            pathStatusStrip.ImageScalingSize = new Size(20, 20);
+            pathStatusStrip.Items.AddRange(new ToolStripItem[] { PathTSSLabel, ActualPathTSSLabel });
+            pathStatusStrip.Location = new Point(0, 583);
+            pathStatusStrip.Name = "pathStatusStrip";
+            pathStatusStrip.Size = new Size(833, 26);
+            pathStatusStrip.TabIndex = 1;
+            pathStatusStrip.Text = "statusStrip1";
             // 
             // PathTSSLabel
             // 
@@ -244,20 +382,6 @@
             ActualPathTSSLabel.Name = "ActualPathTSSLabel";
             ActualPathTSSLabel.Size = new Size(39, 20);
             ActualPathTSSLabel.Text = "path";
-            // 
-            // viewToolStripMenuItem
-            // 
-            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { devicesToolStripMenuItem });
-            viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            viewToolStripMenuItem.Size = new Size(55, 24);
-            viewToolStripMenuItem.Text = "&View";
-            // 
-            // devicesToolStripMenuItem
-            // 
-            devicesToolStripMenuItem.Name = "devicesToolStripMenuItem";
-            devicesToolStripMenuItem.Size = new Size(224, 26);
-            devicesToolStripMenuItem.Text = "&Devices";
-            devicesToolStripMenuItem.Click += devicesToolStripMenuItem_Click;
             // 
             // MainMenu
             // 
@@ -279,8 +403,12 @@
             splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
-            statusStrip1.ResumeLayout(false);
-            statusStrip1.PerformLayout();
+            timeframeStatusStrip.ResumeLayout(false);
+            timeframeStatusStrip.PerformLayout();
+            timeControlGB.ResumeLayout(false);
+            timeControlGB.PerformLayout();
+            pathStatusStrip.ResumeLayout(false);
+            pathStatusStrip.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -302,11 +430,23 @@
         private ToolStripMenuItem recordNumbersToolStripMenuItem;
         private ToolStripMenuItem timeCToolStripMenuItem;
         private ToolStripMenuItem resetToolStripMenuItem;
-        private ToolStripMenuItem resetToolStripMenuItem1;
-        private StatusStrip statusStrip1;
+        private ToolStripMenuItem resetCellsToolStripMenuItem1;
+        private StatusStrip pathStatusStrip;
         private ToolStripStatusLabel PathTSSLabel;
         private ToolStripStatusLabel ActualPathTSSLabel;
         private ToolStripMenuItem viewToolStripMenuItem;
         private ToolStripMenuItem devicesToolStripMenuItem;
+        private ToolStripMenuItem resetTimeToolStripMenuItem;
+        private ToolStripMenuItem adjustToolStripMenuItem;
+        private ToolStripMenuItem timeframeToolStripMenuItem;
+        private GroupBox timeControlGB;
+        private DateTimePicker endDTP;
+        private Label endTimeLabel;
+        private Label startTimeLabel;
+        private DateTimePicker startDTP;
+        private Button cancelTimeFrameButton;
+        private Button applyTimeFrameButton;
+        private StatusStrip timeframeStatusStrip;
+        private ToolStripStatusLabel timeframeTSSLabel;
     }
 }

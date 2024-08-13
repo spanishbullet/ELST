@@ -17,11 +17,19 @@ public partial class MainMenu : Form
         InitializeComponent();
         InitializeDGVEvents();
         AutoLoadFilePath();
+        InitializeTimeControlGB();
     }
 
-    public List<CustomEvent> customEvents = new List<CustomEvent>();
+    private List<CustomEvent> customEvents = new List<CustomEvent>();
 
-    public List<Device> devices = new List<Device>();
+    private List<Device> devices = new List<Device>();
+
+    private bool timeframe = false;
+
+    private DateTime startTime;
+
+    private DateTime endTime;
+
 
     private void exitToolStripMenuItem_Click(object sender, EventArgs e)
     {
@@ -151,21 +159,49 @@ public partial class MainMenu : Form
 
     public void GetDevices()
     {
-        foreach (CustomEvent customEvent in customEvents)
+        devices = new List<Device>();
+        if (timeframe)
         {
-            if (devices.Count == 0)
+            foreach (CustomEvent customEvent in customEvents)
             {
-                Device device = new Device(customEvent);
-                devices.Add(device);
+                if (customEvent.TimeCreated >= startTime && customEvent.TimeCreated <= endTime)
+                {
+                    if (devices.Count == 0)
+                    {
+                        Device device = new Device(customEvent);
+                        devices.Add(device);
+                    }
+                    if (devices.Any(d => d.serialNumber == customEvent.serialNumber))
+                    {
+                        devices.FirstOrDefault(d => d.serialNumber == customEvent.serialNumber).AddEvent(customEvent);
+                    }
+                    else
+                    {
+                        Device device = new Device(customEvent);
+                        devices.Add(device);
+                    }
+                }
+                
             }
-            if (devices.Any(d => d.serialNumber == customEvent.serialNumber))
+        }
+        else
+        {
+            foreach (CustomEvent customEvent in customEvents)
             {
-                devices.FirstOrDefault(d => d.serialNumber == customEvent.serialNumber).AddEvent(customEvent);
-            }
-            else
-            {
-                Device device = new Device(customEvent);
-                devices.Add(device);
+                if (devices.Count == 0)
+                {
+                    Device device = new Device(customEvent);
+                    devices.Add(device);
+                }
+                if (devices.Any(d => d.serialNumber == customEvent.serialNumber))
+                {
+                    devices.FirstOrDefault(d => d.serialNumber == customEvent.serialNumber).AddEvent(customEvent);
+                }
+                else
+                {
+                    Device device = new Device(customEvent);
+                    devices.Add(device);
+                }
             }
         }
     }
@@ -173,10 +209,26 @@ public partial class MainMenu : Form
     private void PopulatDGVEvents(List<CustomEvent> customEvents)
     {
         dgvEvents.Rows.Clear();
-        foreach (CustomEvent ce in customEvents)
+
+        if (timeframe)
         {
-            dgvEvents.Rows.Add(ce.GetAllAttributes().ToArray());
+            foreach (CustomEvent ce in customEvents)
+            {
+                if (ce.TimeCreated > startTime && ce.TimeCreated < endTime)
+                {
+                    dgvEvents.Rows.Add(ce.GetAllAttributes().ToArray());
+
+                }
+            }
         }
+        else
+        {
+            foreach (CustomEvent ce in customEvents)
+            {
+                dgvEvents.Rows.Add(ce.GetAllAttributes().ToArray());
+            }
+        }
+
     }
 
     private void InitializeDGVEvents()
@@ -212,7 +264,7 @@ public partial class MainMenu : Form
 
         GetEvents(defaultFilePath);
         PopulatDGVEvents(customEvents);
-        GetDevices();
+        //GetDevices();
     }
 
     private void dgvEvents_MouseClick(object sender, MouseEventArgs e)
@@ -278,8 +330,6 @@ public partial class MainMenu : Form
 
     private void recordNumbersToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        //MessageBox.Show("Not yet functional");
-
         MessageBox.Show(Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")));
     }
 
@@ -298,7 +348,51 @@ public partial class MainMenu : Form
 
     private void devicesToolStripMenuItem_Click(object sender, EventArgs e)
     {
+        GetDevices();
         DevicesPage devicePage = new DevicesPage(devices);
         devicePage.Show();
+    }
+
+    private void timeframeToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        timeControlGB.Show();
+    }
+
+    private void cancelTimeFrameButton_Click(object sender, EventArgs e)
+    {
+        timeControlGB.Hide();
+    }
+
+    private void InitializeTimeControlGB()
+    {
+        startDTP.CustomFormat = "MM/dd/yyyy hh:mm:ss tt"; // Example: 08/13/2024 02:30 PM
+        endDTP.CustomFormat = "MM/dd/yyyy hh:mm:ss tt";
+
+        startDTP.Value = customEvents[0].TimeCreated;
+        endDTP.Value = customEvents[customEvents.Count - 1].TimeCreated;
+    }
+
+    private void applyTimeFrameButton_Click(object sender, EventArgs e)
+    {
+        if (startDTP.Value >= endDTP.Value)
+        {
+            MessageBox.Show("Date/Times not valid. \nEnd time must be later than start time. \n Please pick new Date/Times");
+        }
+        else
+        {
+            timeframe = true;
+            startTime = startDTP.Value;
+            endTime = endDTP.Value;
+            timeControlGB.Hide();
+            timeframeTSSLabel.Text = $"Timeframe: {startDTP.Value} - {endDTP.Value}";
+            PopulatDGVEvents(customEvents);
+            //MessageBox.Show($"timefram: {timeframe} \nStartTime: {startTime} \nEndTime: {endTime}");
+        }
+    }
+
+    private void resetTimeToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        timeframe = false;
+        PopulatDGVEvents(customEvents);
     }
 }
