@@ -426,7 +426,15 @@ public partial class MainMenu : Form
 
     private void recordNumbersToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        MessageBox.Show(Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")));
+        if (selectedDevices.Count == currentDevices.Count)
+        {
+            MessageBox.Show(Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")));
+
+        }
+        else
+        {
+            MessageBox.Show("Must select all devices in current timeframe.");
+        }
     }
 
     private void resetToolStripMenuItem1_Click(object sender, EventArgs e)

@@ -177,7 +177,7 @@ public class Analyze
             //highlight rows in dgv
             foreach (int row in rows)
             {
-                dgv.Rows[row].DefaultCellStyle.BackColor = Color.Yellow;
+                dgv.Rows[row].DefaultCellStyle.BackColor = Color.Red;
             }
 
         }
@@ -220,7 +220,7 @@ public class Analyze
         //highlight rows in dgv
         foreach (int row in rows)
         {
-            dgv.Rows[row].DefaultCellStyle.BackColor = Color.Yellow;
+            dgv.Rows[row].DefaultCellStyle.BackColor = Color.Purple;
         }
 
         if (message.Length == 0)
@@ -256,7 +256,7 @@ public class Analyze
             //highlight rows in dgv
             foreach (int row in rows)
             {
-                dgv.Rows[row].DefaultCellStyle.BackColor = Color.Yellow;
+                dgv.Rows[row].DefaultCellStyle.BackColor = Color.MediumPurple;
             }
 
         }
