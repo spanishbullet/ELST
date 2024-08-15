@@ -15,20 +15,80 @@ public partial class MainMenu : Form
     public MainMenu()
     {
         InitializeComponent();
-        InitializeDGVEvents();
         AutoLoadFilePath();
-        InitializeTimeControlGB();
+        InitializeMainMenuStrip();
+        InitializeDGVEvents();
+        InitializeDevicesCLB();
+        InitializeTimeControl();
+        /*MessageBox.Show($"Point E\ntimeframe = {timeframe}\n" +
+                        $"Events size = {customEvents.Count}\n" +
+                        $"current devices size = {currentDevices.Count}\n" +
+                        $"selected devices size = {selectedDevices.Count}\n" +
+                        $"all devices size  = {allDevices.Count}");*/
     }
 
     private List<CustomEvent> customEvents = new List<CustomEvent>();
 
-    private List<Device> devices = new List<Device>();
+    //selected devices
+    public List<Device> selectedDevices = new List<Device>();
 
-    private bool timeframe = false;
+    //devices with events in the current timeframe
+    public List<Device> currentDevices = new List<Device>();
 
-    private DateTime startTime;
+    //all devices in the log
+    public List<Device> allDevices = new List<Device>();
 
-    private DateTime endTime;
+    public bool timeframe = false;
+
+    public DateTime originalStartTime;
+
+    public DateTime originalEndTime;
+
+    public DateTime startTime;
+
+    public DateTime endTime;
+
+
+
+    private bool caseSensitive = false;
+
+    private void InitializeMainMenuStrip()
+    {
+        //mainMenuStrip.
+
+        // Host the DateTimePicker in a ToolStripControlHost
+        ToolStripControlHost startDTPToolStripControlHost = new ToolStripControlHost(startDTP);
+        ToolStripControlHost endDTPToolStripControlHost = new ToolStripControlHost(endDTP);
+        ToolStripControlHost timeArrowLabelToolStripControlHost = new ToolStripControlHost(timeArrowLabel);
+        ToolStripControlHost applyTimeframeButtonToolStripControlHost = new ToolStripControlHost(applyTimeframeButton);
+        ToolStripControlHost resetTiemframeButtomToolStripControlHost = new ToolStripControlHost(resetTimefreameButtom);
+
+        // Add the ToolStripControlHost to the ToolStrip
+        mainMenuStrip.Items.Add(startDTPToolStripControlHost);
+        mainMenuStrip.Items.Add(timeArrowLabelToolStripControlHost);
+        mainMenuStrip.Items.Add(endDTPToolStripControlHost);
+        mainMenuStrip.Items.Add(applyTimeframeButtonToolStripControlHost);
+        mainMenuStrip.Items.Add(resetTiemframeButtomToolStripControlHost);
+
+    }
+
+    public void InitializeDevicesCLB()
+    {
+        selectedDevices.Clear();
+        GetAllDevices();
+        GetCurrentDevices();
+
+        devicesCLB.Items.Clear(); // Clear all items in the CheckedListBox
+        foreach (Device device in currentDevices)
+        {
+            devicesCLB.Items.Add(device.serialNumber); // Add each device's serial number to the CheckedListBox
+        }
+        for (int i = 0; i < devicesCLB.Items.Count; i++)
+        {
+            devicesCLB.SetItemChecked(i, true);
+        }
+        PopulatDGVEvents(customEvents);
+    }
 
 
     private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -157,53 +217,77 @@ public partial class MainMenu : Form
         }
     }
 
-    public void GetDevices()
+    public void GetCurrentDevices()
     {
-        devices = new List<Device>();
+        currentDevices.Clear();
         if (timeframe)
         {
             foreach (CustomEvent customEvent in customEvents)
             {
                 if (customEvent.TimeCreated >= startTime && customEvent.TimeCreated <= endTime)
                 {
-                    if (devices.Count == 0)
+                    if (currentDevices.Count == 0)
                     {
                         Device device = new Device(customEvent);
-                        devices.Add(device);
+                        currentDevices.Add(device);
                     }
-                    if (devices.Any(d => d.serialNumber == customEvent.serialNumber))
+                    else if (currentDevices.Any(d => d.serialNumber == customEvent.serialNumber))
                     {
-                        devices.FirstOrDefault(d => d.serialNumber == customEvent.serialNumber).AddEvent(customEvent);
+                        currentDevices.FirstOrDefault(d => d.serialNumber == customEvent.serialNumber).AddEvent(customEvent);
                     }
                     else
                     {
                         Device device = new Device(customEvent);
-                        devices.Add(device);
+                        currentDevices.Add(device);
                     }
                 }
-                
             }
         }
         else
         {
             foreach (CustomEvent customEvent in customEvents)
             {
-                if (devices.Count == 0)
+                if (currentDevices.Count == 0)
                 {
                     Device device = new Device(customEvent);
-                    devices.Add(device);
+                    currentDevices.Add(device);
                 }
-                if (devices.Any(d => d.serialNumber == customEvent.serialNumber))
+                else if (currentDevices.Any(d => d.serialNumber == customEvent.serialNumber))
                 {
-                    devices.FirstOrDefault(d => d.serialNumber == customEvent.serialNumber).AddEvent(customEvent);
+                    currentDevices.FirstOrDefault(d => d.serialNumber == customEvent.serialNumber).AddEvent(customEvent);
                 }
                 else
                 {
                     Device device = new Device(customEvent);
-                    devices.Add(device);
+                    currentDevices.Add(device);
                 }
             }
         }
+    }
+
+
+    public void GetAllDevices()
+    {
+        allDevices = new List<Device>();
+
+        foreach (CustomEvent customEvent in customEvents)
+        {
+            if (allDevices.Count == 0)
+            {
+                Device device = new Device(customEvent);
+                allDevices.Add(device);
+            }
+            if (allDevices.Any(d => d.serialNumber == customEvent.serialNumber))
+            {
+                allDevices.FirstOrDefault(d => d.serialNumber == customEvent.serialNumber).AddEvent(customEvent);
+            }
+            else
+            {
+                Device device = new Device(customEvent);
+                allDevices.Add(device);
+            }
+        }
+
     }
 
     private void PopulatDGVEvents(List<CustomEvent> customEvents)
@@ -216,16 +300,29 @@ public partial class MainMenu : Form
             {
                 if (ce.TimeCreated > startTime && ce.TimeCreated < endTime)
                 {
-                    dgvEvents.Rows.Add(ce.GetAllAttributes().ToArray());
-
+                    foreach (Device device in selectedDevices)
+                    {
+                        if (ce.serialNumber == device.serialNumber)
+                        {
+                            dgvEvents.Rows.Add(ce.GetAllAttributes().ToArray());
+                            
+                        }
+                    }
                 }
             }
         }
-        else
+        else 
         {
             foreach (CustomEvent ce in customEvents)
             {
-                dgvEvents.Rows.Add(ce.GetAllAttributes().ToArray());
+                foreach (Device device in selectedDevices)
+                {
+                    if (ce.serialNumber == device.serialNumber)
+                    {
+                        dgvEvents.Rows.Add(ce.GetAllAttributes().ToArray());
+                        
+                    }
+                }
             }
         }
 
@@ -264,7 +361,6 @@ public partial class MainMenu : Form
 
         GetEvents(defaultFilePath);
         PopulatDGVEvents(customEvents);
-        //GetDevices();
     }
 
     private void dgvEvents_MouseClick(object sender, MouseEventArgs e)
@@ -337,7 +433,10 @@ public partial class MainMenu : Form
     {
         foreach (DataGridViewRow row in dgvEvents.Rows)
         {
-            row.DefaultCellStyle.BackColor = Color.White;
+            foreach (DataGridViewCell cell in row.Cells)
+            {
+                cell.Style.BackColor = Color.White;
+            }
         }
     }
 
@@ -348,28 +447,22 @@ public partial class MainMenu : Form
 
     private void devicesToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        GetDevices();
-        DevicesPage devicePage = new DevicesPage(devices);
+        GetCurrentDevices();
+        DevicesPage devicePage = new DevicesPage(this);
         devicePage.Show();
     }
 
-    private void timeframeToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-        timeControlGB.Show();
-    }
-
-    private void cancelTimeFrameButton_Click(object sender, EventArgs e)
-    {
-        timeControlGB.Hide();
-    }
-
-    private void InitializeTimeControlGB()
+    private void InitializeTimeControl()
     {
         startDTP.CustomFormat = "MM/dd/yyyy hh:mm:ss tt"; // Example: 08/13/2024 02:30 PM
         endDTP.CustomFormat = "MM/dd/yyyy hh:mm:ss tt";
 
+
         startDTP.Value = customEvents[0].TimeCreated;
         endDTP.Value = customEvents[customEvents.Count - 1].TimeCreated;
+
+        originalStartTime = startDTP.Value;
+        originalEndTime = endDTP.Value;
     }
 
     private void applyTimeFrameButton_Click(object sender, EventArgs e)
@@ -383,16 +476,85 @@ public partial class MainMenu : Form
             timeframe = true;
             startTime = startDTP.Value;
             endTime = endDTP.Value;
-            timeControlGB.Hide();
             timeframeTSSLabel.Text = $"Timeframe: {startDTP.Value} - {endDTP.Value}";
+            selectedDevices.Clear();
             PopulatDGVEvents(customEvents);
-            //MessageBox.Show($"timefram: {timeframe} \nStartTime: {startTime} \nEndTime: {endTime}");
+            InitializeDevicesCLB();
         }
     }
 
     private void resetTimeToolStripMenuItem_Click(object sender, EventArgs e)
     {
         timeframe = false;
+        PopulatDGVEvents(customEvents);
+    }
+
+    private void searchButton_Click(object sender, EventArgs e)
+    {
+        List<Tuple<int, int>> foundCells = Search.SearchDataGridView(dgvEvents, searchTextBox.Text, caseSensitive);
+        Search.HighlightFoundCells(dgvEvents, foundCells);
+    }
+
+    private void cancelSearchButton_Click(object sender, EventArgs e)
+    {
+        searchGB.Hide();
+    }
+
+    private void caseSensitiveCheckBox_CheckedChanged(object sender, EventArgs e)
+    {
+        if (caseSensitiveCheckBox.Checked)
+            caseSensitive = true;
+        if (!caseSensitiveCheckBox.Checked)
+            caseSensitive = false;
+    }
+
+    private Point mousDownLocation;
+
+    private void searchGB_MouseDown(object sender, MouseEventArgs e)
+    {
+        if (e.Button == System.Windows.Forms.MouseButtons.Left)
+        {
+            mousDownLocation = e.Location;
+        }
+    }
+    private void searchGB_MouseMove(object sender, MouseEventArgs e)
+    {
+        if (e.Button == System.Windows.Forms.MouseButtons.Left)
+        {
+            searchGB.Left = e.X + searchGB.Left - mousDownLocation.X;
+            searchGB.Top = e.Y + searchGB.Top - mousDownLocation.Y;
+        }
+    }
+
+    private void searchToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        searchGB.Show();
+    }
+
+    private void resetTimefreameButtom_Click(object sender, EventArgs e)
+    {
+        timeframe = false;
+        startDTP.Value = originalStartTime;
+        endDTP.Value = originalEndTime;
+        timeframeTSSLabel.Text = $"Timeframe: {originalStartTime} - {originalEndTime} (Entire Log)";
+        InitializeDevicesCLB();
+        PopulatDGVEvents(customEvents);
+    }
+
+    private void devicesCLB_ItemCheck(object sender, ItemCheckEventArgs e)
+    {
+        if (e.CurrentValue == CheckState.Unchecked)
+        {
+            Device currentDevice = currentDevices.FirstOrDefault(d => d.serialNumber == devicesCLB.Items[e.Index].ToString());
+
+            selectedDevices.Add(currentDevice);
+        }
+        else if (e.CurrentValue == CheckState.Checked)
+        {
+            Device currentDevice = currentDevices.FirstOrDefault(d => d.serialNumber == devicesCLB.Items[e.Index].ToString());
+
+            selectedDevices.Remove(currentDevice);
+        }
         PopulatDGVEvents(customEvents);
     }
 }

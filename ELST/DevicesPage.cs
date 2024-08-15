@@ -13,18 +13,32 @@ namespace ELST
 {
     public partial class DevicesPage : Form
     {
+        private bool timeFrame = false;
+        List<Device> currentDevices = new List<Device>();
+        List<Device> allDevices = new List<Device>();
 
-        List<Device> devices = new List<Device>();
 
-        public DevicesPage(List<Device> deviceList)
+        /*public DevicesPage(List<Device> deviceList)
         {
             devices = deviceList;
             InitializeComponent();
             InitializeDevicesTV();
             InitializeDGVDevices();
             InitializeDGVDeviceEvents();
-        }
+        }*/
 
+        public DevicesPage(MainMenu mainMenu) 
+        {
+            currentDevices = mainMenu.currentDevices;
+            allDevices = mainMenu.allDevices;
+            timeFrame = mainMenu.timeframe;
+
+            InitializeComponent();
+            InitializeDevicesTV();
+            InitializeDGVDevices();
+            InitializeDGVDeviceEvents();
+        }
+        
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -33,11 +47,11 @@ namespace ELST
         public void InitializeDevicesTV()
         {
             devicesTV.Nodes.Clear();
-            foreach (Device device in devices)
+            foreach (Device device in currentDevices)
             {
                 devicesTV.Nodes.Add(device.serialNumber);
             }
-            devicesTVSSTLabel.Text = $"{devices.Count} Devices:";
+            devicesTVSSTLabel.Text = $"{currentDevices.Count} Devices:";
         }
 
         public void InitializeDGVDevices()
@@ -82,14 +96,20 @@ namespace ELST
         {
             dgvDevices.Rows.Clear();
             dgvDeviceEvents.Rows.Clear();
+            int otherEventCount = 0;
 
-            Device currentDevice = devices.FirstOrDefault(d => d.serialNumber == e.Node.Text);
+            Device currentDevice = currentDevices.FirstOrDefault(d => d.serialNumber == e.Node.Text);
 
             dgvDevices.Rows.Add(currentDevice.GetAllAttributes().ToArray());
 
             foreach (CustomEvent ce in currentDevice.events)
             {
                 dgvDeviceEvents.Rows.Add(ce.GetUniqueAttributes().ToArray());
+            }
+
+            if (timeFrame && currentDevice.events.Count != allDevices.FirstOrDefault(d => d.serialNumber == e.Node.Text).events.Count)
+            {
+
             }
         }
     }

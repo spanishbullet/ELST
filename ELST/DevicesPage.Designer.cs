@@ -43,6 +43,8 @@
             statusStrip2 = new StatusStrip();
             toolStripStatusLabel2 = new ToolStripStatusLabel();
             dgvDeviceEvents = new DataGridView();
+            otherEventsTS = new StatusStrip();
+            otherEventsTSSLabel = new ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.SuspendLayout();
             devicesPageMenuStrip.SuspendLayout();
@@ -56,6 +58,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvDevices).BeginInit();
             statusStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDeviceEvents).BeginInit();
+            otherEventsTS.SuspendLayout();
             SuspendLayout();
             // 
             // splitContainer1
@@ -86,7 +89,7 @@
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(116, 26);
+            exitToolStripMenuItem.Size = new Size(224, 26);
             exitToolStripMenuItem.Text = "&Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
@@ -143,6 +146,7 @@
             // 
             // splitContainer2.Panel2
             // 
+            splitContainer2.Panel2.Controls.Add(otherEventsTS);
             splitContainer2.Panel2.Controls.Add(statusStrip2);
             splitContainer2.Panel2.Controls.Add(dgvDeviceEvents);
             splitContainer2.Panel2.UseWaitCursor = true;
@@ -205,9 +209,25 @@
             dgvDeviceEvents.Location = new Point(0, 25);
             dgvDeviceEvents.Name = "dgvDeviceEvents";
             dgvDeviceEvents.RowHeadersWidth = 51;
-            dgvDeviceEvents.Size = new Size(812, 418);
+            dgvDeviceEvents.Size = new Size(812, 379);
             dgvDeviceEvents.TabIndex = 0;
             dgvDeviceEvents.UseWaitCursor = true;
+            // 
+            // otherEventsTS
+            // 
+            otherEventsTS.ImageScalingSize = new Size(20, 20);
+            otherEventsTS.Items.AddRange(new ToolStripItem[] { otherEventsTSSLabel });
+            otherEventsTS.Location = new Point(0, 417);
+            otherEventsTS.Name = "otherEventsTS";
+            otherEventsTS.Size = new Size(812, 26);
+            otherEventsTS.TabIndex = 2;
+            otherEventsTS.Text = "statusStrip3";
+            // 
+            // otherEventsTSSLabel
+            // 
+            otherEventsTSSLabel.Name = "otherEventsTSSLabel";
+            otherEventsTSSLabel.Size = new Size(277, 20);
+            otherEventsTSSLabel.Text = "Events Outside Current Timeframe: None";
             // 
             // DevicesPage
             // 
@@ -241,6 +261,8 @@
             statusStrip2.ResumeLayout(false);
             statusStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDeviceEvents).EndInit();
+            otherEventsTS.ResumeLayout(false);
+            otherEventsTS.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -261,5 +283,7 @@
         private ToolStripStatusLabel toolStripStatusLabel1;
         private StatusStrip statusStrip2;
         private ToolStripStatusLabel toolStripStatusLabel2;
+        private StatusStrip otherEventsTS;
+        private ToolStripStatusLabel otherEventsTSSLabel;
     }
 }
