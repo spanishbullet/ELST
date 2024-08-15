@@ -471,6 +471,8 @@ public partial class MainMenu : Form
 
         originalStartTime = startDTP.Value;
         originalEndTime = endDTP.Value;
+
+        timeframeTSSLabel.Text = $"Timeframe: {originalStartTime} - {originalEndTime} (Entire Log)";
     }
 
     private void applyTimeFrameButton_Click(object sender, EventArgs e)
@@ -479,7 +481,7 @@ public partial class MainMenu : Form
         {
             MessageBox.Show("Date/Times not valid. \nEnd time must be later than start time. \n Please pick new Date/Times");
         }
-        else
+        else if (startDTP.Value != originalStartTime && endDTP.Value != originalEndTime) 
         {
             timeframe = true;
             startTime = startDTP.Value;
@@ -489,12 +491,6 @@ public partial class MainMenu : Form
             PopulatDGVEvents(customEvents);
             InitializeDevicesCLB();
         }
-    }
-
-    private void resetTimeToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-        timeframe = false;
-        PopulatDGVEvents(customEvents);
     }
 
     private void searchButton_Click(object sender, EventArgs e)

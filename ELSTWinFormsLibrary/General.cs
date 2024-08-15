@@ -307,7 +307,7 @@ public class Search
         foreach (var cellLocation in foundCells)
         {
             // Optionally, change the cell's background color to highlight it
-            dgv.Rows[cellLocation.Item1].Cells[cellLocation.Item2].Style.BackColor = Color.Yellow;
+            dgv.Rows[cellLocation.Item1].Cells[cellLocation.Item2].Style.BackColor = Color.LimeGreen;
 
             // You could also scroll to the first found cell
             dgv.FirstDisplayedScrollingRowIndex = cellLocation.Item1;
@@ -319,7 +319,7 @@ public class Search
         foreach (var cellLocation in foundCells)
         {
             // Optionally, change the cell's background color to highlight it
-            dgv.Rows[cellLocation.Item1].DefaultCellStyle.BackColor = Color.Yellow;
+            dgv.Rows[cellLocation.Item1].DefaultCellStyle.BackColor = Color.Green;
 
             // You could also scroll to the first found cell
             dgv.FirstDisplayedScrollingRowIndex = cellLocation.Item1;

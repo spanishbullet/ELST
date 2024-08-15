@@ -14,7 +14,7 @@ namespace ELST
     public partial class DevicesPage : Form
     {
         private bool timeFrame = false;
-        List<Device> currentDevices = new List<Device>();
+        List<Device> selectedDevices = new List<Device>();
         List<Device> allDevices = new List<Device>();
 
 
@@ -29,7 +29,7 @@ namespace ELST
 
         public DevicesPage(MainMenu mainMenu) 
         {
-            currentDevices = mainMenu.currentDevices;
+            selectedDevices = mainMenu.selectedDevices;
             allDevices = mainMenu.allDevices;
             timeFrame = mainMenu.timeframe;
 
@@ -47,11 +47,11 @@ namespace ELST
         public void InitializeDevicesTV()
         {
             devicesTV.Nodes.Clear();
-            foreach (Device device in currentDevices)
+            foreach (Device device in selectedDevices)
             {
                 devicesTV.Nodes.Add(device.serialNumber);
             }
-            devicesTVSSTLabel.Text = $"{currentDevices.Count} Devices:";
+            devicesTVSSTLabel.Text = $"{selectedDevices.Count} Devices:";
         }
 
         public void InitializeDGVDevices()
@@ -98,7 +98,7 @@ namespace ELST
             dgvDeviceEvents.Rows.Clear();
             int otherEventCount = 0;
 
-            Device currentDevice = currentDevices.FirstOrDefault(d => d.serialNumber == e.Node.Text);
+            Device currentDevice = selectedDevices.FirstOrDefault(d => d.serialNumber == e.Node.Text);
 
             dgvDevices.Rows.Add(currentDevice.GetAllAttributes().ToArray());
 
