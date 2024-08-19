@@ -488,8 +488,8 @@ public partial class MainMenu : Form
             endTime = endDTP.Value;
             timeframeTSSLabel.Text = $"Timeframe: {startDTP.Value} - {endDTP.Value}";
             selectedDevices.Clear();
-            PopulatDGVEvents(customEvents);
             InitializeDevicesCLB();
+            PopulatDGVEvents(customEvents);
         }
     }
 
@@ -547,13 +547,13 @@ public partial class MainMenu : Form
 
     private void devicesCLB_ItemCheck(object sender, ItemCheckEventArgs e)
     {
-        if (e.CurrentValue == CheckState.Unchecked)
+        if (e.NewValue == CheckState.Checked)
         {
             Device currentDevice = currentDevices.FirstOrDefault(d => d.serialNumber == devicesCLB.Items[e.Index].ToString());
 
             selectedDevices.Add(currentDevice);
         }
-        else if (e.CurrentValue == CheckState.Checked)
+        else if (e.NewValue == CheckState.Unchecked)
         {
             Device currentDevice = currentDevices.FirstOrDefault(d => d.serialNumber == devicesCLB.Items[e.Index].ToString());
 
