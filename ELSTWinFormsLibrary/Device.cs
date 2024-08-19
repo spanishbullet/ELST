@@ -78,4 +78,13 @@ public class Device
         string message = string.Join(",", this.GetAllAttributes());
         return message;
     }
+
+    //returns true if both devices are the same. Used to see if there are events outside the current timeframe.
+    public bool Equals(Device device)
+    {
+        if (events.Count == device.events.Count)
+            return true;
+        
+        return false;
+    }
 }

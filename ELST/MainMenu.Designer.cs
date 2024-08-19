@@ -50,15 +50,30 @@
             dgvEvents = new DataGridView();
             panel1 = new Panel();
             splitContainer1 = new SplitContainer();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            uncheckAllDevicesButton = new Button();
+            checkAllDevicesButton = new Button();
             splitter1 = new Splitter();
             devicesCLB = new CheckedListBox();
+            startupGB3 = new GroupBox();
+            openFileButtonStartGB3 = new Button();
+            startInfoLabelGB3 = new Label();
+            startupGB2 = new GroupBox();
+            openFileButtonStartGB2 = new Button();
+            foundFilesTV = new TreeView();
+            infoLabelStartGB2 = new Label();
+            startupGB1 = new GroupBox();
+            goButtonSGB = new Button();
+            drivePathLabelSGB1 = new Label();
+            selectDriveButtonSGB1 = new Button();
+            infoLabelStartGB1 = new Label();
             searchGB = new GroupBox();
             caseSensitiveCheckBox = new CheckBox();
             closeSearchButton = new Button();
             searchButton = new Button();
             searchTextBox = new TextBox();
-            timeframeStatusStrip = new StatusStrip();
-            timeframeTSSLabel = new ToolStripStatusLabel();
+            eventsStatusStrip = new StatusStrip();
+            eventsTSSLabel = new ToolStripStatusLabel();
             timeControlGB = new GroupBox();
             resetTimefreameButtom = new Button();
             applyTimeframeButton = new Button();
@@ -76,8 +91,12 @@
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            startupGB3.SuspendLayout();
+            startupGB2.SuspendLayout();
+            startupGB1.SuspendLayout();
             searchGB.SuspendLayout();
-            timeframeStatusStrip.SuspendLayout();
+            eventsStatusStrip.SuspendLayout();
             timeControlGB.SuspendLayout();
             pathStatusStrip.SuspendLayout();
             SuspendLayout();
@@ -257,20 +276,59 @@
             // 
             // splitContainer1.Panel1
             // 
+            splitContainer1.Panel1.Controls.Add(tableLayoutPanel1);
             splitContainer1.Panel1.Controls.Add(splitter1);
             splitContainer1.Panel1.Controls.Add(devicesCLB);
             splitContainer1.Panel1.Controls.Add(dirTreeView);
             // 
             // splitContainer1.Panel2
             // 
+            splitContainer1.Panel2.Controls.Add(startupGB3);
+            splitContainer1.Panel2.Controls.Add(startupGB2);
+            splitContainer1.Panel2.Controls.Add(startupGB1);
             splitContainer1.Panel2.Controls.Add(searchGB);
-            splitContainer1.Panel2.Controls.Add(timeframeStatusStrip);
+            splitContainer1.Panel2.Controls.Add(eventsStatusStrip);
             splitContainer1.Panel2.Controls.Add(timeControlGB);
             splitContainer1.Panel2.Controls.Add(pathStatusStrip);
             splitContainer1.Panel2.Controls.Add(dgvEvents);
             splitContainer1.Size = new Size(1064, 602);
             splitContainer1.SplitterDistance = 227;
             splitContainer1.TabIndex = 0;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Controls.Add(uncheckAllDevicesButton, 1, 0);
+            tableLayoutPanel1.Controls.Add(checkAllDevicesButton, 0, 0);
+            tableLayoutPanel1.Dock = DockStyle.Bottom;
+            tableLayoutPanel1.Location = new Point(0, 568);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Size = new Size(227, 34);
+            tableLayoutPanel1.TabIndex = 2;
+            // 
+            // uncheckAllDevicesButton
+            // 
+            uncheckAllDevicesButton.Location = new Point(116, 3);
+            uncheckAllDevicesButton.Name = "uncheckAllDevicesButton";
+            uncheckAllDevicesButton.Size = new Size(108, 28);
+            uncheckAllDevicesButton.TabIndex = 1;
+            uncheckAllDevicesButton.Text = "Uncheck All";
+            uncheckAllDevicesButton.UseVisualStyleBackColor = true;
+            uncheckAllDevicesButton.Click += uncheckAllDevicesButton_Click;
+            // 
+            // checkAllDevicesButton
+            // 
+            checkAllDevicesButton.Location = new Point(3, 3);
+            checkAllDevicesButton.Name = "checkAllDevicesButton";
+            checkAllDevicesButton.Size = new Size(107, 28);
+            checkAllDevicesButton.TabIndex = 0;
+            checkAllDevicesButton.Text = "Check All";
+            checkAllDevicesButton.UseVisualStyleBackColor = true;
+            checkAllDevicesButton.Click += checkAllDevicesButton_Click;
             // 
             // splitter1
             // 
@@ -291,6 +349,128 @@
             devicesCLB.TabIndex = 2;
             devicesCLB.ItemCheck += devicesCLB_ItemCheck;
             // 
+            // startupGB3
+            // 
+            startupGB3.Controls.Add(openFileButtonStartGB3);
+            startupGB3.Controls.Add(startInfoLabelGB3);
+            startupGB3.Location = new Point(6, 308);
+            startupGB3.Name = "startupGB3";
+            startupGB3.Size = new Size(352, 237);
+            startupGB3.TabIndex = 7;
+            startupGB3.TabStop = false;
+            startupGB3.Text = "Start";
+            startupGB3.Visible = false;
+            // 
+            // openFileButtonStartGB3
+            // 
+            openFileButtonStartGB3.Location = new Point(23, 114);
+            openFileButtonStartGB3.Name = "openFileButtonStartGB3";
+            openFileButtonStartGB3.Size = new Size(94, 29);
+            openFileButtonStartGB3.TabIndex = 2;
+            openFileButtonStartGB3.Text = "Open File";
+            openFileButtonStartGB3.UseVisualStyleBackColor = true;
+            openFileButtonStartGB3.Click += openFileButtonStartGB3_Click;
+            // 
+            // startInfoLabelGB3
+            // 
+            startInfoLabelGB3.AutoSize = true;
+            startInfoLabelGB3.Location = new Point(19, 46);
+            startInfoLabelGB3.Name = "startInfoLabelGB3";
+            startInfoLabelGB3.Size = new Size(179, 20);
+            startInfoLabelGB3.TabIndex = 0;
+            startInfoLabelGB3.Text = "No FIles of interest found:";
+            // 
+            // startupGB2
+            // 
+            startupGB2.Controls.Add(openFileButtonStartGB2);
+            startupGB2.Controls.Add(foundFilesTV);
+            startupGB2.Controls.Add(infoLabelStartGB2);
+            startupGB2.Location = new Point(364, 65);
+            startupGB2.Name = "startupGB2";
+            startupGB2.Size = new Size(457, 237);
+            startupGB2.TabIndex = 6;
+            startupGB2.TabStop = false;
+            startupGB2.Text = "Start";
+            startupGB2.Visible = false;
+            // 
+            // openFileButtonStartGB2
+            // 
+            openFileButtonStartGB2.Location = new Point(127, 179);
+            openFileButtonStartGB2.Name = "openFileButtonStartGB2";
+            openFileButtonStartGB2.Size = new Size(94, 29);
+            openFileButtonStartGB2.TabIndex = 2;
+            openFileButtonStartGB2.Text = "Open File";
+            openFileButtonStartGB2.UseVisualStyleBackColor = true;
+            openFileButtonStartGB2.Click += openFileButtonStartGB2_Click;
+            // 
+            // foundFilesTV
+            // 
+            foundFilesTV.Location = new Point(19, 83);
+            foundFilesTV.Name = "foundFilesTV";
+            foundFilesTV.Size = new Size(421, 77);
+            foundFilesTV.TabIndex = 1;
+            // 
+            // infoLabelStartGB2
+            // 
+            infoLabelStartGB2.AutoSize = true;
+            infoLabelStartGB2.Location = new Point(19, 46);
+            infoLabelStartGB2.Name = "infoLabelStartGB2";
+            infoLabelStartGB2.Size = new Size(168, 20);
+            infoLabelStartGB2.TabIndex = 0;
+            infoLabelStartGB2.Text = "# FIles of interest found:";
+            // 
+            // startupGB1
+            // 
+            startupGB1.Controls.Add(goButtonSGB);
+            startupGB1.Controls.Add(drivePathLabelSGB1);
+            startupGB1.Controls.Add(selectDriveButtonSGB1);
+            startupGB1.Controls.Add(infoLabelStartGB1);
+            startupGB1.Location = new Point(6, 65);
+            startupGB1.Name = "startupGB1";
+            startupGB1.Size = new Size(352, 237);
+            startupGB1.TabIndex = 5;
+            startupGB1.TabStop = false;
+            startupGB1.Text = "Start";
+            startupGB1.Visible = false;
+            // 
+            // goButtonSGB
+            // 
+            goButtonSGB.Location = new Point(6, 152);
+            goButtonSGB.Name = "goButtonSGB";
+            goButtonSGB.Size = new Size(111, 29);
+            goButtonSGB.TabIndex = 3;
+            goButtonSGB.Text = "Go";
+            goButtonSGB.UseVisualStyleBackColor = true;
+            goButtonSGB.Click += goButtonSGB_Click;
+            // 
+            // drivePathLabelSGB1
+            // 
+            drivePathLabelSGB1.AutoSize = true;
+            drivePathLabelSGB1.Location = new Point(134, 100);
+            drivePathLabelSGB1.Name = "drivePathLabelSGB1";
+            drivePathLabelSGB1.Size = new Size(137, 20);
+            drivePathLabelSGB1.TabIndex = 2;
+            drivePathLabelSGB1.Text = "Selected drive path";
+            // 
+            // selectDriveButtonSGB1
+            // 
+            selectDriveButtonSGB1.Location = new Point(6, 96);
+            selectDriveButtonSGB1.Name = "selectDriveButtonSGB1";
+            selectDriveButtonSGB1.Size = new Size(111, 29);
+            selectDriveButtonSGB1.TabIndex = 1;
+            selectDriveButtonSGB1.Text = "Select Drive";
+            selectDriveButtonSGB1.UseVisualStyleBackColor = true;
+            selectDriveButtonSGB1.Click += selectDriveButtonSGB1_Click;
+            // 
+            // infoLabelStartGB1
+            // 
+            infoLabelStartGB1.AutoSize = true;
+            infoLabelStartGB1.Location = new Point(6, 46);
+            infoLabelStartGB1.Name = "infoLabelStartGB1";
+            infoLabelStartGB1.Size = new Size(209, 20);
+            infoLabelStartGB1.TabIndex = 0;
+            infoLabelStartGB1.Text = "Please select a drive to search:";
+            // 
             // searchGB
             // 
             searchGB.Anchor = AnchorStyles.None;
@@ -298,7 +478,7 @@
             searchGB.Controls.Add(closeSearchButton);
             searchGB.Controls.Add(searchButton);
             searchGB.Controls.Add(searchTextBox);
-            searchGB.Location = new Point(455, 205);
+            searchGB.Location = new Point(443, 344);
             searchGB.Name = "searchGB";
             searchGB.Size = new Size(378, 201);
             searchGB.TabIndex = 4;
@@ -347,21 +527,21 @@
             searchTextBox.TabIndex = 1;
             searchTextBox.Text = "Search";
             // 
-            // timeframeStatusStrip
+            // eventsStatusStrip
             // 
-            timeframeStatusStrip.ImageScalingSize = new Size(20, 20);
-            timeframeStatusStrip.Items.AddRange(new ToolStripItem[] { timeframeTSSLabel });
-            timeframeStatusStrip.Location = new Point(0, 550);
-            timeframeStatusStrip.Name = "timeframeStatusStrip";
-            timeframeStatusStrip.Size = new Size(833, 26);
-            timeframeStatusStrip.TabIndex = 3;
-            timeframeStatusStrip.Text = "statusStrip2";
+            eventsStatusStrip.ImageScalingSize = new Size(20, 20);
+            eventsStatusStrip.Items.AddRange(new ToolStripItem[] { eventsTSSLabel });
+            eventsStatusStrip.Location = new Point(0, 550);
+            eventsStatusStrip.Name = "eventsStatusStrip";
+            eventsStatusStrip.Size = new Size(833, 26);
+            eventsStatusStrip.TabIndex = 3;
+            eventsStatusStrip.Text = "Showing # of # Events";
             // 
-            // timeframeTSSLabel
+            // eventsTSSLabel
             // 
-            timeframeTSSLabel.Name = "timeframeTSSLabel";
-            timeframeTSSLabel.Size = new Size(124, 20);
-            timeframeTSSLabel.Text = "Timeframe: None";
+            eventsTSSLabel.Name = "eventsTSSLabel";
+            eventsTSSLabel.Size = new Size(156, 20);
+            eventsTSSLabel.Text = "Showing # of # Events";
             // 
             // timeControlGB
             // 
@@ -372,9 +552,9 @@
             timeControlGB.Controls.Add(endTimeLabel);
             timeControlGB.Controls.Add(timeArrowLabel);
             timeControlGB.Controls.Add(startDTP);
-            timeControlGB.Location = new Point(50, 42);
+            timeControlGB.Location = new Point(6, 4);
             timeControlGB.Name = "timeControlGB";
-            timeControlGB.Size = new Size(747, 125);
+            timeControlGB.Size = new Size(747, 52);
             timeControlGB.TabIndex = 2;
             timeControlGB.TabStop = false;
             timeControlGB.Visible = false;
@@ -476,10 +656,17 @@
             splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            startupGB3.ResumeLayout(false);
+            startupGB3.PerformLayout();
+            startupGB2.ResumeLayout(false);
+            startupGB2.PerformLayout();
+            startupGB1.ResumeLayout(false);
+            startupGB1.PerformLayout();
             searchGB.ResumeLayout(false);
             searchGB.PerformLayout();
-            timeframeStatusStrip.ResumeLayout(false);
-            timeframeStatusStrip.PerformLayout();
+            eventsStatusStrip.ResumeLayout(false);
+            eventsStatusStrip.PerformLayout();
             timeControlGB.ResumeLayout(false);
             timeControlGB.PerformLayout();
             pathStatusStrip.ResumeLayout(false);
@@ -510,8 +697,8 @@
         private ToolStripStatusLabel ActualPathTSSLabel;
         private ToolStripMenuItem viewToolStripMenuItem;
         private ToolStripMenuItem devicesToolStripMenuItem;
-        private StatusStrip timeframeStatusStrip;
-        private ToolStripStatusLabel timeframeTSSLabel;
+        private StatusStrip eventsStatusStrip;
+        private ToolStripStatusLabel eventsTSSLabel;
         private GroupBox searchGB;
         private TextBox searchTextBox;
         private Button searchButton;
@@ -527,5 +714,20 @@
         private Button resetTimefreameButtom;
         private CheckedListBox devicesCLB;
         private Splitter splitter1;
+        private Button uncheckAllDevicesButton;
+        private Button checkAllDevicesButton;
+        private TableLayoutPanel tableLayoutPanel1;
+        private GroupBox startupGB1;
+        private Label infoLabelStartGB1;
+        private Button goButtonSGB;
+        private Label drivePathLabelSGB1;
+        private Button selectDriveButtonSGB1;
+        private GroupBox startupGB2;
+        private Button openFileButtonStartGB2;
+        private TreeView foundFilesTV;
+        private Label infoLabelStartGB2;
+        private GroupBox startupGB3;
+        private Button openFileButtonStartGB3;
+        private Label startInfoLabelGB3;
     }
 }

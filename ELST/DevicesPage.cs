@@ -16,7 +16,8 @@ namespace ELST
         private bool timeFrame = false;
         List<Device> selectedDevices = new List<Device>();
         List<Device> allDevices = new List<Device>();
-
+        private TreeNode selectedNode;
+        private Device selectedDevice;
 
         /*public DevicesPage(List<Device> deviceList)
         {
@@ -27,7 +28,7 @@ namespace ELST
             InitializeDGVDeviceEvents();
         }*/
 
-        public DevicesPage(MainMenu mainMenu) 
+        public DevicesPage(MainMenu mainMenu)
         {
             selectedDevices = mainMenu.selectedDevices;
             allDevices = mainMenu.allDevices;
@@ -38,7 +39,7 @@ namespace ELST
             InitializeDGVDevices();
             InitializeDGVDeviceEvents();
         }
-        
+
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -96,9 +97,10 @@ namespace ELST
         {
             dgvDevices.Rows.Clear();
             dgvDeviceEvents.Rows.Clear();
-            int otherEventCount = 0;
+            selectedNode = e.Node;
 
             Device currentDevice = selectedDevices.FirstOrDefault(d => d.serialNumber == e.Node.Text);
+            selectedDevice = currentDevice;
 
             dgvDevices.Rows.Add(currentDevice.GetAllAttributes().ToArray());
 
@@ -107,9 +109,20 @@ namespace ELST
                 dgvDeviceEvents.Rows.Add(ce.GetUniqueAttributes().ToArray());
             }
 
-            if (timeFrame && currentDevice.events.Count != allDevices.FirstOrDefault(d => d.serialNumber == e.Node.Text).events.Count)
-            {
+            
+        }
 
+        private void actionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Device completeDevice = allDevices.FirstOrDefault(d => d.serialNumber == selectedNode.Text);
+
+            if (selectedDevice.Equals(completeDevice))
+            {
+                MessageBox.Show($"No other events for {selectedDevice.serialNumber} outside current timeframe.");
+            }
+            else
+            {
+                MessageBox.Show($"{completeDevice.events.Count - selectedDevice.events.Count} events for {selectedDevice.serialNumber} outside current timeframe.");
             }
         }
     }

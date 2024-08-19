@@ -6,26 +6,33 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Linq;
+using System.Drawing.Text;
 
 
 namespace ELST;
 
 public partial class MainMenu : Form
 {
-    public MainMenu()
+    public MainMenu(string filePath, List<string> files)
     {
+        defaultFilePath = filePath;
+        filesOfInterest = files;
+        selectedFolderPath = System.IO.Path.GetDirectoryName(defaultFilePath);
+
         InitializeComponent();
         AutoLoadFilePath();
         InitializeMainMenuStrip();
         InitializeDGVEvents();
         InitializeDevicesCLB();
         InitializeTimeControl();
-        /*MessageBox.Show($"Point E\ntimeframe = {timeframe}\n" +
-                        $"Events size = {customEvents.Count}\n" +
-                        $"current devices size = {currentDevices.Count}\n" +
-                        $"selected devices size = {selectedDevices.Count}\n" +
-                        $"all devices size  = {allDevices.Count}");*/
     }
+
+
+    //private string defaultFilePath = "D:\\Windows\\System32\\winevt\\Logs\\Microsoft-Windows-Partition%4Diagnostic.evtx";
+
+    private string defaultFilePath;
+
+    private string selectedFolderPath;
 
     private List<CustomEvent> customEvents = new List<CustomEvent>();
 
@@ -38,6 +45,7 @@ public partial class MainMenu : Form
     //all devices in the log
     public List<Device> allDevices = new List<Device>();
 
+    //variables used for timeframe
     public bool timeframe = false;
 
     public DateTime originalStartTime;
@@ -48,8 +56,13 @@ public partial class MainMenu : Form
 
     public DateTime endTime;
 
+    //drive to search for files of interest
+    public string drive;
 
+    //list of files of interest found in drive
+    public List<string> filesOfInterest = new List<string>();
 
+    //for search function
     private bool caseSensitive = false;
 
     private void InitializeMainMenuStrip()
@@ -122,9 +135,7 @@ public partial class MainMenu : Form
         MessageBox.Show(helpMessage); ;
     }
 
-    private string selectedFolderPath = "D:\\Windows\\System32\\winevt\\Logs";
-    private string defaultFilePath = "D:\\Windows\\System32\\winevt\\Logs\\Microsoft-Windows-Partition%4Diagnostic.evtx";
-    private void AutoLoadFilePath()
+     private void AutoLoadFilePath()
     {
         ListDirectory(dirTreeView, selectedFolderPath);
         ActualPathTSSLabel.Text = defaultFilePath;
@@ -179,8 +190,9 @@ public partial class MainMenu : Form
         // Check if the node is a file
         if (e.Node.Tag is string filePath && File.Exists(filePath))
         {
-            //MessageBox.Show(filePath);
+            
             GetEvents(filePath);
+            InitializeDevicesCLB();
             PopulatDGVEvents(customEvents);
             ActualPathTSSLabel.Text = filePath;
         }
@@ -188,6 +200,7 @@ public partial class MainMenu : Form
 
     public void GetEvents(string evtxFilePath)
     {
+        customEvents.Clear();
         try
         {
             // Create an EventLogQuery object for the .evtx file
@@ -305,13 +318,13 @@ public partial class MainMenu : Form
                         if (ce.serialNumber == device.serialNumber)
                         {
                             dgvEvents.Rows.Add(ce.GetAllAttributes().ToArray());
-                            
+
                         }
                     }
                 }
             }
         }
-        else 
+        else
         {
             foreach (CustomEvent ce in customEvents)
             {
@@ -320,16 +333,17 @@ public partial class MainMenu : Form
                     if (ce.serialNumber == device.serialNumber)
                     {
                         dgvEvents.Rows.Add(ce.GetAllAttributes().ToArray());
-                        
+
                     }
                 }
             }
         }
-
+        eventsTSSLabel.Text = $"Showing {dgvEvents.Rows.Count - 1} of {customEvents.Count} Events";
     }
 
     private void InitializeDGVEvents()
     {
+        dgvEvents.Columns.Clear();        
         // Set up the DataGridView columns
         //ORDER MATTERS*******************
         dgvEvents.Columns.Add("EventId", "Event ID");
@@ -471,8 +485,6 @@ public partial class MainMenu : Form
 
         originalStartTime = startDTP.Value;
         originalEndTime = endDTP.Value;
-
-        timeframeTSSLabel.Text = $"Timeframe: {originalStartTime} - {originalEndTime} (Entire Log)";
     }
 
     private void applyTimeFrameButton_Click(object sender, EventArgs e)
@@ -481,12 +493,11 @@ public partial class MainMenu : Form
         {
             MessageBox.Show("Date/Times not valid. \nEnd time must be later than start time. \n Please pick new Date/Times");
         }
-        else if (startDTP.Value != originalStartTime && endDTP.Value != originalEndTime) 
+        else if (startDTP.Value != originalStartTime || endDTP.Value != originalEndTime)
         {
             timeframe = true;
             startTime = startDTP.Value;
             endTime = endDTP.Value;
-            timeframeTSSLabel.Text = $"Timeframe: {startDTP.Value} - {endDTP.Value}";
             selectedDevices.Clear();
             InitializeDevicesCLB();
             PopulatDGVEvents(customEvents);
@@ -540,7 +551,6 @@ public partial class MainMenu : Form
         timeframe = false;
         startDTP.Value = originalStartTime;
         endDTP.Value = originalEndTime;
-        timeframeTSSLabel.Text = $"Timeframe: {originalStartTime} - {originalEndTime} (Entire Log)";
         InitializeDevicesCLB();
         PopulatDGVEvents(customEvents);
     }
@@ -560,5 +570,100 @@ public partial class MainMenu : Form
             selectedDevices.Remove(currentDevice);
         }
         PopulatDGVEvents(customEvents);
+    }
+
+    private void uncheckAllDevicesButton_Click(object sender, EventArgs e)
+    {
+        for (int i = 0; i < devicesCLB.Items.Count; i++)
+        {
+            devicesCLB.SetItemChecked(i, false);
+        }
+        PopulatDGVEvents(customEvents);
+    }
+
+    private void checkAllDevicesButton_Click(object sender, EventArgs e)
+    {
+        for (int i = 0; i < devicesCLB.Items.Count; i++)
+        {
+            devicesCLB.SetItemChecked(i, true);
+        }
+        PopulatDGVEvents(customEvents);
+    }
+
+    private void goButtonSGB_Click(object sender, EventArgs e)
+    {
+        MessageBox.Show("Searching drive for files of interest...");
+        startupGB1.Hide();
+        filesOfInterest = Startup.SearchDirectory(drive, "Microsoft-Windows-Partition%4Diagnostic.evtx");
+
+        if (filesOfInterest.Count > 0)
+        {
+            ConfigureStartupGB2();
+            startupGB2.Show();
+        }
+        else
+        {
+            startupGB3.Show();
+        }
+    }
+
+    private void ConfigureStartupGB2()
+    {
+        infoLabelStartGB2.Text = $"{filesOfInterest.Count} files of interest found:";
+        foreach (string file in filesOfInterest)
+        {
+            foundFilesTV.Nodes.Add(file);
+        }
+    }
+
+    private void selectDriveButtonSGB1_Click(object sender, EventArgs e)
+    {
+        // Open a folder dialog to let the user select a folder
+        using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
+        {
+            folderBrowserDialog.Description = "Select a folder";
+            folderBrowserDialog.ShowNewFolderButton = true;
+            folderBrowserDialog.RootFolder = Environment.SpecialFolder.MyComputer;
+
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Store the selected folder path in the class-level variable
+                drive = folderBrowserDialog.SelectedPath;
+                drivePathLabelSGB1.Text = drive;
+            }
+            else
+            {
+                return;
+            }
+        }
+    }
+
+    private void openFileButtonStartGB3_Click(object sender, EventArgs e)
+    {
+        using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
+        {
+            folderBrowserDialog.Description = "Select a folder";
+            folderBrowserDialog.ShowNewFolderButton = true;
+            folderBrowserDialog.RootFolder = Environment.SpecialFolder.MyComputer;
+
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Store the selected folder path in the class-level variable
+                drive = folderBrowserDialog.SelectedPath;
+                drivePathLabelSGB1.Text = drive;
+            }
+            else
+            {
+                return;
+            }
+        }
+    }
+
+    private void openFileButtonStartGB2_Click(object sender, EventArgs e)
+    {
+        TreeNode selectedNode = foundFilesTV.SelectedNode;
+        ListDirectory(dirTreeView, selectedNode.ToString());
+        ActualPathTSSLabel.Text = selectedNode.ToString();
+
     }
 }

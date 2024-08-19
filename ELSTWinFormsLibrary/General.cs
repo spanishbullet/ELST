@@ -339,3 +339,32 @@ public class Search
     }
 
 }
+
+public class Startup()
+{
+    public static List<string> SearchDirectory(string dir, string fileName)
+    {
+        List<string> filePaths = new List<string>();
+
+        try
+        {
+            // Search in the current directory
+            foreach (string file in Directory.GetFiles(dir, fileName))
+            {
+                filePaths.Add(file);
+            }
+
+            // Recursively search in subdirectories
+            foreach (string subDir in Directory.GetDirectories(dir))
+            {
+                filePaths.AddRange(SearchDirectory(subDir, fileName));
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+
+        return filePaths;
+    }
+}
