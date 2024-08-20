@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Label foundFilesLabelDriveSearch;
             searchButtonDriveSearch = new Button();
             drivePathLabelDriveSearh = new Label();
             selectDriveButtonDriveSearch = new Button();
@@ -120,9 +121,9 @@
             foundFilesLabelDriveSearch.AutoSize = true;
             foundFilesLabelDriveSearch.Location = new Point(6, 123);
             foundFilesLabelDriveSearch.Name = "foundFilesLabelDriveSearch";
-            foundFilesLabelDriveSearch.Size = new Size(168, 20);
+            foundFilesLabelDriveSearch.Size = new Size(155, 20);
             foundFilesLabelDriveSearch.TabIndex = 5;
-            foundFilesLabelDriveSearch.Text = "# FIles of interest found:";
+            foundFilesLabelDriveSearch.Text = "FIles of interest found:";
             // 
             // manualOpenGB
             // 

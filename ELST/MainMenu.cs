@@ -717,4 +717,10 @@ public partial class MainMenu : Form
         ConfigureColumns configureColumns = new ConfigureColumns(dgvEvents);
         configureColumns.Show();
     }
+
+    private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        ExportPage export = new ExportPage(dgvEvents);
+        export.Show();
+    }
 }

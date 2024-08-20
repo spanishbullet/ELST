@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
             mainMenuStrip = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             openLogToolStripMenuItem = new ToolStripMenuItem();
@@ -45,7 +45,7 @@
             timeCToolStripMenuItem = new ToolStripMenuItem();
             resetToolStripMenuItem = new ToolStripMenuItem();
             resetCellsToolStripMenuItem1 = new ToolStripMenuItem();
-            viewToolStripMenuItem = new ToolStripMenuItem();
+            seeToolStripMenuItem = new ToolStripMenuItem();
             devicesToolStripMenuItem = new ToolStripMenuItem();
             searchToolStripMenuItem = new ToolStripMenuItem();
             configureToolStripMenuItem = new ToolStripMenuItem();
@@ -88,6 +88,7 @@
             pathStatusStrip = new StatusStrip();
             PathTSSLabel = new ToolStripStatusLabel();
             ActualPathTSSLabel = new ToolStripStatusLabel();
+            exportToolStripMenuItem = new ToolStripMenuItem();
             mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEvents).BeginInit();
             panel1.SuspendLayout();
@@ -111,7 +112,7 @@
             mainMenuStrip.AutoSize = false;
             mainMenuStrip.Dock = DockStyle.None;
             mainMenuStrip.ImageScalingSize = new Size(20, 20);
-            mainMenuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aboutToolStripMenuItem, analyzeToolStripMenuItem, resetToolStripMenuItem, viewToolStripMenuItem, searchToolStripMenuItem, configureToolStripMenuItem });
+            mainMenuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aboutToolStripMenuItem, analyzeToolStripMenuItem, resetToolStripMenuItem, seeToolStripMenuItem, searchToolStripMenuItem, configureToolStripMenuItem });
             mainMenuStrip.Location = new Point(0, 0);
             mainMenuStrip.Name = "mainMenuStrip";
             mainMenuStrip.Padding = new Padding(4, 1, 0, 1);
@@ -121,7 +122,7 @@
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { openLogToolStripMenuItem, exitToolStripMenuItem });
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { openLogToolStripMenuItem, exitToolStripMenuItem, exportToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             fileToolStripMenuItem.Size = new Size(46, 32);
             fileToolStripMenuItem.Text = "&File";
@@ -149,8 +150,8 @@
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(157, 26);
-            exitToolStripMenuItem.Text = "&Exit";
+            exitToolStripMenuItem.Size = new Size(224, 26);
+            exitToolStripMenuItem.Text = "E&xit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
             // aboutToolStripMenuItem
@@ -209,17 +210,17 @@
             resetCellsToolStripMenuItem1.Text = "Reset &Cells";
             resetCellsToolStripMenuItem1.Click += resetToolStripMenuItem1_Click;
             // 
-            // viewToolStripMenuItem
+            // seeToolStripMenuItem
             // 
-            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { devicesToolStripMenuItem });
-            viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            viewToolStripMenuItem.Size = new Size(55, 32);
-            viewToolStripMenuItem.Text = "&View";
+            seeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { devicesToolStripMenuItem });
+            seeToolStripMenuItem.Name = "seeToolStripMenuItem";
+            seeToolStripMenuItem.Size = new Size(47, 32);
+            seeToolStripMenuItem.Text = "&See";
             // 
             // devicesToolStripMenuItem
             // 
             devicesToolStripMenuItem.Name = "devicesToolStripMenuItem";
-            devicesToolStripMenuItem.Size = new Size(143, 26);
+            devicesToolStripMenuItem.Size = new Size(224, 26);
             devicesToolStripMenuItem.Text = "&Devices";
             devicesToolStripMenuItem.Click += devicesToolStripMenuItem_Click;
             // 
@@ -240,7 +241,7 @@
             // columnsToolStripMenuItem
             // 
             columnsToolStripMenuItem.Name = "columnsToolStripMenuItem";
-            columnsToolStripMenuItem.Size = new Size(224, 26);
+            columnsToolStripMenuItem.Size = new Size(149, 26);
             columnsToolStripMenuItem.Text = "&Columns";
             columnsToolStripMenuItem.Click += columnsToolStripMenuItem_Click;
             // 
@@ -258,33 +259,33 @@
             // 
             dgvEvents.AllowUserToOrderColumns = true;
             dgvEvents.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvEvents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = SystemColors.Control;
+            dataGridViewCellStyle7.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dgvEvents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             dgvEvents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.Window;
-            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
-            dgvEvents.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = SystemColors.Window;
+            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle8.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
+            dgvEvents.DefaultCellStyle = dataGridViewCellStyle8;
             dgvEvents.Location = new Point(0, 0);
             dgvEvents.Name = "dgvEvents";
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.Control;
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            dgvEvents.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = SystemColors.Control;
+            dataGridViewCellStyle9.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
+            dgvEvents.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             dgvEvents.RowHeadersWidth = 51;
             dgvEvents.Size = new Size(833, 547);
             dgvEvents.TabIndex = 0;
@@ -666,6 +667,13 @@
             ActualPathTSSLabel.Size = new Size(39, 20);
             ActualPathTSSLabel.Text = "path";
             // 
+            // exportToolStripMenuItem
+            // 
+            exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            exportToolStripMenuItem.Size = new Size(224, 26);
+            exportToolStripMenuItem.Text = "&Export";
+            exportToolStripMenuItem.Click += exportToolStripMenuItem_Click;
+            // 
             // MainMenu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -726,7 +734,7 @@
         private StatusStrip pathStatusStrip;
         private ToolStripStatusLabel PathTSSLabel;
         private ToolStripStatusLabel ActualPathTSSLabel;
-        private ToolStripMenuItem viewToolStripMenuItem;
+        private ToolStripMenuItem seeToolStripMenuItem;
         private ToolStripMenuItem devicesToolStripMenuItem;
         private StatusStrip eventsStatusStrip;
         private ToolStripStatusLabel eventsTSSLabel;
@@ -764,5 +772,6 @@
         private Label infoLabelStartGB1;
         private ToolStripMenuItem configureToolStripMenuItem;
         private ToolStripMenuItem columnsToolStripMenuItem;
+        private ToolStripMenuItem exportToolStripMenuItem;
     }
 }
