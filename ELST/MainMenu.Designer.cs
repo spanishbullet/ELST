@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             mainMenuStrip = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             openLogToolStripMenuItem = new ToolStripMenuItem();
+            chooseToolStripMenuItem = new ToolStripMenuItem();
+            filesOfInterestToolStripMenuItem = new ToolStripMenuItem();
             exitToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem = new ToolStripMenuItem();
             infoToolStripMenuItem = new ToolStripMenuItem();
@@ -46,6 +48,8 @@
             viewToolStripMenuItem = new ToolStripMenuItem();
             devicesToolStripMenuItem = new ToolStripMenuItem();
             searchToolStripMenuItem = new ToolStripMenuItem();
+            configureToolStripMenuItem = new ToolStripMenuItem();
+            columnsToolStripMenuItem = new ToolStripMenuItem();
             dirTreeView = new TreeView();
             dgvEvents = new DataGridView();
             panel1 = new Panel();
@@ -107,7 +111,7 @@
             mainMenuStrip.AutoSize = false;
             mainMenuStrip.Dock = DockStyle.None;
             mainMenuStrip.ImageScalingSize = new Size(20, 20);
-            mainMenuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aboutToolStripMenuItem, analyzeToolStripMenuItem, resetToolStripMenuItem, viewToolStripMenuItem, searchToolStripMenuItem });
+            mainMenuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aboutToolStripMenuItem, analyzeToolStripMenuItem, resetToolStripMenuItem, viewToolStripMenuItem, searchToolStripMenuItem, configureToolStripMenuItem });
             mainMenuStrip.Location = new Point(0, 0);
             mainMenuStrip.Name = "mainMenuStrip";
             mainMenuStrip.Padding = new Padding(4, 1, 0, 1);
@@ -124,10 +128,23 @@
             // 
             // openLogToolStripMenuItem
             // 
+            openLogToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { chooseToolStripMenuItem, filesOfInterestToolStripMenuItem });
             openLogToolStripMenuItem.Name = "openLogToolStripMenuItem";
             openLogToolStripMenuItem.Size = new Size(157, 26);
             openLogToolStripMenuItem.Text = "&Open Log";
-            openLogToolStripMenuItem.Click += openLogToolStripMenuItem_Click;
+            // 
+            // chooseToolStripMenuItem
+            // 
+            chooseToolStripMenuItem.Name = "chooseToolStripMenuItem";
+            chooseToolStripMenuItem.Size = new Size(192, 26);
+            chooseToolStripMenuItem.Text = "&Choose";
+            chooseToolStripMenuItem.Click += chooseToolStripMenuItem_Click;
+            // 
+            // filesOfInterestToolStripMenuItem
+            // 
+            filesOfInterestToolStripMenuItem.Name = "filesOfInterestToolStripMenuItem";
+            filesOfInterestToolStripMenuItem.Size = new Size(192, 26);
+            filesOfInterestToolStripMenuItem.Text = "&Files of Interest";
             // 
             // exitToolStripMenuItem
             // 
@@ -213,6 +230,20 @@
             searchToolStripMenuItem.Text = "&Search";
             searchToolStripMenuItem.Click += searchToolStripMenuItem_Click;
             // 
+            // configureToolStripMenuItem
+            // 
+            configureToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { columnsToolStripMenuItem });
+            configureToolStripMenuItem.Name = "configureToolStripMenuItem";
+            configureToolStripMenuItem.Size = new Size(88, 32);
+            configureToolStripMenuItem.Text = "&Configure";
+            // 
+            // columnsToolStripMenuItem
+            // 
+            columnsToolStripMenuItem.Name = "columnsToolStripMenuItem";
+            columnsToolStripMenuItem.Size = new Size(224, 26);
+            columnsToolStripMenuItem.Text = "&Columns";
+            columnsToolStripMenuItem.Click += columnsToolStripMenuItem_Click;
+            // 
             // dirTreeView
             // 
             dirTreeView.Dock = DockStyle.Top;
@@ -227,33 +258,33 @@
             // 
             dgvEvents.AllowUserToOrderColumns = true;
             dgvEvents.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvEvents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgvEvents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgvEvents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgvEvents.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Window;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            dgvEvents.DefaultCellStyle = dataGridViewCellStyle5;
             dgvEvents.Location = new Point(0, 0);
             dgvEvents.Name = "dgvEvents";
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dgvEvents.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Control;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dgvEvents.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dgvEvents.RowHeadersWidth = 51;
             dgvEvents.Size = new Size(833, 547);
             dgvEvents.TabIndex = 0;
@@ -717,11 +748,6 @@
         private Button uncheckAllDevicesButton;
         private Button checkAllDevicesButton;
         private TableLayoutPanel tableLayoutPanel1;
-        private GroupBox startupGB1;
-        private Label infoLabelStartGB1;
-        private Button goButtonSGB;
-        private Label drivePathLabelSGB1;
-        private Button selectDriveButtonSGB1;
         private GroupBox startupGB2;
         private Button openFileButtonStartGB2;
         private TreeView foundFilesTV;
@@ -729,5 +755,14 @@
         private GroupBox startupGB3;
         private Button openFileButtonStartGB3;
         private Label startInfoLabelGB3;
+        private ToolStripMenuItem chooseToolStripMenuItem;
+        private ToolStripMenuItem filesOfInterestToolStripMenuItem;
+        private GroupBox startupGB1;
+        private Button goButtonSGB;
+        private Label drivePathLabelSGB1;
+        private Button selectDriveButtonSGB1;
+        private Label infoLabelStartGB1;
+        private ToolStripMenuItem configureToolStripMenuItem;
+        private ToolStripMenuItem columnsToolStripMenuItem;
     }
 }

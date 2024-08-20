@@ -18,6 +18,7 @@ public partial class MainMenu : Form
         defaultFilePath = filePath;
         filesOfInterest = files;
         selectedFolderPath = System.IO.Path.GetDirectoryName(defaultFilePath);
+        baseDirPath = Path.GetPathRoot(defaultFilePath);
 
         InitializeComponent();
         AutoLoadFilePath();
@@ -27,13 +28,14 @@ public partial class MainMenu : Form
         InitializeTimeControl();
     }
 
-
-    //private string defaultFilePath = "D:\\Windows\\System32\\winevt\\Logs\\Microsoft-Windows-Partition%4Diagnostic.evtx";
-
+    //path variables
     private string defaultFilePath;
 
     private string selectedFolderPath;
 
+    private string baseDirPath;
+
+    //list of events
     private List<CustomEvent> customEvents = new List<CustomEvent>();
 
     //selected devices
@@ -135,7 +137,7 @@ public partial class MainMenu : Form
         MessageBox.Show(helpMessage); ;
     }
 
-     private void AutoLoadFilePath()
+    private void AutoLoadFilePath()
     {
         ListDirectory(dirTreeView, selectedFolderPath);
         ActualPathTSSLabel.Text = defaultFilePath;
@@ -143,24 +145,34 @@ public partial class MainMenu : Form
 
     private void openLogToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        // Open a folder dialog to let the user select a folder
-        using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
-        {
-            folderBrowserDialog.Description = "Select a folder";
-            folderBrowserDialog.ShowNewFolderButton = true;
-            folderBrowserDialog.RootFolder = Environment.SpecialFolder.MyComputer;
+        /*OpenFileDialog openFileDialog = new OpenFileDialog();
 
-            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
-            {
-                // Store the selected folder path in the class-level variable
-                selectedFolderPath = folderBrowserDialog.SelectedPath;
-            }
-            else
-            {
-                return;
-            }
+        // Set filter options and filter index.
+        openFileDialog.Title = "Select a folder";
+        openFileDialog.Filter = "Event Log Files (*.evtx)|*.evtx|All Files (*.*)|*.*";
+        openFileDialog.FilterIndex = 1;
+        openFileDialog.Multiselect = false;
+        openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+
+        // Show the dialog and get result.
+        DialogResult result = openFileDialog.ShowDialog();
+
+        if (result == DialogResult.OK)
+        {
+            // Get the selected file's path.
+            string filePath = openFileDialog.FileName;
+            defaultFilePath = filePath;
+            selectedFolderPath = System.IO.Path.GetDirectoryName(filePath);
         }
+        else
+        {
+            return;
+        }
+
         ListDirectory(dirTreeView, selectedFolderPath);
+        InitializeDGVEvents();
+        InitializeDevicesCLB();
+        InitializeTimeControl();*/
     }
 
     private void ListDirectory(TreeView treeView, string path)
@@ -168,6 +180,7 @@ public partial class MainMenu : Form
         treeView.Nodes.Clear();
         var rootDirInfo = new DirectoryInfo(path);
         treeView.Nodes.Add(CreateDirectoryNode(rootDirInfo));
+        treeView.ExpandAll();
     }
 
     private static TreeNode CreateDirectoryNode(DirectoryInfo dirInfo)
@@ -190,7 +203,7 @@ public partial class MainMenu : Form
         // Check if the node is a file
         if (e.Node.Tag is string filePath && File.Exists(filePath))
         {
-            
+
             GetEvents(filePath);
             InitializeDevicesCLB();
             PopulatDGVEvents(customEvents);
@@ -343,7 +356,7 @@ public partial class MainMenu : Form
 
     private void InitializeDGVEvents()
     {
-        dgvEvents.Columns.Clear();        
+        dgvEvents.Columns.Clear();
         // Set up the DataGridView columns
         //ORDER MATTERS*******************
         dgvEvents.Columns.Add("EventId", "Event ID");
@@ -371,7 +384,7 @@ public partial class MainMenu : Form
 
 
         // Adjust column widths
-        dgvEvents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        dgvEvents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
         GetEvents(defaultFilePath);
         PopulatDGVEvents(customEvents);
@@ -665,5 +678,43 @@ public partial class MainMenu : Form
         ListDirectory(dirTreeView, selectedNode.ToString());
         ActualPathTSSLabel.Text = selectedNode.ToString();
 
+    }
+
+    private void chooseToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        OpenFileDialog openFileDialog = new OpenFileDialog();
+
+        // Set filter options and filter index.
+        openFileDialog.Title = "Select a folder";
+        openFileDialog.Filter = "Event Log Files (*.evtx)|*.evtx|All Files (*.*)|*.*";
+        openFileDialog.FilterIndex = 1;
+        openFileDialog.Multiselect = false;
+        openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+
+        // Show the dialog and get result.
+        DialogResult result = openFileDialog.ShowDialog();
+
+        if (result == DialogResult.OK)
+        {
+            // Get the selected file's path.
+            string filePath = openFileDialog.FileName;
+            defaultFilePath = filePath;
+            selectedFolderPath = System.IO.Path.GetDirectoryName(filePath);
+        }
+        else
+        {
+            return;
+        }
+
+        ListDirectory(dirTreeView, selectedFolderPath);
+        InitializeDGVEvents();
+        InitializeDevicesCLB();
+        InitializeTimeControl();
+    }
+
+    private void columnsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        ConfigureColumns configureColumns = new ConfigureColumns(dgvEvents);
+        configureColumns.Show();
     }
 }
