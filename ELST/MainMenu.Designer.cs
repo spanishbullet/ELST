@@ -294,6 +294,7 @@
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             dgvEvents.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgvEvents.RowHeadersWidth = 51;
+            dgvEvents.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvEvents.Size = new Size(833, 547);
             dgvEvents.TabIndex = 0;
             dgvEvents.MouseClick += dgvEvents_MouseClick;

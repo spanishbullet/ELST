@@ -45,7 +45,7 @@ public partial class StartupPage : Form
                 {
                     this.Invoke(new Action(() =>
                     {
-                        foundFilesLabelDriveSearch.Text = $"{filesOfInterest.Count} files of interest found:";
+                        foundFilesLabel.Text = $"{filesOfInterest.Count} files of interest found:";
                         foreach (string file in filesOfInterest)
                         {
                             // Check if the node already exists

@@ -61,7 +61,6 @@ public partial class ExportPage : Form
 
     private void ExportWhole(string type)
     {
-        MessageBox.Show(scope);
         switch (type)
         {
             case ("Excel Document"):
@@ -81,7 +80,6 @@ public partial class ExportPage : Form
 
     private void ExportSelected(string type)
     {
-        MessageBox.Show(scope);
         switch (type)
         {
             case ("Excel Document"):

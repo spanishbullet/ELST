@@ -35,9 +35,9 @@
             openFileButtonDriveSearch = new Button();
             foundFilesTV = new TreeView();
             driveSearchGB = new GroupBox();
+            foundFilesLabel = new Label();
             manualOpenGB = new GroupBox();
             openFileButtonManual = new Button();
-            foundFilesLabelDriveSearch = new Label();
             driveSearchGB.SuspendLayout();
             manualOpenGB.SuspendLayout();
             SuspendLayout();
@@ -47,7 +47,7 @@
             searchButtonDriveSearch.Location = new Point(6, 84);
             searchButtonDriveSearch.Name = "searchButtonDriveSearch";
             searchButtonDriveSearch.Size = new Size(111, 29);
-            searchButtonDriveSearch.TabIndex = 10;
+            searchButtonDriveSearch.TabIndex = 2;
             searchButtonDriveSearch.Text = "Search";
             searchButtonDriveSearch.UseVisualStyleBackColor = true;
             searchButtonDriveSearch.Click += searchButtonDriveSearch_Click;
@@ -66,7 +66,7 @@
             selectDriveButtonDriveSearch.Location = new Point(6, 49);
             selectDriveButtonDriveSearch.Name = "selectDriveButtonDriveSearch";
             selectDriveButtonDriveSearch.Size = new Size(111, 29);
-            selectDriveButtonDriveSearch.TabIndex = 6;
+            selectDriveButtonDriveSearch.TabIndex = 1;
             selectDriveButtonDriveSearch.Text = "Select Drive";
             selectDriveButtonDriveSearch.UseVisualStyleBackColor = true;
             selectDriveButtonDriveSearch.Click += selectDriveButtonDriveSearch_Click;
@@ -82,10 +82,10 @@
             // 
             // openFileButtonDriveSearch
             // 
-            openFileButtonDriveSearch.Location = new Point(6, 229);
+            openFileButtonDriveSearch.Location = new Point(6, 228);
             openFileButtonDriveSearch.Name = "openFileButtonDriveSearch";
             openFileButtonDriveSearch.Size = new Size(94, 29);
-            openFileButtonDriveSearch.TabIndex = 9;
+            openFileButtonDriveSearch.TabIndex = 4;
             openFileButtonDriveSearch.Text = "Open File";
             openFileButtonDriveSearch.UseVisualStyleBackColor = true;
             openFileButtonDriveSearch.Click += openFileButtonDriveSearch_Click;
@@ -93,15 +93,15 @@
             // foundFilesTV
             // 
             foundFilesTV.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            foundFilesTV.Location = new Point(6, 146);
+            foundFilesTV.Location = new Point(6, 145);
             foundFilesTV.Name = "foundFilesTV";
             foundFilesTV.Size = new Size(749, 77);
-            foundFilesTV.TabIndex = 7;
+            foundFilesTV.TabIndex = 3;
             // 
             // driveSearchGB
             // 
+            driveSearchGB.Controls.Add(foundFilesLabel);
             driveSearchGB.Controls.Add(searchButtonDriveSearch);
-            driveSearchGB.Controls.Add(foundFilesLabelDriveSearch);
             driveSearchGB.Controls.Add(drivePathLabelDriveSearh);
             driveSearchGB.Controls.Add(foundFilesTV);
             driveSearchGB.Controls.Add(selectDriveButtonDriveSearch);
@@ -115,14 +115,14 @@
             driveSearchGB.TabStop = false;
             driveSearchGB.Text = "Drive Search";
             // 
-            // foundFilesLabelDriveSearch
+            // foundFilesLabel
             // 
-            foundFilesLabelDriveSearch.AutoSize = true;
-            foundFilesLabelDriveSearch.Location = new Point(6, 123);
-            foundFilesLabelDriveSearch.Name = "foundFilesLabelDriveSearch";
-            foundFilesLabelDriveSearch.Size = new Size(155, 20);
-            foundFilesLabelDriveSearch.TabIndex = 5;
-            foundFilesLabelDriveSearch.Text = "FIles of interest found:";
+            foundFilesLabel.AutoSize = true;
+            foundFilesLabel.Location = new Point(6, 119);
+            foundFilesLabel.Name = "foundFilesLabel";
+            foundFilesLabel.Size = new Size(155, 20);
+            foundFilesLabel.TabIndex = 9;
+            foundFilesLabel.Text = "Files of interest found:";
             // 
             // manualOpenGB
             // 
@@ -140,7 +140,7 @@
             openFileButtonManual.Location = new Point(6, 26);
             openFileButtonManual.Name = "openFileButtonManual";
             openFileButtonManual.Size = new Size(94, 29);
-            openFileButtonManual.TabIndex = 10;
+            openFileButtonManual.TabIndex = 5;
             openFileButtonManual.Text = "Open File";
             openFileButtonManual.UseVisualStyleBackColor = true;
             openFileButtonManual.Click += openFileButtonManual_Click;
@@ -169,9 +169,9 @@
         private Label infoLabelDriveSearch;
         private Button openFileButtonDriveSearch;
         private TreeView foundFilesTV;
-        private Label foundFilesLabelDriveSearch;
         private GroupBox driveSearchGB;
         private GroupBox manualOpenGB;
         private Button openFileButtonManual;
+        private Label foundFilesLabel;
     }
 }

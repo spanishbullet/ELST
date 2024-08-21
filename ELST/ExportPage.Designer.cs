@@ -146,6 +146,7 @@
             Controls.Add(typeGB);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "ExportPage";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Export Log";
             typeGB.ResumeLayout(false);
             scopeGB.ResumeLayout(false);

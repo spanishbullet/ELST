@@ -95,6 +95,7 @@
             Controls.Add(cancelButton);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "ConfigureColumns";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Configure Columns";
             ResumeLayout(false);
         }

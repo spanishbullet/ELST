@@ -256,6 +256,7 @@
             Controls.Add(devicesPageMenuStrip);
             MainMenuStrip = devicesPageMenuStrip;
             Name = "DevicesPage";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "ELST - Devices";
             UseWaitCursor = true;
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
