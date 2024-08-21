@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
@@ -344,18 +345,21 @@ public class Search
 public class Startup()
 {
 
-    public static List<string> Search(string dir, string fileName, IProgress<int> progress = null)
+    public static List<string> Search(string dir, string fileName, IProgress<int> progress = null, CancellationToken cancellationToken = default)
     {
         int processedDirectories = 1;
-        return searchDirectory(dir, fileName, CountTotalDirectories(dir), ref processedDirectories, progress);
+        return searchDirectory(dir, fileName, CountTotalDirectories(dir), ref processedDirectories, progress, cancellationToken);
     }
 
-    private static List<string> searchDirectory(string dir, string fileName, int totalDirectories, ref int processedDirectories, IProgress<int> progress = null)
+    private static List<string> searchDirectory(string dir, string fileName, int totalDirectories, ref int processedDirectories, IProgress<int> progress = null, CancellationToken cancellationToken = default)
     {
         List<string> filePaths = new List<string>();
 
         try
         {
+            // Check for cancellation
+            cancellationToken.ThrowIfCancellationRequested();
+
             // Process the current directory
             foreach (string file in Directory.GetFiles(dir, fileName))
             {
@@ -370,7 +374,7 @@ public class Startup()
             // Recursively search in subdirectories
             foreach (string subDir in Directory.GetDirectories(dir))
             {
-                filePaths.AddRange(searchDirectory(subDir, fileName, totalDirectories, ref processedDirectories, progress));
+                filePaths.AddRange(searchDirectory(subDir, fileName, totalDirectories, ref processedDirectories, progress, cancellationToken));
             }
         }
         catch (UnauthorizedAccessException) { /* Handle or skip inaccessible directories */ }

@@ -5,34 +5,38 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ELST
+namespace ELST;
+
+public partial class SearchingWindow : Form
 {
-    public partial class SearchingWindow : Form
+    private CancellationTokenSource _cancellationTokenSource;
+
+    public SearchingWindow(CancellationTokenSource cancellationTokenSource)
     {
-        public SearchingWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+        _cancellationTokenSource = cancellationTokenSource;
+    }
 
-        public void UpdateProgress(int percent)
+    public void UpdateProgress(int percent)
+    {
+        if (InvokeRequired)
         {
-            if (InvokeRequired)
-            {
-                Invoke(new Action<int>(UpdateProgress), percent);
-            }
-            else
-            {
-                searchPB.Value = percent;
-                progressLabel.Text = $"Progress: {percent}%";
-            }
+            Invoke(new Action<int>(UpdateProgress), percent);
         }
+        else
+        {
+            searchPB.Value = percent;
+            progressLabel.Text = $"Progress: {percent}%";
+        }
+    }
 
-        private void cancelButton_Click(object sender, EventArgs e)
-        {
-            //cancel = true;
-        }
+    private void cancelButton_Click(object sender, EventArgs e)
+    {
+        _cancellationTokenSource.Cancel(); // Signal cancellation
+        this.Close();
     }
 }
