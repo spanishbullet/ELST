@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using System.Xml.Linq;
 
 namespace ELSTWinFormsLibrary;
@@ -342,29 +343,57 @@ public class Search
 
 public class Startup()
 {
-    public static List<string> SearchDirectory(string dir, string fileName)
+
+    public static List<string> Search(string dir, string fileName, IProgress<int> progress = null)
+    {
+        int processedDirectories = 1;
+        return searchDirectory(dir, fileName, CountTotalDirectories(dir), ref processedDirectories, progress);
+    }
+
+    private static List<string> searchDirectory(string dir, string fileName, int totalDirectories, ref int processedDirectories, IProgress<int> progress = null)
     {
         List<string> filePaths = new List<string>();
 
         try
         {
-            // Search in the current directory
+            // Process the current directory
             foreach (string file in Directory.GetFiles(dir, fileName))
             {
                 filePaths.Add(file);
             }
 
+            // Report progress after processing the current directory
+            processedDirectories++;
+            int progressPercentage = (processedDirectories * 100) / totalDirectories;
+            progress?.Report(progressPercentage);
+
             // Recursively search in subdirectories
             foreach (string subDir in Directory.GetDirectories(dir))
             {
-                filePaths.AddRange(SearchDirectory(subDir, fileName));
+                filePaths.AddRange(searchDirectory(subDir, fileName, totalDirectories, ref processedDirectories, progress));
             }
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error: {ex.Message}");
-        }
+        catch (UnauthorizedAccessException) { /* Handle or skip inaccessible directories */ }
+        catch (Exception ex) { Console.WriteLine($"Error searching files: {ex.Message}"); }
 
         return filePaths;
+    }
+
+
+    private static int CountTotalDirectories(string dir)
+    {
+        int count = 1; // Start with 1 to include the current directory
+
+        try
+        {
+            foreach (string subDir in Directory.GetDirectories(dir))
+            {
+                count += CountTotalDirectories(subDir); // Recursively count subdirectories
+            }
+        }
+        catch (UnauthorizedAccessException) { /* Handle or skip inaccessible directories */ }
+        catch (Exception ex) { Console.WriteLine($"Error counting directories: {ex.Message}"); }
+
+        return count;
     }
 }

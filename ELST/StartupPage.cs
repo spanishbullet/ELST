@@ -13,6 +13,7 @@ namespace ELST
 {
     public partial class StartupPage : Form
     {
+        public bool cancel;
         private string drive;
         private List<string> filesOfInterest = new List<string>();
 
@@ -20,27 +21,51 @@ namespace ELST
         public StartupPage()
         {
             InitializeComponent();
+            cancel = false;
         }
 
-        private void searchButtonDriveSearch_Click(object sender, EventArgs e)
+        private async void searchButtonDriveSearch_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Searching drive for files of interest...");
-            filesOfInterest = Startup.SearchDirectory(drive, "Microsoft-Windows-Partition%4Diagnostic.evtx");
-            MessageBox.Show(filesOfInterest.Count.ToString());
+            filesOfInterest.Clear();
+            SearchingWindow searchingWindow = new SearchingWindow();
+            searchingWindow.Show();
 
-            if (filesOfInterest.Count > 0)
+            try
             {
-                foundFilesLabelDriveSearch.Text = $"{filesOfInterest.Count} files of interest found:";
-                foreach (string file in filesOfInterest)
+                var progress = new Progress<int>(percent =>
                 {
-                    foundFilesTV.Nodes.Add(file);
+                    searchingWindow.UpdateProgress(percent);
+                });
+
+                // Run the search operation asynchronously
+                filesOfInterest = await Task.Run(() => Startup.Search(drive, "Microsoft-Windows-Partition%4Diagnostic.evtx", progress));
+
+                if (filesOfInterest.Count > 0)
+                {
+                    foundFilesLabelDriveSearch.Text = $"{filesOfInterest.Count} files of interest found:";
+                    foreach (string file in filesOfInterest)
+                    {
+                        foundFilesTV.Nodes.Add(file);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No files found. Please use Manual Selection.");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("No files found. Please use Manual Selection.");
+                MessageBox.Show($"Error occurred: {ex.Message}");
             }
+            finally
+            {
+                searchingWindow.Close();
+            }
+
+            MessageBox.Show("Search Completed");
         }
+
+
 
         private void selectDriveButtonDriveSearch_Click(object sender, EventArgs e)
         {

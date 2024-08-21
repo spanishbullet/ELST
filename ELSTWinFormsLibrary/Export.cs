@@ -14,42 +14,58 @@ namespace ELSTWinFormsLibrary;
 
 public class Export
 {
-    public static void ToExcel(DataGridView dgv)
+    public static void ToExcel(DataGridView dgv, CheckedListBox fieldsCLB)
     {
         // Enable ExcelPackage to work without a license context (non-commercial use)
         OfficeOpenXml.ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
 
         using (ExcelPackage package = new ExcelPackage())
         {
-            // Add a new worksheet to the Excel workbook
             ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("ExportedData");
 
-            // Export the column headers
-            for (int i = 1; i <= dgv.Columns.Count; i++)
+            // Create a list to keep track of the selected columns
+            var selectedColumns = fieldsCLB.CheckedItems.Cast<string>().ToList();
+
+            // Export column headers for checked items
+            int columnIndex = 1;
+            foreach (var item in selectedColumns)
             {
-                worksheet.Cells[1, i].Value = dgv.Columns[i - 1].HeaderText;
+                int dgvColumnIndex = dgv.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.HeaderText == item)?.Index ?? -1;
+                if (dgvColumnIndex >= 0)
+                {
+                    worksheet.Cells[1, columnIndex].Value = dgv.Columns[dgvColumnIndex].HeaderText;
+                    columnIndex++;
+                }
             }
 
-            // Export the data rows
-            for (int i = 0; i < dgv.Rows.Count; i++)
+            // Export data rows for checked columns
+            for (int rowIndex = 0; rowIndex < dgv.Rows.Count; rowIndex++)
             {
-                for (int j = 0; j < dgv.Columns.Count; j++)
+                if (!dgv.Rows[rowIndex].IsNewRow)
                 {
-                    if (dgv.Rows[i].Cells[j].Value != null)
+                    columnIndex = 1;
+                    foreach (var item in selectedColumns)
                     {
-                        worksheet.Cells[i + 2, j + 1].Value = dgv.Rows[i].Cells[j].Value.ToString();
+                        int dgvColumnIndex = dgv.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.HeaderText == item)?.Index ?? -1;
+                        if (dgvColumnIndex >= 0)
+                        {
+                            worksheet.Cells[rowIndex + 2, columnIndex].Value = dgv.Rows[rowIndex].Cells[dgvColumnIndex].Value?.ToString() ?? string.Empty;
+                            columnIndex++;
+                        }
                     }
                 }
             }
 
-            // Format cells to fit data
+            // Auto-fit columns
             worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
 
             // Prompt the user to save the file
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx";
-            saveFileDialog.FilterIndex = 1;
-            saveFileDialog.RestoreDirectory = true;
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "Excel files (*.xlsx)|*.xlsx",
+                FilterIndex = 1,
+                RestoreDirectory = true
+            };
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -61,37 +77,59 @@ public class Export
     }
 
 
-    public static void ToXls(DataGridView dgv)
+    public static void ToXls(DataGridView dgv, CheckedListBox fieldsCLB)
     {
         HSSFWorkbook workbook = new HSSFWorkbook();
         ISheet sheet = workbook.CreateSheet("ExportedData");
-    
+
+        var selectedColumns = fieldsCLB.CheckedItems.Cast<string>().ToList();
+
         // Export column headers
         IRow headerRow = sheet.CreateRow(0);
-        for (int i = 0; i < dgv.Columns.Count; i++)
+        int columnIndex = 0;
+        foreach (var item in selectedColumns)
         {
-            headerRow.CreateCell(i).SetCellValue(dgv.Columns[i].HeaderText);
+            int dgvColumnIndex = dgv.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.HeaderText == item)?.Index ?? -1;
+            if (dgvColumnIndex >= 0)
+            {
+                headerRow.CreateCell(columnIndex).SetCellValue(dgv.Columns[dgvColumnIndex].HeaderText);
+                columnIndex++;
+            }
         }
-    
+
         // Export data rows
         for (int i = 0; i < dgv.Rows.Count; i++)
         {
-            IRow row = sheet.CreateRow(i + 1);
-            for (int j = 0; j < dgv.Columns.Count; j++)
+            if (!dgv.Rows[i].IsNewRow)
             {
-                if (dgv.Rows[i].Cells[j].Value != null)
+                IRow row = sheet.CreateRow(i + 1);
+                columnIndex = 0;
+                foreach (var item in selectedColumns)
                 {
-                    row.CreateCell(j).SetCellValue(dgv.Rows[i].Cells[j].Value.ToString());
+                    int dgvColumnIndex = dgv.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.HeaderText == item)?.Index ?? -1;
+                    if (dgvColumnIndex >= 0)
+                    {
+                        row.CreateCell(columnIndex).SetCellValue(dgv.Rows[i].Cells[dgvColumnIndex].Value?.ToString() ?? string.Empty);
+                        columnIndex++;
+                    }
                 }
             }
         }
-        
-        // Prompt the user to save the file
-        SaveFileDialog saveFileDialog = new SaveFileDialog();
-        saveFileDialog.Filter = "Excel files (*.xls)|*.xls";
-        saveFileDialog.FilterIndex = 1;
-        saveFileDialog.RestoreDirectory = true;
-    
+
+        // Manually adjust column widths
+        for (int i = 0; i < selectedColumns.Count; i++)
+        {
+            sheet.AutoSizeColumn(i);
+        }
+
+        // Save the XLS file
+        SaveFileDialog saveFileDialog = new SaveFileDialog
+        {
+            Filter = "Excel files (*.xls)|*.xls",
+            FilterIndex = 1,
+            RestoreDirectory = true
+        };
+
         if (saveFileDialog.ShowDialog() == DialogResult.OK)
         {
             using (FileStream file = new FileStream(saveFileDialog.FileName, FileMode.Create, FileAccess.Write))
@@ -103,28 +141,38 @@ public class Export
     }
     
 
-    public static void ToHtml(DataGridView dgv)
+    public static void ToHtml(DataGridView dgv, CheckedListBox fieldsCLB)
     {
+        var selectedColumns = fieldsCLB.CheckedItems.Cast<string>().ToList();
         StringBuilder html = new StringBuilder();
+
         html.AppendLine("<html><body><table border='1'>");
 
-        // Create header row
+        // Export column headers
         html.AppendLine("<tr>");
-        foreach (DataGridViewColumn column in dgv.Columns)
+        foreach (var item in selectedColumns)
         {
-            html.AppendFormat("<th>{0}</th>", column.HeaderText);
+            int dgvColumnIndex = dgv.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.HeaderText == item)?.Index ?? -1;
+            if (dgvColumnIndex >= 0)
+            {
+                html.AppendLine($"<th>{dgv.Columns[dgvColumnIndex].HeaderText}</th>");
+            }
         }
         html.AppendLine("</tr>");
 
-        // Create data rows
+        // Export data rows
         foreach (DataGridViewRow row in dgv.Rows)
         {
             if (!row.IsNewRow)
             {
                 html.AppendLine("<tr>");
-                foreach (DataGridViewCell cell in row.Cells)
+                foreach (var item in selectedColumns)
                 {
-                    html.AppendFormat("<td>{0}</td>", cell.Value?.ToString() ?? string.Empty);
+                    int dgvColumnIndex = dgv.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.HeaderText == item)?.Index ?? -1;
+                    if (dgvColumnIndex >= 0)
+                    {
+                        html.AppendLine($"<td>{row.Cells[dgvColumnIndex].Value?.ToString() ?? string.Empty}</td>");
+                    }
                 }
                 html.AppendLine("</tr>");
             }
@@ -132,11 +180,13 @@ public class Export
 
         html.AppendLine("</table></body></html>");
 
-        // Prompt the user to save the file
-        SaveFileDialog saveFileDialog = new SaveFileDialog();
-        saveFileDialog.Filter = "HTML files (*.html)|*.html";
-        saveFileDialog.FilterIndex = 1;
-        saveFileDialog.RestoreDirectory = true;
+        // Save the HTML file
+        SaveFileDialog saveFileDialog = new SaveFileDialog
+        {
+            Filter = "HTML files (*.html)|*.html",
+            FilterIndex = 1,
+            RestoreDirectory = true
+        };
 
         if (saveFileDialog.ShowDialog() == DialogResult.OK)
         {
@@ -145,37 +195,46 @@ public class Export
         }
     }
 
-    public static void ToTxt(DataGridView dgv)
+    public static void ToTxt(DataGridView dgv, CheckedListBox fieldsCLB)
     {
+        var selectedColumns = fieldsCLB.CheckedItems.Cast<string>().ToList();
         StringBuilder txt = new StringBuilder();
 
-        // Create header row
-        for (int i = 0; i < dgv.Columns.Count; i++)
+        // Export column headers
+        foreach (var item in selectedColumns)
         {
-            txt.Append(dgv.Columns[i].HeaderText);
-            if (i < dgv.Columns.Count - 1) txt.Append("\t");
+            int dgvColumnIndex = dgv.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.HeaderText == item)?.Index ?? -1;
+            if (dgvColumnIndex >= 0)
+            {
+                txt.Append(dgv.Columns[dgvColumnIndex].HeaderText + "\t");
+            }
         }
         txt.AppendLine();
 
-        // Create data rows
+        // Export data rows
         foreach (DataGridViewRow row in dgv.Rows)
         {
             if (!row.IsNewRow)
             {
-                for (int i = 0; i < dgv.Columns.Count; i++)
+                foreach (var item in selectedColumns)
                 {
-                    txt.Append(row.Cells[i].Value?.ToString() ?? string.Empty);
-                    if (i < dgv.Columns.Count - 1) txt.Append("\t");
+                    int dgvColumnIndex = dgv.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.HeaderText == item)?.Index ?? -1;
+                    if (dgvColumnIndex >= 0)
+                    {
+                        txt.Append(row.Cells[dgvColumnIndex].Value?.ToString() ?? string.Empty + "\t");
+                    }
                 }
                 txt.AppendLine();
             }
         }
 
-        // Prompt the user to save the file
-        SaveFileDialog saveFileDialog = new SaveFileDialog();
-        saveFileDialog.Filter = "Text files (*.txt)|*.txt";
-        saveFileDialog.FilterIndex = 1;
-        saveFileDialog.RestoreDirectory = true;
+        // Save the TXT file
+        SaveFileDialog saveFileDialog = new SaveFileDialog
+        {
+            Filter = "Text files (*.txt)|*.txt",
+            FilterIndex = 1,
+            RestoreDirectory = true
+        };
 
         if (saveFileDialog.ShowDialog() == DialogResult.OK)
         {
@@ -184,23 +243,238 @@ public class Export
         }
     }
 
-    public static void SelectedToExcel(DataGridView dgv)
-    {
+    public static void SelectedToExcel(DataGridView dgv, CheckedListBox fieldsCLB)
+    {        
+        // Enable ExcelPackage to work without a license context (non-commercial use)
+        OfficeOpenXml.ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
 
+        using (ExcelPackage package = new ExcelPackage())
+        {
+            ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("ExportedData");
+
+            // Create a list to keep track of the selected columns
+            var selectedColumns = fieldsCLB.CheckedItems.Cast<string>().ToList();
+
+            // Export column headers for checked items
+            int columnIndex = 1;
+            foreach (var item in selectedColumns)
+            {
+                int dgvColumnIndex = dgv.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.HeaderText == item)?.Index ?? -1;
+                if (dgvColumnIndex >= 0)
+                {
+                    worksheet.Cells[1, columnIndex].Value = dgv.Columns[dgvColumnIndex].HeaderText;
+                    columnIndex++;
+                }
+            }
+
+            // Sort selected rows by their index to maintain original order
+            var orderedSelectedRows = dgv.SelectedRows.Cast<DataGridViewRow>()
+                .OrderBy(r => r.Index)
+                .ToList();
+
+            // Export data rows for checked columns from selected rows only
+            int rowIndex = 0; // This is for the Excel worksheet row index
+            foreach (DataGridViewRow selectedRow in orderedSelectedRows)
+            {
+                rowIndex++; // Increment worksheet row index for each selected row
+                columnIndex = 1;
+
+                foreach (var item in selectedColumns)
+                {
+                    int dgvColumnIndex = dgv.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.HeaderText == item)?.Index ?? -1;
+                    if (dgvColumnIndex >= 0)
+                    {
+                        worksheet.Cells[rowIndex + 1, columnIndex].Value = selectedRow.Cells[dgvColumnIndex].Value?.ToString() ?? string.Empty;
+                        columnIndex++;
+                    }
+                }
+            }
+
+            // Auto-fit columns
+            worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+            // Prompt the user to save the file
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "Excel files (*.xlsx)|*.xlsx",
+                FilterIndex = 1,
+                RestoreDirectory = true
+            };
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                FileInfo fi = new FileInfo(saveFileDialog.FileName);
+                package.SaveAs(fi);
+                MessageBox.Show("Data exported successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
     }
 
-    public static void SelectedToXls(DataGridView dgv)
+    public static void SelectedToXls(DataGridView dgv, CheckedListBox fieldsCLB)
     {
+        IWorkbook workbook = new HSSFWorkbook(); // Use HSSFWorkbook for .xls
+        ISheet worksheet = workbook.CreateSheet("ExportedData");
 
+        var selectedColumns = fieldsCLB.CheckedItems.Cast<string>().ToList();
+
+        // Export column headers for checked items
+        IRow headerRow = worksheet.CreateRow(0);
+        int columnIndex = 0;
+        foreach (var item in selectedColumns)
+        {
+            int dgvColumnIndex = dgv.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.HeaderText == item)?.Index ?? -1;
+            if (dgvColumnIndex >= 0)
+            {
+                headerRow.CreateCell(columnIndex).SetCellValue(dgv.Columns[dgvColumnIndex].HeaderText);
+                columnIndex++;
+            }
+        }
+
+        // Sort selected rows by their index to maintain original order
+        var orderedSelectedRows = dgv.SelectedRows.Cast<DataGridViewRow>()
+            .OrderBy(r => r.Index)
+            .ToList();
+
+        // Export data rows for checked columns from selected rows only
+        int rowIndex = 1; // Start from the first row after the header
+        foreach (DataGridViewRow selectedRow in orderedSelectedRows)
+        {
+            IRow row = worksheet.CreateRow(rowIndex++);
+            columnIndex = 0;
+
+            foreach (var item in selectedColumns)
+            {
+                int dgvColumnIndex = dgv.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.HeaderText == item)?.Index ?? -1;
+                if (dgvColumnIndex >= 0)
+                {
+                    row.CreateCell(columnIndex).SetCellValue(selectedRow.Cells[dgvColumnIndex].Value?.ToString() ?? string.Empty);
+                    columnIndex++;
+                }
+            }
+        }
+
+        // Prompt the user to save the file
+        SaveFileDialog saveFileDialog = new SaveFileDialog
+        {
+            Filter = "Excel files (*.xls)|*.xls",
+            FilterIndex = 1,
+            RestoreDirectory = true
+        };
+
+        if (saveFileDialog.ShowDialog() == DialogResult.OK)
+        {
+            using (FileStream fs = new FileStream(saveFileDialog.FileName, FileMode.Create, FileAccess.Write))
+            {
+                workbook.Write(fs);
+            }
+            MessageBox.Show("Data exported successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 
-    public static void SelectedToHtml(DataGridView dgv)
+    public static void SelectedToHtml(DataGridView dgv, CheckedListBox fieldsCLB)
     {
+        var selectedColumns = fieldsCLB.CheckedItems.Cast<string>().ToList();
 
+        StringBuilder html = new StringBuilder();
+        html.AppendLine("<table border='1'>");
+
+        // Export column headers for checked items
+        html.AppendLine("<tr>");
+        foreach (var item in selectedColumns)
+        {
+            int dgvColumnIndex = dgv.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.HeaderText == item)?.Index ?? -1;
+            if (dgvColumnIndex >= 0)
+            {
+                html.AppendLine($"<th>{dgv.Columns[dgvColumnIndex].HeaderText}</th>");
+            }
+        }
+        html.AppendLine("</tr>");
+
+        // Sort selected rows by their index to maintain original order
+        var orderedSelectedRows = dgv.SelectedRows.Cast<DataGridViewRow>()
+            .OrderBy(r => r.Index)
+            .ToList();
+
+        // Export data rows for checked columns from selected rows only
+        foreach (DataGridViewRow selectedRow in orderedSelectedRows)
+        {
+            html.AppendLine("<tr>");
+            foreach (var item in selectedColumns)
+            {
+                int dgvColumnIndex = dgv.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.HeaderText == item)?.Index ?? -1;
+                if (dgvColumnIndex >= 0)
+                {
+                    html.AppendLine($"<td>{selectedRow.Cells[dgvColumnIndex].Value?.ToString() ?? string.Empty}</td>");
+                }
+            }
+            html.AppendLine("</tr>");
+        }
+
+        html.AppendLine("</table>");
+
+        // Prompt the user to save the file
+        SaveFileDialog saveFileDialog = new SaveFileDialog
+        {
+            Filter = "HTML files (*.html)|*.html",
+            FilterIndex = 1,
+            RestoreDirectory = true
+        };
+
+        if (saveFileDialog.ShowDialog() == DialogResult.OK)
+        {
+            File.WriteAllText(saveFileDialog.FileName, html.ToString());
+            MessageBox.Show("Data exported successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 
-    public static void SelectedToTxt(DataGridView dgv)
+    public static void SelectedToTxt(DataGridView dgv, CheckedListBox fieldsCLB)
     {
+        var selectedColumns = fieldsCLB.CheckedItems.Cast<string>().ToList();
 
+        StringBuilder txt = new StringBuilder();
+
+        // Export column headers for checked items
+        foreach (var item in selectedColumns)
+        {
+            int dgvColumnIndex = dgv.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.HeaderText == item)?.Index ?? -1;
+            if (dgvColumnIndex >= 0)
+            {
+                txt.Append($"{dgv.Columns[dgvColumnIndex].HeaderText}\t");
+            }
+        }
+        txt.AppendLine();
+
+        // Sort selected rows by their index to maintain original order
+        var orderedSelectedRows = dgv.SelectedRows.Cast<DataGridViewRow>()
+            .OrderBy(r => r.Index)
+            .ToList();
+
+        // Export data rows for checked columns from selected rows only
+        foreach (DataGridViewRow selectedRow in orderedSelectedRows)
+        {
+            foreach (var item in selectedColumns)
+            {
+                int dgvColumnIndex = dgv.Columns.Cast<DataGridViewColumn>().FirstOrDefault(c => c.HeaderText == item)?.Index ?? -1;
+                if (dgvColumnIndex >= 0)
+                {
+                    txt.Append($"{selectedRow.Cells[dgvColumnIndex].Value?.ToString() ?? string.Empty}\t");
+                }
+            }
+            txt.AppendLine();
+        }
+
+        // Prompt the user to save the file
+        SaveFileDialog saveFileDialog = new SaveFileDialog
+        {
+            Filter = "Text files (*.txt)|*.txt",
+            FilterIndex = 1,
+            RestoreDirectory = true
+        };
+
+        if (saveFileDialog.ShowDialog() == DialogResult.OK)
+        {
+            File.WriteAllText(saveFileDialog.FileName, txt.ToString());
+            MessageBox.Show("Data exported successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }

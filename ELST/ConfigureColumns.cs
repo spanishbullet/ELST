@@ -83,5 +83,4 @@ public partial class ConfigureColumns : Form
     {
         this.Hide();
     }
-
 }

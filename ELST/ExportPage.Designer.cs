@@ -101,6 +101,7 @@
             fieldsCLB.Name = "fieldsCLB";
             fieldsCLB.Size = new Size(232, 224);
             fieldsCLB.TabIndex = 3;
+            fieldsCLB.MouseDown += fieldsCLB_MouseDown;
             // 
             // fieldsLabel
             // 

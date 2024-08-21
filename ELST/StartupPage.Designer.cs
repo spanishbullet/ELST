@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Label foundFilesLabelDriveSearch;
             searchButtonDriveSearch = new Button();
             drivePathLabelDriveSearh = new Label();
             selectDriveButtonDriveSearch = new Button();
@@ -154,6 +153,7 @@
             Controls.Add(manualOpenGB);
             Controls.Add(driveSearchGB);
             Name = "StartupPage";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "ELST - Startup";
             driveSearchGB.ResumeLayout(false);
             driveSearchGB.PerformLayout();

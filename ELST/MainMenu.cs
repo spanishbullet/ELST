@@ -607,7 +607,7 @@ public partial class MainMenu : Form
     {
         MessageBox.Show("Searching drive for files of interest...");
         startupGB1.Hide();
-        filesOfInterest = Startup.SearchDirectory(drive, "Microsoft-Windows-Partition%4Diagnostic.evtx");
+        filesOfInterest = Startup.Search(drive, "Microsoft-Windows-Partition%4Diagnostic.evtx");
 
         if (filesOfInterest.Count > 0)
         {

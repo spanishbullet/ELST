@@ -26,13 +26,21 @@ public partial class ExportPage : Form
     {
         dgv = _dgv;
         InitializeComponent();
+        LoadColumnSettings();
         typeCLB.SetItemChecked(0, true);
         type = "Excel Document";
         scopeCLB.SetItemChecked(0, true);
         scope = "All Events";
     }
 
-
+    private void LoadColumnSettings()
+    {
+        fieldsCLB.Items.Clear();
+        foreach (DataGridViewColumn column in dgv.Columns)
+        {
+            fieldsCLB.Items.Add(column.HeaderText, column.Visible);
+        }
+    }
 
     private void exportButton_Click(object sender, EventArgs e)
     {
@@ -51,40 +59,42 @@ public partial class ExportPage : Form
             this.Close();
     }
 
-    private void ExportWhole(string type) 
+    private void ExportWhole(string type)
     {
+        MessageBox.Show(scope);
         switch (type)
         {
             case ("Excel Document"):
-                Export.ToExcel(dgv);
+                Export.ToExcel(dgv, fieldsCLB);
                 break;
             case ("Excel Document 2007"):
-                Export.ToXls(dgv);
+                Export.ToXls(dgv, fieldsCLB);
                 break;
             case ("HTML Document"):
-                Export.ToHtml(dgv);
+                Export.ToHtml(dgv, fieldsCLB);
                 break;
             case ("Text File (tab seperated)"):
-                Export.ToTxt(dgv);
+                Export.ToTxt(dgv, fieldsCLB);
                 break;
         }
     }
 
     private void ExportSelected(string type)
     {
+        MessageBox.Show(scope);
         switch (type)
         {
             case ("Excel Document"):
-                Export.SelectedToExcel(dgv);
+                Export.SelectedToExcel(dgv, fieldsCLB);
                 break;
             case ("Excel Document 2007"):
-                Export.SelectedToXls(dgv);
+                Export.SelectedToXls(dgv, fieldsCLB);
                 break;
             case ("HTML Document"):
-                Export.SelectedToHtml(dgv);
+                Export.SelectedToHtml(dgv, fieldsCLB);
                 break;
             case ("Text File (tab seperated)"):
-                Export.SelectedToTxt(dgv);
+                Export.SelectedToTxt(dgv, fieldsCLB);
                 break;
         }
     }
@@ -143,10 +153,24 @@ public partial class ExportPage : Form
                     scopeCLB.SetItemChecked(i, false);
                 }
             }
-            scope = scopeCLB.Items[index].ToString();
+            scope = scopeCLB.CheckedItems[0].ToString();
+            MessageBox.Show(scope);
         }
     }
 
+
+    private void fieldsCLB_MouseDown(object sender, MouseEventArgs e)
+    {
+        // Get the index of the item at the clicked position
+        int index = fieldsCLB.IndexFromPoint(e.Location);
+
+        // Check if the index is valid
+        if (index >= 0)
+        {
+            // Check the clicked item
+            fieldsCLB.SetItemChecked(index, !fieldsCLB.GetItemChecked(index));
+        }
+    }
     private void closeButton_Click(object sender, EventArgs e)
     {
         this.Close();
