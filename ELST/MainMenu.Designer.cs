@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             mainMenuStrip = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             openLogToolStripMenuItem = new ToolStripMenuItem();
@@ -55,11 +55,13 @@
             dgvEvents = new DataGridView();
             panel1 = new Panel();
             splitContainer1 = new SplitContainer();
+            panel2 = new Panel();
+            devicesCLB = new CheckedListBox();
+            splitter2 = new Splitter();
             tableLayoutPanel1 = new TableLayoutPanel();
             uncheckAllDevicesButton = new Button();
             checkAllDevicesButton = new Button();
             splitter1 = new Splitter();
-            devicesCLB = new CheckedListBox();
             startupGB3 = new GroupBox();
             openFileButtonStartGB3 = new Button();
             startInfoLabelGB3 = new Label();
@@ -89,6 +91,9 @@
             pathStatusStrip = new StatusStrip();
             PathTSSLabel = new ToolStripStatusLabel();
             ActualPathTSSLabel = new ToolStripStatusLabel();
+            filterToolStripMenuItem = new ToolStripMenuItem();
+            newFilterToolStripMenuItem = new ToolStripMenuItem();
+            clearFilterToolStripMenuItem = new ToolStripMenuItem();
             mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEvents).BeginInit();
             panel1.SuspendLayout();
@@ -96,6 +101,7 @@
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
+            panel2.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             startupGB3.SuspendLayout();
             startupGB2.SuspendLayout();
@@ -112,7 +118,7 @@
             mainMenuStrip.AutoSize = false;
             mainMenuStrip.Dock = DockStyle.None;
             mainMenuStrip.ImageScalingSize = new Size(20, 20);
-            mainMenuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aboutToolStripMenuItem, analyzeToolStripMenuItem, resetToolStripMenuItem, seeToolStripMenuItem, searchToolStripMenuItem, configureToolStripMenuItem });
+            mainMenuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aboutToolStripMenuItem, analyzeToolStripMenuItem, resetToolStripMenuItem, seeToolStripMenuItem, searchToolStripMenuItem, configureToolStripMenuItem, filterToolStripMenuItem });
             mainMenuStrip.Location = new Point(0, 0);
             mainMenuStrip.Name = "mainMenuStrip";
             mainMenuStrip.Padding = new Padding(4, 1, 0, 1);
@@ -266,33 +272,33 @@
             // 
             dgvEvents.AllowUserToOrderColumns = true;
             dgvEvents.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvEvents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgvEvents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgvEvents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgvEvents.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Window;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            dgvEvents.DefaultCellStyle = dataGridViewCellStyle5;
             dgvEvents.Location = new Point(0, 0);
             dgvEvents.Name = "dgvEvents";
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dgvEvents.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Control;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dgvEvents.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dgvEvents.RowHeadersWidth = 51;
             dgvEvents.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvEvents.Size = new Size(833, 547);
@@ -316,10 +322,9 @@
             // 
             // splitContainer1.Panel1
             // 
+            splitContainer1.Panel1.Controls.Add(panel2);
             splitContainer1.Panel1.Controls.Add(tableLayoutPanel1);
             splitContainer1.Panel1.Controls.Add(splitter1);
-            splitContainer1.Panel1.Controls.Add(devicesCLB);
-            splitContainer1.Panel1.Controls.Add(dirTreeView);
             // 
             // splitContainer1.Panel2
             // 
@@ -334,6 +339,36 @@
             splitContainer1.Size = new Size(1064, 602);
             splitContainer1.SplitterDistance = 227;
             splitContainer1.TabIndex = 0;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(devicesCLB);
+            panel2.Controls.Add(splitter2);
+            panel2.Controls.Add(dirTreeView);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(0, 4);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(227, 564);
+            panel2.TabIndex = 4;
+            // 
+            // devicesCLB
+            // 
+            devicesCLB.Dock = DockStyle.Fill;
+            devicesCLB.FormattingEnabled = true;
+            devicesCLB.Location = new Point(0, 273);
+            devicesCLB.Name = "devicesCLB";
+            devicesCLB.Size = new Size(227, 291);
+            devicesCLB.TabIndex = 2;
+            devicesCLB.ItemCheck += devicesCLB_ItemCheck;
+            // 
+            // splitter2
+            // 
+            splitter2.Dock = DockStyle.Top;
+            splitter2.Location = new Point(0, 269);
+            splitter2.Name = "splitter2";
+            splitter2.Size = new Size(227, 4);
+            splitter2.TabIndex = 2;
+            splitter2.TabStop = false;
             // 
             // tableLayoutPanel1
             // 
@@ -352,6 +387,7 @@
             // 
             // uncheckAllDevicesButton
             // 
+            uncheckAllDevicesButton.Dock = DockStyle.Fill;
             uncheckAllDevicesButton.Location = new Point(116, 3);
             uncheckAllDevicesButton.Name = "uncheckAllDevicesButton";
             uncheckAllDevicesButton.Size = new Size(108, 28);
@@ -362,6 +398,7 @@
             // 
             // checkAllDevicesButton
             // 
+            checkAllDevicesButton.Dock = DockStyle.Fill;
             checkAllDevicesButton.Location = new Point(3, 3);
             checkAllDevicesButton.Name = "checkAllDevicesButton";
             checkAllDevicesButton.Size = new Size(107, 28);
@@ -373,21 +410,11 @@
             // splitter1
             // 
             splitter1.Dock = DockStyle.Top;
-            splitter1.Location = new Point(0, 269);
+            splitter1.Location = new Point(0, 0);
             splitter1.Name = "splitter1";
             splitter1.Size = new Size(227, 4);
             splitter1.TabIndex = 3;
             splitter1.TabStop = false;
-            // 
-            // devicesCLB
-            // 
-            devicesCLB.Dock = DockStyle.Fill;
-            devicesCLB.FormattingEnabled = true;
-            devicesCLB.Location = new Point(0, 269);
-            devicesCLB.Name = "devicesCLB";
-            devicesCLB.Size = new Size(227, 333);
-            devicesCLB.TabIndex = 2;
-            devicesCLB.ItemCheck += devicesCLB_ItemCheck;
             // 
             // startupGB3
             // 
@@ -675,6 +702,26 @@
             ActualPathTSSLabel.Size = new Size(39, 20);
             ActualPathTSSLabel.Text = "path";
             // 
+            // filterToolStripMenuItem
+            // 
+            filterToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newFilterToolStripMenuItem, clearFilterToolStripMenuItem });
+            filterToolStripMenuItem.Name = "filterToolStripMenuItem";
+            filterToolStripMenuItem.Size = new Size(56, 32);
+            filterToolStripMenuItem.Text = "&Filter";
+            // 
+            // newFilterToolStripMenuItem
+            // 
+            newFilterToolStripMenuItem.Name = "newFilterToolStripMenuItem";
+            newFilterToolStripMenuItem.Size = new Size(224, 26);
+            newFilterToolStripMenuItem.Text = "&New Filter";
+            newFilterToolStripMenuItem.Click += newFilterToolStripMenuItem_Click;
+            // 
+            // clearFilterToolStripMenuItem
+            // 
+            clearFilterToolStripMenuItem.Name = "clearFilterToolStripMenuItem";
+            clearFilterToolStripMenuItem.Size = new Size(224, 26);
+            clearFilterToolStripMenuItem.Text = "&Clear filter";
+            // 
             // MainMenu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -697,6 +744,7 @@
             splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
+            panel2.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             startupGB3.ResumeLayout(false);
             startupGB3.PerformLayout();
@@ -775,5 +823,10 @@
         private ToolStripMenuItem configureToolStripMenuItem;
         private ToolStripMenuItem columnsToolStripMenuItem;
         private ToolStripMenuItem exportToolStripMenuItem;
+        private Panel panel2;
+        private Splitter splitter2;
+        private ToolStripMenuItem filterToolStripMenuItem;
+        private ToolStripMenuItem newFilterToolStripMenuItem;
+        private ToolStripMenuItem clearFilterToolStripMenuItem;
     }
 }

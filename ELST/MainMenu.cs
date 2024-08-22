@@ -723,4 +723,10 @@ public partial class MainMenu : Form
         ExportPage export = new ExportPage(dgvEvents);
         export.Show();
     }
+
+    private void newFilterToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        FilterWindow filterWindow = new FilterWindow(customEvents);
+        filterWindow.Show();
+    }
 }
