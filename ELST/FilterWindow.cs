@@ -17,6 +17,7 @@ public partial class FilterWindow : Form
     {
         events = _events;
         InitializeComponent();
+        InitializeEventTypesCLB();
     }
 
     private List<CustomEvent> events;
@@ -58,6 +59,6 @@ public partial class FilterWindow : Form
 
     private void clearButton_Click(object sender, EventArgs e)
     {
-
+        //reseteverything
     }
 } 

@@ -111,4 +111,10 @@ public class CustomEvent
         return result;
     }
 
+    public bool Equals(FilterEvent filterEvent)
+    {
+        //var filters = filterEvent.Filters;
+
+        return false;
+    }
 }
