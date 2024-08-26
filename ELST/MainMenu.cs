@@ -7,16 +7,31 @@ using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Linq;
 using System.Drawing.Text;
+using System.ComponentModel;
 
 
 namespace ELST;
 
 public partial class MainMenu : Form
 {
-    public MainMenu(string filePath, List<string> files)
+    public MainMenu(string filePath)
     {
         defaultFilePath = filePath;
+        selectedFolderPath = System.IO.Path.GetDirectoryName(defaultFilePath);
+        baseDirPath = Path.GetPathRoot(defaultFilePath);
+        filesOfInterest.Add(filePath);
+
+        InitializeComponent();
+        AutoLoadFilePath();
+        InitializeMainMenuStrip();
+        InitializeDGVEvents();
+        InitializeDevicesCLB();
+        InitializeTimeControl();
+    }
+    public MainMenu(List<string> files)
+    {
         filesOfInterest = files;
+        defaultFilePath = files[0];
         selectedFolderPath = System.IO.Path.GetDirectoryName(defaultFilePath);
         baseDirPath = Path.GetPathRoot(defaultFilePath);
 
@@ -204,42 +219,46 @@ public partial class MainMenu : Form
         if (e.Node.Tag is string filePath && File.Exists(filePath))
         {
 
-            GetEvents(filePath);
+            GetEvents(filesOfInterest);
             InitializeDevicesCLB();
             PopulatDGVEvents(customEvents);
             ActualPathTSSLabel.Text = filePath;
         }
     }
 
-    public void GetEvents(string evtxFilePath)
+    public void GetEvents(List<string> filePaths)
     {
         customEvents.Clear();
-        try
+
+        foreach (string file in filePaths)
         {
-            // Create an EventLogQuery object for the .evtx file
-            EventLogQuery query = new EventLogQuery(evtxFilePath, PathType.FilePath);
-
-            // Create an EventLogReader object
-            EventLogReader reader = new EventLogReader(query);
-
-            // Read and display the events
-            EventRecord eventRecord;
-            while ((eventRecord = reader.ReadEvent()) != null)
+            try
             {
-                // Creat event object to store events.
-                CustomEvent customEvent = new CustomEvent(eventRecord);
-                customEvents.Add(customEvent);
+                // Create an EventLogQuery object for the .evtx file
+                EventLogQuery query = new EventLogQuery(file, PathType.FilePath);
 
-                eventRecord.Dispose(); // Release resources
+                // Create an EventLogReader object
+                EventLogReader reader = new EventLogReader(query);
+
+                // Read and display the events
+                EventRecord eventRecord;
+                while ((eventRecord = reader.ReadEvent()) != null)
+                {
+                    // Creat event object to store events.
+                    CustomEvent customEvent = new CustomEvent(eventRecord);
+                    customEvents.Add(customEvent);
+
+                    eventRecord.Dispose(); // Release resources
+                }
             }
-        }
-        catch (UnauthorizedAccessException)
-        {
-            MessageBox.Show("Error: Unauthorized access. Please run the application as Administrator.");
-        }
-        catch (EventLogException e)
-        {
-            MessageBox.Show("Error reading the event log file: " + e.Message);
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show("Error: Unauthorized access. Please run the application as Administrator.");
+            }
+            catch (EventLogException e)
+            {
+                MessageBox.Show("Error reading the event log file: " + e.Message);
+            }
         }
     }
 
@@ -351,6 +370,9 @@ public partial class MainMenu : Form
                 }
             }
         }
+
+        dgvEvents.Sort(dgvEvents.Columns["TimeCreated"], ListSortDirection.Ascending);
+
         eventsTSSLabel.Text = $"Showing {dgvEvents.Rows.Count - 1} of {customEvents.Count} Events";
     }
 
@@ -380,13 +402,16 @@ public partial class MainMenu : Form
         dgvEvents.Columns["ProviderName"].Visible = false;
         dgvEvents.Columns["Level"].Visible = false;
 
+        //neccesary for correct sorting/comparison by time
+        dgvEvents.Columns["TimeCreated"].DefaultCellStyle.Format = "MM/dd/yyyy HH:mm:ss";
+        dgvEvents.Columns["TimeCreated"].ValueType = typeof(DateTime);
 
 
 
         // Adjust column widths
         dgvEvents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
-        GetEvents(defaultFilePath);
+        GetEvents(filesOfInterest);
         PopulatDGVEvents(customEvents);
     }
 

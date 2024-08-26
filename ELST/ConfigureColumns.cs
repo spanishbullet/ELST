@@ -83,4 +83,14 @@ public partial class ConfigureColumns : Form
     {
         this.Hide();
     }
+
+    private void columnsCLB_MouseDown(object sender, MouseEventArgs e)
+    {
+        int index = columnsCLB.IndexFromPoint(e.Location);
+        if (index != ListBox.NoMatches)
+        {
+            // Toggle the checked state
+           columnsCLB.SetItemChecked(index, !columnsCLB.GetItemChecked(index));
+        }
+    }
 }
