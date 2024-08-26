@@ -155,7 +155,12 @@ public partial class MainMenu : Form
     private void AutoLoadFilePath()
     {
         ListDirectory(dirTreeView, selectedFolderPath);
-        ActualPathTSSLabel.Text = defaultFilePath;
+        ActualPathTSSLabel.Text = "";
+    
+        foreach (string path in filesOfInterest)
+        {
+            ActualPathTSSLabel.Text += path + "\n";
+        }
     }
 
     private void openLogToolStripMenuItem_Click(object sender, EventArgs e)
@@ -589,83 +594,6 @@ public partial class MainMenu : Form
             devicesCLB.SetItemChecked(i, true);
         }
         PopulatDGVEvents(customEvents);
-    }
-
-    private void goButtonSGB_Click(object sender, EventArgs e)
-    {
-        MessageBox.Show("Searching drive for files of interest...");
-        startupGB1.Hide();
-        filesOfInterest = Startup.Search(drive, "Microsoft-Windows-Partition%4Diagnostic.evtx");
-
-        if (filesOfInterest.Count > 0)
-        {
-            ConfigureStartupGB2();
-            startupGB2.Show();
-        }
-        else
-        {
-            startupGB3.Show();
-        }
-    }
-
-    private void ConfigureStartupGB2()
-    {
-        infoLabelStartGB2.Text = $"{filesOfInterest.Count} files of interest found:";
-        foreach (string file in filesOfInterest)
-        {
-            foundFilesTV.Nodes.Add(file);
-        }
-    }
-
-    private void selectDriveButtonSGB1_Click(object sender, EventArgs e)
-    {
-        // Open a folder dialog to let the user select a folder
-        using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
-        {
-            folderBrowserDialog.Description = "Select a folder";
-            folderBrowserDialog.ShowNewFolderButton = true;
-            folderBrowserDialog.RootFolder = Environment.SpecialFolder.MyComputer;
-
-            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
-            {
-                // Store the selected folder path in the class-level variable
-                drive = folderBrowserDialog.SelectedPath;
-                drivePathLabelSGB1.Text = drive;
-            }
-            else
-            {
-                return;
-            }
-        }
-    }
-
-    private void openFileButtonStartGB3_Click(object sender, EventArgs e)
-    {
-        using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
-        {
-            folderBrowserDialog.Description = "Select a folder";
-            folderBrowserDialog.ShowNewFolderButton = true;
-            folderBrowserDialog.RootFolder = Environment.SpecialFolder.MyComputer;
-
-            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
-            {
-                // Store the selected folder path in the class-level variable
-                drive = folderBrowserDialog.SelectedPath;
-                drivePathLabelSGB1.Text = drive;
-            }
-            else
-            {
-                return;
-            }
-        }
-    }
-
-    private void openFileButtonStartGB2_Click(object sender, EventArgs e)
-    {
-        TreeNode selectedNode = foundFilesTV.SelectedNode;
-        ListDirectory(dirTreeView, selectedNode.ToString());
-        ActualPathTSSLabel.Text = selectedNode.ToString();
-
     }
 
     private void chooseToolStripMenuItem_Click(object sender, EventArgs e)

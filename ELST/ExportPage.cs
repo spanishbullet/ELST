@@ -152,10 +152,8 @@ public partial class ExportPage : Form
                 }
             }
             scope = scopeCLB.CheckedItems[0].ToString();
-            MessageBox.Show(scope);
         }
     }
-
 
     private void fieldsCLB_MouseDown(object sender, MouseEventArgs e)
     {
@@ -169,6 +167,7 @@ public partial class ExportPage : Form
             fieldsCLB.SetItemChecked(index, !fieldsCLB.GetItemChecked(index));
         }
     }
+
     private void closeButton_Click(object sender, EventArgs e)
     {
         this.Close();

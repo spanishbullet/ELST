@@ -65,18 +65,6 @@
             uncheckAllDevicesButton = new Button();
             checkAllDevicesButton = new Button();
             splitter1 = new Splitter();
-            startupGB3 = new GroupBox();
-            openFileButtonStartGB3 = new Button();
-            startInfoLabelGB3 = new Label();
-            startupGB2 = new GroupBox();
-            openFileButtonStartGB2 = new Button();
-            foundFilesTV = new TreeView();
-            infoLabelStartGB2 = new Label();
-            startupGB1 = new GroupBox();
-            goButtonSGB = new Button();
-            drivePathLabelSGB1 = new Label();
-            selectDriveButtonSGB1 = new Button();
-            infoLabelStartGB1 = new Label();
             searchGB = new GroupBox();
             caseSensitiveCheckBox = new CheckBox();
             closeSearchButton = new Button();
@@ -103,9 +91,6 @@
             splitContainer1.SuspendLayout();
             panel2.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
-            startupGB3.SuspendLayout();
-            startupGB2.SuspendLayout();
-            startupGB1.SuspendLayout();
             searchGB.SuspendLayout();
             eventsStatusStrip.SuspendLayout();
             timeControlGB.SuspendLayout();
@@ -348,9 +333,6 @@
             // 
             // splitContainer1.Panel2
             // 
-            splitContainer1.Panel2.Controls.Add(startupGB3);
-            splitContainer1.Panel2.Controls.Add(startupGB2);
-            splitContainer1.Panel2.Controls.Add(startupGB1);
             splitContainer1.Panel2.Controls.Add(searchGB);
             splitContainer1.Panel2.Controls.Add(eventsStatusStrip);
             splitContainer1.Panel2.Controls.Add(timeControlGB);
@@ -435,128 +417,6 @@
             splitter1.Size = new Size(227, 4);
             splitter1.TabIndex = 3;
             splitter1.TabStop = false;
-            // 
-            // startupGB3
-            // 
-            startupGB3.Controls.Add(openFileButtonStartGB3);
-            startupGB3.Controls.Add(startInfoLabelGB3);
-            startupGB3.Location = new Point(6, 308);
-            startupGB3.Name = "startupGB3";
-            startupGB3.Size = new Size(352, 237);
-            startupGB3.TabIndex = 7;
-            startupGB3.TabStop = false;
-            startupGB3.Text = "Start";
-            startupGB3.Visible = false;
-            // 
-            // openFileButtonStartGB3
-            // 
-            openFileButtonStartGB3.Location = new Point(23, 114);
-            openFileButtonStartGB3.Name = "openFileButtonStartGB3";
-            openFileButtonStartGB3.Size = new Size(94, 29);
-            openFileButtonStartGB3.TabIndex = 2;
-            openFileButtonStartGB3.Text = "Open File";
-            openFileButtonStartGB3.UseVisualStyleBackColor = true;
-            openFileButtonStartGB3.Click += openFileButtonStartGB3_Click;
-            // 
-            // startInfoLabelGB3
-            // 
-            startInfoLabelGB3.AutoSize = true;
-            startInfoLabelGB3.Location = new Point(19, 46);
-            startInfoLabelGB3.Name = "startInfoLabelGB3";
-            startInfoLabelGB3.Size = new Size(179, 20);
-            startInfoLabelGB3.TabIndex = 0;
-            startInfoLabelGB3.Text = "No FIles of interest found:";
-            // 
-            // startupGB2
-            // 
-            startupGB2.Controls.Add(openFileButtonStartGB2);
-            startupGB2.Controls.Add(foundFilesTV);
-            startupGB2.Controls.Add(infoLabelStartGB2);
-            startupGB2.Location = new Point(364, 65);
-            startupGB2.Name = "startupGB2";
-            startupGB2.Size = new Size(457, 237);
-            startupGB2.TabIndex = 6;
-            startupGB2.TabStop = false;
-            startupGB2.Text = "Start";
-            startupGB2.Visible = false;
-            // 
-            // openFileButtonStartGB2
-            // 
-            openFileButtonStartGB2.Location = new Point(127, 179);
-            openFileButtonStartGB2.Name = "openFileButtonStartGB2";
-            openFileButtonStartGB2.Size = new Size(94, 29);
-            openFileButtonStartGB2.TabIndex = 2;
-            openFileButtonStartGB2.Text = "Open File";
-            openFileButtonStartGB2.UseVisualStyleBackColor = true;
-            openFileButtonStartGB2.Click += openFileButtonStartGB2_Click;
-            // 
-            // foundFilesTV
-            // 
-            foundFilesTV.Location = new Point(19, 83);
-            foundFilesTV.Name = "foundFilesTV";
-            foundFilesTV.Size = new Size(421, 77);
-            foundFilesTV.TabIndex = 1;
-            // 
-            // infoLabelStartGB2
-            // 
-            infoLabelStartGB2.AutoSize = true;
-            infoLabelStartGB2.Location = new Point(19, 46);
-            infoLabelStartGB2.Name = "infoLabelStartGB2";
-            infoLabelStartGB2.Size = new Size(168, 20);
-            infoLabelStartGB2.TabIndex = 0;
-            infoLabelStartGB2.Text = "# FIles of interest found:";
-            // 
-            // startupGB1
-            // 
-            startupGB1.Controls.Add(goButtonSGB);
-            startupGB1.Controls.Add(drivePathLabelSGB1);
-            startupGB1.Controls.Add(selectDriveButtonSGB1);
-            startupGB1.Controls.Add(infoLabelStartGB1);
-            startupGB1.Location = new Point(6, 65);
-            startupGB1.Name = "startupGB1";
-            startupGB1.Size = new Size(352, 237);
-            startupGB1.TabIndex = 5;
-            startupGB1.TabStop = false;
-            startupGB1.Text = "Start";
-            startupGB1.Visible = false;
-            // 
-            // goButtonSGB
-            // 
-            goButtonSGB.Location = new Point(6, 152);
-            goButtonSGB.Name = "goButtonSGB";
-            goButtonSGB.Size = new Size(111, 29);
-            goButtonSGB.TabIndex = 3;
-            goButtonSGB.Text = "Go";
-            goButtonSGB.UseVisualStyleBackColor = true;
-            goButtonSGB.Click += goButtonSGB_Click;
-            // 
-            // drivePathLabelSGB1
-            // 
-            drivePathLabelSGB1.AutoSize = true;
-            drivePathLabelSGB1.Location = new Point(134, 100);
-            drivePathLabelSGB1.Name = "drivePathLabelSGB1";
-            drivePathLabelSGB1.Size = new Size(137, 20);
-            drivePathLabelSGB1.TabIndex = 2;
-            drivePathLabelSGB1.Text = "Selected drive path";
-            // 
-            // selectDriveButtonSGB1
-            // 
-            selectDriveButtonSGB1.Location = new Point(6, 96);
-            selectDriveButtonSGB1.Name = "selectDriveButtonSGB1";
-            selectDriveButtonSGB1.Size = new Size(111, 29);
-            selectDriveButtonSGB1.TabIndex = 1;
-            selectDriveButtonSGB1.Text = "Select Drive";
-            selectDriveButtonSGB1.UseVisualStyleBackColor = true;
-            selectDriveButtonSGB1.Click += selectDriveButtonSGB1_Click;
-            // 
-            // infoLabelStartGB1
-            // 
-            infoLabelStartGB1.AutoSize = true;
-            infoLabelStartGB1.Location = new Point(6, 46);
-            infoLabelStartGB1.Name = "infoLabelStartGB1";
-            infoLabelStartGB1.Size = new Size(209, 20);
-            infoLabelStartGB1.TabIndex = 0;
-            infoLabelStartGB1.Text = "Please select a drive to search:";
             // 
             // searchGB
             // 
@@ -713,14 +573,16 @@
             // PathTSSLabel
             // 
             PathTSSLabel.Name = "PathTSSLabel";
-            PathTSSLabel.Size = new Size(92, 20);
-            PathTSSLabel.Text = "Current Path:";
+            PathTSSLabel.Size = new Size(108, 20);
+            PathTSSLabel.Text = "Current Path(s):";
+            PathTSSLabel.TextAlign = ContentAlignment.TopLeft;
             // 
             // ActualPathTSSLabel
             // 
             ActualPathTSSLabel.Name = "ActualPathTSSLabel";
             ActualPathTSSLabel.Size = new Size(39, 20);
             ActualPathTSSLabel.Text = "path";
+            ActualPathTSSLabel.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // MainMenu
             // 
@@ -746,12 +608,6 @@
             splitContainer1.ResumeLayout(false);
             panel2.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
-            startupGB3.ResumeLayout(false);
-            startupGB3.PerformLayout();
-            startupGB2.ResumeLayout(false);
-            startupGB2.PerformLayout();
-            startupGB1.ResumeLayout(false);
-            startupGB1.PerformLayout();
             searchGB.ResumeLayout(false);
             searchGB.PerformLayout();
             eventsStatusStrip.ResumeLayout(false);
@@ -806,20 +662,8 @@
         private Button uncheckAllDevicesButton;
         private Button checkAllDevicesButton;
         private TableLayoutPanel tableLayoutPanel1;
-        private GroupBox startupGB2;
-        private Button openFileButtonStartGB2;
-        private TreeView foundFilesTV;
-        private Label infoLabelStartGB2;
-        private GroupBox startupGB3;
-        private Button openFileButtonStartGB3;
-        private Label startInfoLabelGB3;
         private ToolStripMenuItem chooseToolStripMenuItem;
         private ToolStripMenuItem filesOfInterestToolStripMenuItem;
-        private GroupBox startupGB1;
-        private Button goButtonSGB;
-        private Label drivePathLabelSGB1;
-        private Button selectDriveButtonSGB1;
-        private Label infoLabelStartGB1;
         private ToolStripMenuItem configureToolStripMenuItem;
         private ToolStripMenuItem columnsToolStripMenuItem;
         private ToolStripMenuItem exportToolStripMenuItem;
