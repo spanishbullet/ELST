@@ -75,15 +75,15 @@ public class CustomEvent
         return recordNumber;
     }
 
-    public List<string> GetAllAttributes()
+    public List<object> GetAllAttributes()
     {
-        List<string> result = new List<string>();
-        result.Add(Id.ToString());
+        List<object> result = new List<object>();
+        result.Add(Id);
         result.Add(ProviderName);
         result.Add(Level);
         result.Add(Message);
         result.Add(recordNumber);
-        result.Add(TimeCreated.ToString());
+        result.Add(TimeCreated);
         result.Add(capacity);
         result.Add(action);
         result.Add(manufacturer);
