@@ -1,4 +1,5 @@
 ﻿using ELSTWinFormsLibrary;
+using NPOI.SS.Formula.Functions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,7 @@ public partial class StartupPage : Form
     public bool cancel;
     private string drive;
     private List<string> filesOfInterest = new List<string>();
+    private List<string> selectedFilesOfInterest = new List<string>();
 
 
     public StartupPage()
@@ -115,19 +117,44 @@ public partial class StartupPage : Form
 
     private void openFileButtonDriveSearch_Click(object sender, EventArgs e)
     {
-        foreach (var item in foundFilesCLB.CheckedItems)
+        if (foundFilesCLB.CheckedItems.Count == 0)
         {
-            string filePath = item.ToString();
-            MainMenu mainMenu = new MainMenu(filePath, filesOfInterest);
-            mainMenu.Show();
+            foreach (var item in foundFilesCLB.Items)
+            {
+                string filePath = item.ToString();
+                MainMenu mainMenu = new MainMenu(filePath);
+                mainMenu.Show();
+            }
         }
+        else
+        {
+            foreach (var item in foundFilesCLB.CheckedItems)
+            {
+                string filePath = item.ToString();
+                MainMenu mainMenu = new MainMenu(filePath);
+                mainMenu.Show();
+            }
+        }
+
     }
 
     private void openTogetherButtonDriveSearch_Click(object sender, EventArgs e)
     {
-       /* string filePath = item.ToString();
-        MainMenu mainMenu = new MainMenu(filePath, filesOfInterest);
-        mainMenu.Show();*/
+        if (foundFilesCLB.CheckedItems.Count == 0)
+        {
+            MainMenu mainMenu = new MainMenu(filesOfInterest);
+            mainMenu.Show();
+        }
+        else
+        {
+            selectedFilesOfInterest.Clear();
+            foreach (var item in foundFilesCLB.CheckedItems)
+            {
+                selectedFilesOfInterest.Add(item.ToString());
+            }
+            MainMenu mainMenu = new MainMenu(selectedFilesOfInterest);
+            mainMenu.Show();
+        }
     }
 
     private void openFileButtonManual_Click(object sender, EventArgs e)
@@ -148,10 +175,18 @@ public partial class StartupPage : Form
         {
             // Get the selected file's path.
             string filePath = openFileDialog.FileName;
-            MainMenu mainMenu = new MainMenu(filePath, filesOfInterest);
+            MainMenu mainMenu = new MainMenu(filePath);
             mainMenu.Show();
         }
     }
 
-    
+    private void foundFilesCLB_ItemCheck(object sender, ItemCheckEventArgs e)
+    {
+        // Prevent recursive handling by checking if the item is already being checked
+        if (e.CurrentValue == e.NewValue)
+            return;
+
+        // Set the new value based on the current state
+        e.NewValue = e.CurrentValue == CheckState.Checked ? CheckState.Unchecked : CheckState.Checked;
+    }
 }

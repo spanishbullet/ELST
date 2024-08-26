@@ -34,11 +34,11 @@
             infoLabelDriveSearch = new Label();
             openFileButtonDriveSearch = new Button();
             driveSearchGB = new GroupBox();
+            openTogetherButtonDriveSearch = new Button();
             foundFilesCLB = new CheckedListBox();
             foundFilesLabel = new Label();
             manualOpenGB = new GroupBox();
             openFileButtonManual = new Button();
-            openTogetherButtonDriveSearch = new Button();
             driveSearchGB.SuspendLayout();
             manualOpenGB.SuspendLayout();
             SuspendLayout();
@@ -109,6 +109,16 @@
             driveSearchGB.TabStop = false;
             driveSearchGB.Text = "Drive Search";
             // 
+            // openTogetherButtonDriveSearch
+            // 
+            openTogetherButtonDriveSearch.Location = new Point(133, 227);
+            openTogetherButtonDriveSearch.Name = "openTogetherButtonDriveSearch";
+            openTogetherButtonDriveSearch.Size = new Size(140, 29);
+            openTogetherButtonDriveSearch.TabIndex = 11;
+            openTogetherButtonDriveSearch.Text = "Open Together";
+            openTogetherButtonDriveSearch.UseVisualStyleBackColor = true;
+            openTogetherButtonDriveSearch.Click += openTogetherButtonDriveSearch_Click;
+            // 
             // foundFilesCLB
             // 
             foundFilesCLB.FormattingEnabled = true;
@@ -116,6 +126,7 @@
             foundFilesCLB.Name = "foundFilesCLB";
             foundFilesCLB.Size = new Size(750, 70);
             foundFilesCLB.TabIndex = 10;
+            foundFilesCLB.ItemCheck += foundFilesCLB_ItemCheck;
             // 
             // foundFilesLabel
             // 
@@ -146,16 +157,6 @@
             openFileButtonManual.Text = "Open File";
             openFileButtonManual.UseVisualStyleBackColor = true;
             openFileButtonManual.Click += openFileButtonManual_Click;
-            // 
-            // openTogetherButtonDriveSearch
-            // 
-            openTogetherButtonDriveSearch.Location = new Point(133, 227);
-            openTogetherButtonDriveSearch.Name = "openTogetherButtonDriveSearch";
-            openTogetherButtonDriveSearch.Size = new Size(140, 29);
-            openTogetherButtonDriveSearch.TabIndex = 11;
-            openTogetherButtonDriveSearch.Text = "Open Together";
-            openTogetherButtonDriveSearch.UseVisualStyleBackColor = true;
-            openTogetherButtonDriveSearch.Click += openTogetherButtonDriveSearch_Click;
             // 
             // StartupPage
             // 
