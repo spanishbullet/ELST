@@ -19,15 +19,6 @@ namespace ELST
         private TreeNode selectedNode;
         private Device selectedDevice;
 
-        /*public DevicesPage(List<Device> deviceList)
-        {
-            devices = deviceList;
-            InitializeComponent();
-            InitializeDevicesTV();
-            InitializeDGVDevices();
-            InitializeDGVDeviceEvents();
-        }*/
-
         public DevicesPage(MainMenu mainMenu)
         {
             selectedDevices = mainMenu.selectedDevices;
@@ -66,7 +57,6 @@ namespace ELST
             dgvDevices.Columns.Add("Revision", "Revision");
             dgvDevices.Columns.Add("ParentID", "Parent ID");
             dgvDevices.Columns.Add("Capacity", "Capacity");
-
 
             // Adjust column widths
             dgvDevices.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
