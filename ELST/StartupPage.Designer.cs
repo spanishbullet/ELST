@@ -33,11 +33,12 @@
             selectDriveButtonDriveSearch = new Button();
             infoLabelDriveSearch = new Label();
             openFileButtonDriveSearch = new Button();
-            foundFilesTV = new TreeView();
             driveSearchGB = new GroupBox();
+            foundFilesCLB = new CheckedListBox();
             foundFilesLabel = new Label();
             manualOpenGB = new GroupBox();
             openFileButtonManual = new Button();
+            openTogetherButtonDriveSearch = new Button();
             driveSearchGB.SuspendLayout();
             manualOpenGB.SuspendLayout();
             SuspendLayout();
@@ -82,28 +83,21 @@
             // 
             // openFileButtonDriveSearch
             // 
-            openFileButtonDriveSearch.Location = new Point(6, 228);
+            openFileButtonDriveSearch.Location = new Point(6, 227);
             openFileButtonDriveSearch.Name = "openFileButtonDriveSearch";
-            openFileButtonDriveSearch.Size = new Size(94, 29);
+            openFileButtonDriveSearch.Size = new Size(111, 29);
             openFileButtonDriveSearch.TabIndex = 4;
-            openFileButtonDriveSearch.Text = "Open File";
+            openFileButtonDriveSearch.Text = "Open File(s)";
             openFileButtonDriveSearch.UseVisualStyleBackColor = true;
             openFileButtonDriveSearch.Click += openFileButtonDriveSearch_Click;
             // 
-            // foundFilesTV
-            // 
-            foundFilesTV.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            foundFilesTV.Location = new Point(6, 145);
-            foundFilesTV.Name = "foundFilesTV";
-            foundFilesTV.Size = new Size(749, 77);
-            foundFilesTV.TabIndex = 3;
-            // 
             // driveSearchGB
             // 
+            driveSearchGB.Controls.Add(openTogetherButtonDriveSearch);
+            driveSearchGB.Controls.Add(foundFilesCLB);
             driveSearchGB.Controls.Add(foundFilesLabel);
             driveSearchGB.Controls.Add(searchButtonDriveSearch);
             driveSearchGB.Controls.Add(drivePathLabelDriveSearh);
-            driveSearchGB.Controls.Add(foundFilesTV);
             driveSearchGB.Controls.Add(selectDriveButtonDriveSearch);
             driveSearchGB.Controls.Add(openFileButtonDriveSearch);
             driveSearchGB.Controls.Add(infoLabelDriveSearch);
@@ -114,6 +108,14 @@
             driveSearchGB.TabIndex = 11;
             driveSearchGB.TabStop = false;
             driveSearchGB.Text = "Drive Search";
+            // 
+            // foundFilesCLB
+            // 
+            foundFilesCLB.FormattingEnabled = true;
+            foundFilesCLB.Location = new Point(6, 148);
+            foundFilesCLB.Name = "foundFilesCLB";
+            foundFilesCLB.Size = new Size(750, 70);
+            foundFilesCLB.TabIndex = 10;
             // 
             // foundFilesLabel
             // 
@@ -145,6 +147,16 @@
             openFileButtonManual.UseVisualStyleBackColor = true;
             openFileButtonManual.Click += openFileButtonManual_Click;
             // 
+            // openTogetherButtonDriveSearch
+            // 
+            openTogetherButtonDriveSearch.Location = new Point(133, 227);
+            openTogetherButtonDriveSearch.Name = "openTogetherButtonDriveSearch";
+            openTogetherButtonDriveSearch.Size = new Size(140, 29);
+            openTogetherButtonDriveSearch.TabIndex = 11;
+            openTogetherButtonDriveSearch.Text = "Open Together";
+            openTogetherButtonDriveSearch.UseVisualStyleBackColor = true;
+            openTogetherButtonDriveSearch.Click += openTogetherButtonDriveSearch_Click;
+            // 
             // StartupPage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -168,10 +180,11 @@
         private Button selectDriveButtonDriveSearch;
         private Label infoLabelDriveSearch;
         private Button openFileButtonDriveSearch;
-        private TreeView foundFilesTV;
         private GroupBox driveSearchGB;
         private GroupBox manualOpenGB;
         private Button openFileButtonManual;
         private Label foundFilesLabel;
+        private CheckedListBox foundFilesCLB;
+        private Button openTogetherButtonDriveSearch;
     }
 }

@@ -49,20 +49,21 @@ public partial class StartupPage : Form
                         foreach (string file in filesOfInterest)
                         {
                             // Check if the node already exists
-                            bool nodeExists = false;
-                            foreach (TreeNode node in foundFilesTV.Nodes)
+                            bool itemExists = false;
+
+                            foreach (var item in foundFilesCLB.Items)
                             {
-                                if (node.Text.Equals(file, StringComparison.OrdinalIgnoreCase))
+                                if (item.ToString().Equals(file, StringComparison.OrdinalIgnoreCase))
                                 {
-                                    nodeExists = true;
+                                    itemExists = true;
                                     break;
                                 }
                             }
 
                             // Add the node only if it does not exist
-                            if (!nodeExists)
+                            if (!itemExists)
                             {
-                                foundFilesTV.Nodes.Add(file);
+                                foundFilesCLB.Items.Add(file);
                             }
                         }
 
@@ -114,10 +115,19 @@ public partial class StartupPage : Form
 
     private void openFileButtonDriveSearch_Click(object sender, EventArgs e)
     {
-        string filePath = foundFilesTV.SelectedNode.Text;
-        string folderPath = "";
+        foreach (var item in foundFilesCLB.CheckedItems)
+        {
+            string filePath = item.ToString();
+            MainMenu mainMenu = new MainMenu(filePath, filesOfInterest);
+            mainMenu.Show();
+        }
+    }
+
+    private void openTogetherButtonDriveSearch_Click(object sender, EventArgs e)
+    {
+       /* string filePath = item.ToString();
         MainMenu mainMenu = new MainMenu(filePath, filesOfInterest);
-        mainMenu.Show();
+        mainMenu.Show();*/
     }
 
     private void openFileButtonManual_Click(object sender, EventArgs e)
@@ -142,4 +152,6 @@ public partial class StartupPage : Form
             mainMenu.Show();
         }
     }
+
+    
 }
