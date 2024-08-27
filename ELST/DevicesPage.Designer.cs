@@ -32,6 +32,8 @@
             devicesPageMenuStrip = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             exitToolStripMenuItem = new ToolStripMenuItem();
+            analyzeToolStripMenuItem = new ToolStripMenuItem();
+            actionsToolStripMenuItem = new ToolStripMenuItem();
             panel1 = new Panel();
             devicesStatusStrip = new StatusStrip();
             devicesTVSSTLabel = new ToolStripStatusLabel();
@@ -40,6 +42,8 @@
             statusStrip1 = new StatusStrip();
             toolStripStatusLabel1 = new ToolStripStatusLabel();
             dgvDevices = new DataGridView();
+            otherEventsTS = new StatusStrip();
+            otherEventsTSSLabel = new ToolStripStatusLabel();
             statusStrip2 = new StatusStrip();
             toolStripStatusLabel2 = new ToolStripStatusLabel();
             dgvDeviceEvents = new DataGridView();
@@ -54,6 +58,7 @@
             splitContainer2.SuspendLayout();
             statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDevices).BeginInit();
+            otherEventsTS.SuspendLayout();
             statusStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDeviceEvents).BeginInit();
             SuspendLayout();
@@ -68,7 +73,7 @@
             // devicesPageMenuStrip
             // 
             devicesPageMenuStrip.ImageScalingSize = new Size(20, 20);
-            devicesPageMenuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem });
+            devicesPageMenuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, analyzeToolStripMenuItem });
             devicesPageMenuStrip.Location = new Point(0, 0);
             devicesPageMenuStrip.Name = "devicesPageMenuStrip";
             devicesPageMenuStrip.Size = new Size(1062, 28);
@@ -89,6 +94,20 @@
             exitToolStripMenuItem.Size = new Size(116, 26);
             exitToolStripMenuItem.Text = "&Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
+            // 
+            // analyzeToolStripMenuItem
+            // 
+            analyzeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { actionsToolStripMenuItem });
+            analyzeToolStripMenuItem.Name = "analyzeToolStripMenuItem";
+            analyzeToolStripMenuItem.Size = new Size(75, 24);
+            analyzeToolStripMenuItem.Text = "&Analyze";
+            // 
+            // actionsToolStripMenuItem
+            // 
+            actionsToolStripMenuItem.Name = "actionsToolStripMenuItem";
+            actionsToolStripMenuItem.Size = new Size(141, 26);
+            actionsToolStripMenuItem.Text = "&Actions";
+            actionsToolStripMenuItem.Click += actionsToolStripMenuItem_Click;
             // 
             // panel1
             // 
@@ -143,6 +162,7 @@
             // 
             // splitContainer2.Panel2
             // 
+            splitContainer2.Panel2.Controls.Add(otherEventsTS);
             splitContainer2.Panel2.Controls.Add(statusStrip2);
             splitContainer2.Panel2.Controls.Add(dgvDeviceEvents);
             splitContainer2.Panel2.UseWaitCursor = true;
@@ -180,6 +200,23 @@
             dgvDevices.TabIndex = 0;
             dgvDevices.UseWaitCursor = true;
             // 
+            // otherEventsTS
+            // 
+            otherEventsTS.ImageScalingSize = new Size(20, 20);
+            otherEventsTS.Items.AddRange(new ToolStripItem[] { otherEventsTSSLabel });
+            otherEventsTS.Location = new Point(0, 417);
+            otherEventsTS.Name = "otherEventsTS";
+            otherEventsTS.Size = new Size(812, 26);
+            otherEventsTS.TabIndex = 2;
+            otherEventsTS.Text = "statusStrip3";
+            otherEventsTS.UseWaitCursor = true;
+            // 
+            // otherEventsTSSLabel
+            // 
+            otherEventsTSSLabel.Name = "otherEventsTSSLabel";
+            otherEventsTSSLabel.Size = new Size(277, 20);
+            otherEventsTSSLabel.Text = "Events Outside Current Timeframe: None";
+            // 
             // statusStrip2
             // 
             statusStrip2.Dock = DockStyle.Top;
@@ -205,7 +242,7 @@
             dgvDeviceEvents.Location = new Point(0, 25);
             dgvDeviceEvents.Name = "dgvDeviceEvents";
             dgvDeviceEvents.RowHeadersWidth = 51;
-            dgvDeviceEvents.Size = new Size(812, 418);
+            dgvDeviceEvents.Size = new Size(812, 379);
             dgvDeviceEvents.TabIndex = 0;
             dgvDeviceEvents.UseWaitCursor = true;
             // 
@@ -219,7 +256,8 @@
             Controls.Add(devicesPageMenuStrip);
             MainMenuStrip = devicesPageMenuStrip;
             Name = "DevicesPage";
-            Text = "Devices";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "ELST - Devices";
             UseWaitCursor = true;
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
@@ -238,6 +276,8 @@
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDevices).EndInit();
+            otherEventsTS.ResumeLayout(false);
+            otherEventsTS.PerformLayout();
             statusStrip2.ResumeLayout(false);
             statusStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDeviceEvents).EndInit();
@@ -261,5 +301,9 @@
         private ToolStripStatusLabel toolStripStatusLabel1;
         private StatusStrip statusStrip2;
         private ToolStripStatusLabel toolStripStatusLabel2;
+        private StatusStrip otherEventsTS;
+        private ToolStripStatusLabel otherEventsTSSLabel;
+        private ToolStripMenuItem analyzeToolStripMenuItem;
+        private ToolStripMenuItem actionsToolStripMenuItem;
     }
 }

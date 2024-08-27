@@ -31,9 +31,12 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            menuStrip1 = new MenuStrip();
+            mainMenuStrip = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             openLogToolStripMenuItem = new ToolStripMenuItem();
+            chooseToolStripMenuItem = new ToolStripMenuItem();
+            filesOfInterestToolStripMenuItem = new ToolStripMenuItem();
+            exportToolStripMenuItem = new ToolStripMenuItem();
             exitToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem = new ToolStripMenuItem();
             infoToolStripMenuItem = new ToolStripMenuItem();
@@ -43,76 +46,117 @@
             timeCToolStripMenuItem = new ToolStripMenuItem();
             resetToolStripMenuItem = new ToolStripMenuItem();
             resetCellsToolStripMenuItem1 = new ToolStripMenuItem();
-            resetTimeToolStripMenuItem = new ToolStripMenuItem();
-            viewToolStripMenuItem = new ToolStripMenuItem();
+            seeToolStripMenuItem = new ToolStripMenuItem();
             devicesToolStripMenuItem = new ToolStripMenuItem();
-            adjustToolStripMenuItem = new ToolStripMenuItem();
-            timeframeToolStripMenuItem = new ToolStripMenuItem();
+            searchToolStripMenuItem = new ToolStripMenuItem();
+            configureToolStripMenuItem = new ToolStripMenuItem();
+            columnsToolStripMenuItem = new ToolStripMenuItem();
+            filterToolStripMenuItem = new ToolStripMenuItem();
+            newFilterToolStripMenuItem = new ToolStripMenuItem();
+            clearFilterToolStripMenuItem = new ToolStripMenuItem();
             dirTreeView = new TreeView();
             dgvEvents = new DataGridView();
             panel1 = new Panel();
             splitContainer1 = new SplitContainer();
-            timeframeStatusStrip = new StatusStrip();
-            timeframeTSSLabel = new ToolStripStatusLabel();
+            panel2 = new Panel();
+            devicesCLB = new CheckedListBox();
+            splitter2 = new Splitter();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            uncheckAllDevicesButton = new Button();
+            checkAllDevicesButton = new Button();
+            splitter1 = new Splitter();
+            searchGB = new GroupBox();
+            caseSensitiveCheckBox = new CheckBox();
+            closeSearchButton = new Button();
+            searchButton = new Button();
+            searchTextBox = new TextBox();
+            eventsStatusStrip = new StatusStrip();
+            eventsTSSLabel = new ToolStripStatusLabel();
             timeControlGB = new GroupBox();
-            cancelTimeFrameButton = new Button();
-            applyTimeFrameButton = new Button();
+            resetTimefreameButtom = new Button();
+            applyTimeframeButton = new Button();
             endDTP = new DateTimePicker();
             endTimeLabel = new Label();
-            startTimeLabel = new Label();
+            timeArrowLabel = new Label();
             startDTP = new DateTimePicker();
             pathStatusStrip = new StatusStrip();
             PathTSSLabel = new ToolStripStatusLabel();
             ActualPathTSSLabel = new ToolStripStatusLabel();
-            menuStrip1.SuspendLayout();
+            mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEvents).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
-            timeframeStatusStrip.SuspendLayout();
+            panel2.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            searchGB.SuspendLayout();
+            eventsStatusStrip.SuspendLayout();
             timeControlGB.SuspendLayout();
             pathStatusStrip.SuspendLayout();
             SuspendLayout();
             // 
-            // menuStrip1
+            // mainMenuStrip
             // 
-            menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aboutToolStripMenuItem, analyzeToolStripMenuItem, resetToolStripMenuItem, viewToolStripMenuItem, adjustToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Padding = new Padding(4, 1, 0, 1);
-            menuStrip1.Size = new Size(1064, 26);
-            menuStrip1.TabIndex = 0;
-            menuStrip1.Text = "menuStrip1";
+            mainMenuStrip.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            mainMenuStrip.AutoSize = false;
+            mainMenuStrip.Dock = DockStyle.None;
+            mainMenuStrip.ImageScalingSize = new Size(20, 20);
+            mainMenuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aboutToolStripMenuItem, analyzeToolStripMenuItem, resetToolStripMenuItem, seeToolStripMenuItem, searchToolStripMenuItem, configureToolStripMenuItem, filterToolStripMenuItem });
+            mainMenuStrip.Location = new Point(0, 0);
+            mainMenuStrip.Name = "mainMenuStrip";
+            mainMenuStrip.Padding = new Padding(4, 1, 0, 1);
+            mainMenuStrip.Size = new Size(1064, 34);
+            mainMenuStrip.TabIndex = 0;
+            mainMenuStrip.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { openLogToolStripMenuItem, exitToolStripMenuItem });
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { openLogToolStripMenuItem, exportToolStripMenuItem, exitToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new Size(46, 24);
+            fileToolStripMenuItem.Size = new Size(46, 32);
             fileToolStripMenuItem.Text = "&File";
             // 
             // openLogToolStripMenuItem
             // 
+            openLogToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { chooseToolStripMenuItem, filesOfInterestToolStripMenuItem });
             openLogToolStripMenuItem.Name = "openLogToolStripMenuItem";
             openLogToolStripMenuItem.Size = new Size(157, 26);
             openLogToolStripMenuItem.Text = "&Open Log";
-            openLogToolStripMenuItem.Click += openLogToolStripMenuItem_Click;
+            // 
+            // chooseToolStripMenuItem
+            // 
+            chooseToolStripMenuItem.Name = "chooseToolStripMenuItem";
+            chooseToolStripMenuItem.Size = new Size(192, 26);
+            chooseToolStripMenuItem.Text = "&Choose";
+            chooseToolStripMenuItem.Click += chooseToolStripMenuItem_Click;
+            // 
+            // filesOfInterestToolStripMenuItem
+            // 
+            filesOfInterestToolStripMenuItem.Name = "filesOfInterestToolStripMenuItem";
+            filesOfInterestToolStripMenuItem.Size = new Size(192, 26);
+            filesOfInterestToolStripMenuItem.Text = "&Files of Interest";
+            // 
+            // exportToolStripMenuItem
+            // 
+            exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            exportToolStripMenuItem.Size = new Size(157, 26);
+            exportToolStripMenuItem.Text = "&Export";
+            exportToolStripMenuItem.Click += exportToolStripMenuItem_Click;
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             exitToolStripMenuItem.Size = new Size(157, 26);
-            exitToolStripMenuItem.Text = "&Exit";
+            exitToolStripMenuItem.Text = "E&xit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
             // aboutToolStripMenuItem
             // 
             aboutToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { infoToolStripMenuItem, aboutToolStripMenuItem1 });
             aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            aboutToolStripMenuItem.Size = new Size(55, 24);
+            aboutToolStripMenuItem.Size = new Size(55, 32);
             aboutToolStripMenuItem.Text = "&Help";
             // 
             // infoToolStripMenuItem
@@ -133,7 +177,7 @@
             // 
             analyzeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { recordNumbersToolStripMenuItem, timeCToolStripMenuItem });
             analyzeToolStripMenuItem.Name = "analyzeToolStripMenuItem";
-            analyzeToolStripMenuItem.Size = new Size(75, 24);
+            analyzeToolStripMenuItem.Size = new Size(75, 32);
             analyzeToolStripMenuItem.Text = "&Analyze";
             // 
             // recordNumbersToolStripMenuItem
@@ -152,31 +196,24 @@
             // 
             // resetToolStripMenuItem
             // 
-            resetToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { resetCellsToolStripMenuItem1, resetTimeToolStripMenuItem });
+            resetToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { resetCellsToolStripMenuItem1 });
             resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            resetToolStripMenuItem.Size = new Size(59, 24);
+            resetToolStripMenuItem.Size = new Size(59, 32);
             resetToolStripMenuItem.Text = "&Reset";
             // 
             // resetCellsToolStripMenuItem1
             // 
             resetCellsToolStripMenuItem1.Name = "resetCellsToolStripMenuItem1";
-            resetCellsToolStripMenuItem1.Size = new Size(204, 26);
+            resetCellsToolStripMenuItem1.Size = new Size(163, 26);
             resetCellsToolStripMenuItem1.Text = "Reset &Cells";
             resetCellsToolStripMenuItem1.Click += resetToolStripMenuItem1_Click;
             // 
-            // resetTimeToolStripMenuItem
+            // seeToolStripMenuItem
             // 
-            resetTimeToolStripMenuItem.Name = "resetTimeToolStripMenuItem";
-            resetTimeToolStripMenuItem.Size = new Size(204, 26);
-            resetTimeToolStripMenuItem.Text = "Reset &Timeframe";
-            resetTimeToolStripMenuItem.Click += resetTimeToolStripMenuItem_Click;
-            // 
-            // viewToolStripMenuItem
-            // 
-            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { devicesToolStripMenuItem });
-            viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            viewToolStripMenuItem.Size = new Size(55, 24);
-            viewToolStripMenuItem.Text = "&View";
+            seeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { devicesToolStripMenuItem });
+            seeToolStripMenuItem.Name = "seeToolStripMenuItem";
+            seeToolStripMenuItem.Size = new Size(47, 32);
+            seeToolStripMenuItem.Text = "&See";
             // 
             // devicesToolStripMenuItem
             // 
@@ -185,27 +222,55 @@
             devicesToolStripMenuItem.Text = "&Devices";
             devicesToolStripMenuItem.Click += devicesToolStripMenuItem_Click;
             // 
-            // adjustToolStripMenuItem
+            // searchToolStripMenuItem
             // 
-            adjustToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { timeframeToolStripMenuItem });
-            adjustToolStripMenuItem.Name = "adjustToolStripMenuItem";
-            adjustToolStripMenuItem.Size = new Size(65, 24);
-            adjustToolStripMenuItem.Text = "A&djust";
+            searchToolStripMenuItem.Name = "searchToolStripMenuItem";
+            searchToolStripMenuItem.Size = new Size(67, 32);
+            searchToolStripMenuItem.Text = "&Search";
+            searchToolStripMenuItem.Click += searchToolStripMenuItem_Click;
             // 
-            // timeframeToolStripMenuItem
+            // configureToolStripMenuItem
             // 
-            timeframeToolStripMenuItem.Name = "timeframeToolStripMenuItem";
-            timeframeToolStripMenuItem.Size = new Size(164, 26);
-            timeframeToolStripMenuItem.Text = "&Timeframe";
-            timeframeToolStripMenuItem.Click += timeframeToolStripMenuItem_Click;
+            configureToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { columnsToolStripMenuItem });
+            configureToolStripMenuItem.Name = "configureToolStripMenuItem";
+            configureToolStripMenuItem.Size = new Size(88, 32);
+            configureToolStripMenuItem.Text = "&Configure";
+            // 
+            // columnsToolStripMenuItem
+            // 
+            columnsToolStripMenuItem.Name = "columnsToolStripMenuItem";
+            columnsToolStripMenuItem.Size = new Size(149, 26);
+            columnsToolStripMenuItem.Text = "&Columns";
+            columnsToolStripMenuItem.Click += columnsToolStripMenuItem_Click;
+            // 
+            // filterToolStripMenuItem
+            // 
+            filterToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newFilterToolStripMenuItem, clearFilterToolStripMenuItem });
+            filterToolStripMenuItem.Name = "filterToolStripMenuItem";
+            filterToolStripMenuItem.Size = new Size(56, 32);
+            filterToolStripMenuItem.Text = "&Filter";
+            // 
+            // newFilterToolStripMenuItem
+            // 
+            newFilterToolStripMenuItem.Name = "newFilterToolStripMenuItem";
+            newFilterToolStripMenuItem.Size = new Size(224, 26);
+            newFilterToolStripMenuItem.Text = "&New Filter";
+            newFilterToolStripMenuItem.Click += newFilterToolStripMenuItem_Click;
+            // 
+            // clearFilterToolStripMenuItem
+            // 
+            clearFilterToolStripMenuItem.Name = "clearFilterToolStripMenuItem";
+            clearFilterToolStripMenuItem.Size = new Size(224, 26);
+            clearFilterToolStripMenuItem.Text = "&Apply filter";
+            clearFilterToolStripMenuItem.Click += clearFilterToolStripMenuItem_Click;
             // 
             // dirTreeView
             // 
-            dirTreeView.Dock = DockStyle.Fill;
+            dirTreeView.Dock = DockStyle.Top;
             dirTreeView.Location = new Point(0, 0);
             dirTreeView.Margin = new Padding(2);
             dirTreeView.Name = "dirTreeView";
-            dirTreeView.Size = new Size(227, 609);
+            dirTreeView.Size = new Size(227, 269);
             dirTreeView.TabIndex = 1;
             dirTreeView.NodeMouseDoubleClick += DirTreeViewNode_DoubleClick;
             // 
@@ -241,17 +306,18 @@
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             dgvEvents.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgvEvents.RowHeadersWidth = 51;
-            dgvEvents.Size = new Size(833, 554);
+            dgvEvents.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvEvents.Size = new Size(833, 547);
             dgvEvents.TabIndex = 0;
             dgvEvents.MouseClick += dgvEvents_MouseClick;
             // 
             // panel1
             // 
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel1.Controls.Add(splitContainer1);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 26);
+            panel1.Location = new Point(0, 33);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1064, 609);
+            panel1.Size = new Size(1064, 602);
             panel1.TabIndex = 2;
             // 
             // splitContainer1
@@ -262,77 +328,211 @@
             // 
             // splitContainer1.Panel1
             // 
-            splitContainer1.Panel1.Controls.Add(dirTreeView);
+            splitContainer1.Panel1.Controls.Add(panel2);
+            splitContainer1.Panel1.Controls.Add(tableLayoutPanel1);
+            splitContainer1.Panel1.Controls.Add(splitter1);
             // 
             // splitContainer1.Panel2
             // 
-            splitContainer1.Panel2.Controls.Add(timeframeStatusStrip);
+            splitContainer1.Panel2.Controls.Add(searchGB);
+            splitContainer1.Panel2.Controls.Add(eventsStatusStrip);
             splitContainer1.Panel2.Controls.Add(timeControlGB);
             splitContainer1.Panel2.Controls.Add(pathStatusStrip);
             splitContainer1.Panel2.Controls.Add(dgvEvents);
-            splitContainer1.Size = new Size(1064, 609);
+            splitContainer1.Size = new Size(1064, 602);
             splitContainer1.SplitterDistance = 227;
             splitContainer1.TabIndex = 0;
             // 
-            // timeframeStatusStrip
+            // panel2
             // 
-            timeframeStatusStrip.ImageScalingSize = new Size(20, 20);
-            timeframeStatusStrip.Items.AddRange(new ToolStripItem[] { timeframeTSSLabel });
-            timeframeStatusStrip.Location = new Point(0, 557);
-            timeframeStatusStrip.Name = "timeframeStatusStrip";
-            timeframeStatusStrip.Size = new Size(833, 26);
-            timeframeStatusStrip.TabIndex = 3;
-            timeframeStatusStrip.Text = "statusStrip2";
+            panel2.Controls.Add(devicesCLB);
+            panel2.Controls.Add(splitter2);
+            panel2.Controls.Add(dirTreeView);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(0, 4);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(227, 564);
+            panel2.TabIndex = 4;
             // 
-            // timeframeTSSLabel
+            // devicesCLB
             // 
-            timeframeTSSLabel.Name = "timeframeTSSLabel";
-            timeframeTSSLabel.Size = new Size(124, 20);
-            timeframeTSSLabel.Text = "Timeframe: None";
+            devicesCLB.Dock = DockStyle.Fill;
+            devicesCLB.FormattingEnabled = true;
+            devicesCLB.Location = new Point(0, 273);
+            devicesCLB.Name = "devicesCLB";
+            devicesCLB.Size = new Size(227, 291);
+            devicesCLB.TabIndex = 2;
+            devicesCLB.ItemCheck += devicesCLB_ItemCheck;
+            // 
+            // splitter2
+            // 
+            splitter2.Dock = DockStyle.Top;
+            splitter2.Location = new Point(0, 269);
+            splitter2.Name = "splitter2";
+            splitter2.Size = new Size(227, 4);
+            splitter2.TabIndex = 2;
+            splitter2.TabStop = false;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Controls.Add(uncheckAllDevicesButton, 1, 0);
+            tableLayoutPanel1.Controls.Add(checkAllDevicesButton, 0, 0);
+            tableLayoutPanel1.Dock = DockStyle.Bottom;
+            tableLayoutPanel1.Location = new Point(0, 568);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Size = new Size(227, 34);
+            tableLayoutPanel1.TabIndex = 2;
+            // 
+            // uncheckAllDevicesButton
+            // 
+            uncheckAllDevicesButton.Dock = DockStyle.Fill;
+            uncheckAllDevicesButton.Location = new Point(116, 3);
+            uncheckAllDevicesButton.Name = "uncheckAllDevicesButton";
+            uncheckAllDevicesButton.Size = new Size(108, 28);
+            uncheckAllDevicesButton.TabIndex = 1;
+            uncheckAllDevicesButton.Text = "Uncheck All";
+            uncheckAllDevicesButton.UseVisualStyleBackColor = true;
+            uncheckAllDevicesButton.Click += uncheckAllDevicesButton_Click;
+            // 
+            // checkAllDevicesButton
+            // 
+            checkAllDevicesButton.Dock = DockStyle.Fill;
+            checkAllDevicesButton.Location = new Point(3, 3);
+            checkAllDevicesButton.Name = "checkAllDevicesButton";
+            checkAllDevicesButton.Size = new Size(107, 28);
+            checkAllDevicesButton.TabIndex = 0;
+            checkAllDevicesButton.Text = "Check All";
+            checkAllDevicesButton.UseVisualStyleBackColor = true;
+            checkAllDevicesButton.Click += checkAllDevicesButton_Click;
+            // 
+            // splitter1
+            // 
+            splitter1.Dock = DockStyle.Top;
+            splitter1.Location = new Point(0, 0);
+            splitter1.Name = "splitter1";
+            splitter1.Size = new Size(227, 4);
+            splitter1.TabIndex = 3;
+            splitter1.TabStop = false;
+            // 
+            // searchGB
+            // 
+            searchGB.Anchor = AnchorStyles.None;
+            searchGB.Controls.Add(caseSensitiveCheckBox);
+            searchGB.Controls.Add(closeSearchButton);
+            searchGB.Controls.Add(searchButton);
+            searchGB.Controls.Add(searchTextBox);
+            searchGB.Location = new Point(443, 344);
+            searchGB.Name = "searchGB";
+            searchGB.Size = new Size(378, 201);
+            searchGB.TabIndex = 4;
+            searchGB.TabStop = false;
+            searchGB.Text = "Search";
+            searchGB.Visible = false;
+            searchGB.MouseDown += searchGB_MouseDown;
+            searchGB.MouseMove += searchGB_MouseMove;
+            // 
+            // caseSensitiveCheckBox
+            // 
+            caseSensitiveCheckBox.AutoSize = true;
+            caseSensitiveCheckBox.Location = new Point(39, 81);
+            caseSensitiveCheckBox.Name = "caseSensitiveCheckBox";
+            caseSensitiveCheckBox.Size = new Size(124, 24);
+            caseSensitiveCheckBox.TabIndex = 4;
+            caseSensitiveCheckBox.Text = "Case Sensitive";
+            caseSensitiveCheckBox.UseVisualStyleBackColor = true;
+            caseSensitiveCheckBox.CheckedChanged += caseSensitiveCheckBox_CheckedChanged;
+            // 
+            // closeSearchButton
+            // 
+            closeSearchButton.Location = new Point(207, 146);
+            closeSearchButton.Name = "closeSearchButton";
+            closeSearchButton.Size = new Size(94, 29);
+            closeSearchButton.TabIndex = 3;
+            closeSearchButton.Text = "Close";
+            closeSearchButton.UseVisualStyleBackColor = true;
+            closeSearchButton.Click += cancelSearchButton_Click;
+            // 
+            // searchButton
+            // 
+            searchButton.Location = new Point(70, 146);
+            searchButton.Name = "searchButton";
+            searchButton.Size = new Size(94, 29);
+            searchButton.TabIndex = 2;
+            searchButton.Text = "Go";
+            searchButton.UseVisualStyleBackColor = true;
+            searchButton.Click += searchButton_Click;
+            // 
+            // searchTextBox
+            // 
+            searchTextBox.Location = new Point(35, 37);
+            searchTextBox.Name = "searchTextBox";
+            searchTextBox.Size = new Size(307, 27);
+            searchTextBox.TabIndex = 1;
+            searchTextBox.Text = "Search";
+            // 
+            // eventsStatusStrip
+            // 
+            eventsStatusStrip.ImageScalingSize = new Size(20, 20);
+            eventsStatusStrip.Items.AddRange(new ToolStripItem[] { eventsTSSLabel });
+            eventsStatusStrip.Location = new Point(0, 550);
+            eventsStatusStrip.Name = "eventsStatusStrip";
+            eventsStatusStrip.Size = new Size(833, 26);
+            eventsStatusStrip.TabIndex = 3;
+            eventsStatusStrip.Text = "Showing # of # Events";
+            // 
+            // eventsTSSLabel
+            // 
+            eventsTSSLabel.Name = "eventsTSSLabel";
+            eventsTSSLabel.Size = new Size(156, 20);
+            eventsTSSLabel.Text = "Showing # of # Events";
             // 
             // timeControlGB
             // 
             timeControlGB.BackColor = SystemColors.Control;
-            timeControlGB.Controls.Add(cancelTimeFrameButton);
-            timeControlGB.Controls.Add(applyTimeFrameButton);
+            timeControlGB.Controls.Add(resetTimefreameButtom);
+            timeControlGB.Controls.Add(applyTimeframeButton);
             timeControlGB.Controls.Add(endDTP);
             timeControlGB.Controls.Add(endTimeLabel);
-            timeControlGB.Controls.Add(startTimeLabel);
+            timeControlGB.Controls.Add(timeArrowLabel);
             timeControlGB.Controls.Add(startDTP);
-            timeControlGB.Location = new Point(452, 3);
+            timeControlGB.Location = new Point(6, 4);
             timeControlGB.Name = "timeControlGB";
-            timeControlGB.Size = new Size(378, 205);
+            timeControlGB.Size = new Size(747, 52);
             timeControlGB.TabIndex = 2;
             timeControlGB.TabStop = false;
-            timeControlGB.Text = "Adjust Timeframe";
             timeControlGB.Visible = false;
             // 
-            // cancelTimeFrameButton
+            // resetTimefreameButtom
             // 
-            cancelTimeFrameButton.Location = new Point(248, 158);
-            cancelTimeFrameButton.Name = "cancelTimeFrameButton";
-            cancelTimeFrameButton.Size = new Size(94, 29);
-            cancelTimeFrameButton.TabIndex = 5;
-            cancelTimeFrameButton.Text = "Cancel";
-            cancelTimeFrameButton.UseVisualStyleBackColor = true;
-            cancelTimeFrameButton.Click += cancelTimeFrameButton_Click;
+            resetTimefreameButtom.Location = new Point(635, 6);
+            resetTimefreameButtom.Name = "resetTimefreameButtom";
+            resetTimefreameButtom.Size = new Size(54, 30);
+            resetTimefreameButtom.TabIndex = 5;
+            resetTimefreameButtom.Text = "Reset";
+            resetTimefreameButtom.UseVisualStyleBackColor = true;
+            resetTimefreameButtom.Click += resetTimefreameButtom_Click;
             // 
-            // applyTimeFrameButton
+            // applyTimeframeButton
             // 
-            applyTimeFrameButton.Location = new Point(92, 158);
-            applyTimeFrameButton.Name = "applyTimeFrameButton";
-            applyTimeFrameButton.Size = new Size(94, 29);
-            applyTimeFrameButton.TabIndex = 4;
-            applyTimeFrameButton.Text = "Apply";
-            applyTimeFrameButton.UseVisualStyleBackColor = true;
-            applyTimeFrameButton.Click += applyTimeFrameButton_Click;
+            applyTimeframeButton.Location = new Point(559, 7);
+            applyTimeframeButton.Name = "applyTimeframeButton";
+            applyTimeframeButton.Size = new Size(56, 30);
+            applyTimeframeButton.TabIndex = 4;
+            applyTimeframeButton.Text = "Apply";
+            applyTimeframeButton.UseVisualStyleBackColor = true;
+            applyTimeframeButton.Click += applyTimeFrameButton_Click;
             // 
             // endDTP
             // 
             endDTP.Format = DateTimePickerFormat.Custom;
-            endDTP.Location = new Point(92, 102);
+            endDTP.Location = new Point(303, 7);
             endDTP.Name = "endDTP";
-            endDTP.Size = new Size(250, 27);
+            endDTP.Size = new Size(205, 27);
             endDTP.TabIndex = 3;
             // 
             // endTimeLabel
@@ -340,32 +540,32 @@
             endTimeLabel.AutoSize = true;
             endTimeLabel.Location = new Point(17, 107);
             endTimeLabel.Name = "endTimeLabel";
-            endTimeLabel.Size = new Size(34, 20);
+            endTimeLabel.Size = new Size(0, 20);
             endTimeLabel.TabIndex = 2;
-            endTimeLabel.Text = "End";
             // 
-            // startTimeLabel
+            // timeArrowLabel
             // 
-            startTimeLabel.AutoSize = true;
-            startTimeLabel.Location = new Point(17, 56);
-            startTimeLabel.Name = "startTimeLabel";
-            startTimeLabel.Size = new Size(40, 20);
-            startTimeLabel.TabIndex = 1;
-            startTimeLabel.Text = "Start";
+            timeArrowLabel.Font = new Font("Segoe UI", 14F);
+            timeArrowLabel.Location = new Point(262, 3);
+            timeArrowLabel.Name = "timeArrowLabel";
+            timeArrowLabel.Size = new Size(35, 35);
+            timeArrowLabel.TabIndex = 1;
+            timeArrowLabel.Text = "↔";
+            timeArrowLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // startDTP
             // 
             startDTP.Format = DateTimePickerFormat.Custom;
-            startDTP.Location = new Point(92, 51);
+            startDTP.Location = new Point(6, 7);
             startDTP.Name = "startDTP";
-            startDTP.Size = new Size(250, 27);
+            startDTP.Size = new Size(205, 27);
             startDTP.TabIndex = 0;
             // 
             // pathStatusStrip
             // 
             pathStatusStrip.ImageScalingSize = new Size(20, 20);
             pathStatusStrip.Items.AddRange(new ToolStripItem[] { PathTSSLabel, ActualPathTSSLabel });
-            pathStatusStrip.Location = new Point(0, 583);
+            pathStatusStrip.Location = new Point(0, 576);
             pathStatusStrip.Name = "pathStatusStrip";
             pathStatusStrip.Size = new Size(833, 26);
             pathStatusStrip.TabIndex = 1;
@@ -374,14 +574,16 @@
             // PathTSSLabel
             // 
             PathTSSLabel.Name = "PathTSSLabel";
-            PathTSSLabel.Size = new Size(92, 20);
-            PathTSSLabel.Text = "Current Path:";
+            PathTSSLabel.Size = new Size(108, 20);
+            PathTSSLabel.Text = "Current Path(s):";
+            PathTSSLabel.TextAlign = ContentAlignment.TopLeft;
             // 
             // ActualPathTSSLabel
             // 
             ActualPathTSSLabel.Name = "ActualPathTSSLabel";
             ActualPathTSSLabel.Size = new Size(39, 20);
             ActualPathTSSLabel.Text = "path";
+            ActualPathTSSLabel.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // MainMenu
             // 
@@ -389,13 +591,15 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1064, 635);
             Controls.Add(panel1);
-            Controls.Add(menuStrip1);
+            Controls.Add(mainMenuStrip);
+            DoubleBuffered = true;
             Font = new Font("Segoe UI", 9F);
-            MainMenuStrip = menuStrip1;
+            MainMenuStrip = mainMenuStrip;
             Name = "MainMenu";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "ELST Main Menu";
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
+            mainMenuStrip.ResumeLayout(false);
+            mainMenuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEvents).EndInit();
             panel1.ResumeLayout(false);
             splitContainer1.Panel1.ResumeLayout(false);
@@ -403,19 +607,22 @@
             splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
-            timeframeStatusStrip.ResumeLayout(false);
-            timeframeStatusStrip.PerformLayout();
+            panel2.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            searchGB.ResumeLayout(false);
+            searchGB.PerformLayout();
+            eventsStatusStrip.ResumeLayout(false);
+            eventsStatusStrip.PerformLayout();
             timeControlGB.ResumeLayout(false);
             timeControlGB.PerformLayout();
             pathStatusStrip.ResumeLayout(false);
             pathStatusStrip.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private MenuStrip menuStrip1;
+        private MenuStrip mainMenuStrip;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem openLogToolStripMenuItem;
         private ToolStripMenuItem exitToolStripMenuItem;
@@ -434,19 +641,37 @@
         private StatusStrip pathStatusStrip;
         private ToolStripStatusLabel PathTSSLabel;
         private ToolStripStatusLabel ActualPathTSSLabel;
-        private ToolStripMenuItem viewToolStripMenuItem;
+        private ToolStripMenuItem seeToolStripMenuItem;
         private ToolStripMenuItem devicesToolStripMenuItem;
-        private ToolStripMenuItem resetTimeToolStripMenuItem;
-        private ToolStripMenuItem adjustToolStripMenuItem;
-        private ToolStripMenuItem timeframeToolStripMenuItem;
+        private StatusStrip eventsStatusStrip;
+        private ToolStripStatusLabel eventsTSSLabel;
+        private GroupBox searchGB;
+        private TextBox searchTextBox;
+        private Button searchButton;
+        private Button closeSearchButton;
+        private CheckBox caseSensitiveCheckBox;
+        private ToolStripMenuItem searchToolStripMenuItem;
         private GroupBox timeControlGB;
+        private Button applyTimeframeButton;
         private DateTimePicker endDTP;
         private Label endTimeLabel;
-        private Label startTimeLabel;
+        private Label timeArrowLabel;
         private DateTimePicker startDTP;
-        private Button cancelTimeFrameButton;
-        private Button applyTimeFrameButton;
-        private StatusStrip timeframeStatusStrip;
-        private ToolStripStatusLabel timeframeTSSLabel;
+        private Button resetTimefreameButtom;
+        private CheckedListBox devicesCLB;
+        private Splitter splitter1;
+        private Button uncheckAllDevicesButton;
+        private Button checkAllDevicesButton;
+        private TableLayoutPanel tableLayoutPanel1;
+        private ToolStripMenuItem chooseToolStripMenuItem;
+        private ToolStripMenuItem filesOfInterestToolStripMenuItem;
+        private ToolStripMenuItem configureToolStripMenuItem;
+        private ToolStripMenuItem columnsToolStripMenuItem;
+        private ToolStripMenuItem exportToolStripMenuItem;
+        private Panel panel2;
+        private Splitter splitter2;
+        private ToolStripMenuItem filterToolStripMenuItem;
+        private ToolStripMenuItem newFilterToolStripMenuItem;
+        private ToolStripMenuItem clearFilterToolStripMenuItem;
     }
 }

@@ -13,12 +13,18 @@ namespace ELST
 {
     public partial class DevicesPage : Form
     {
+        private bool timeFrame = false;
+        List<Device> selectedDevices = new List<Device>();
+        List<Device> allDevices = new List<Device>();
+        private TreeNode selectedNode;
+        private Device selectedDevice;
 
-        List<Device> devices = new List<Device>();
-
-        public DevicesPage(List<Device> deviceList)
+        public DevicesPage(MainMenu mainMenu)
         {
-            devices = deviceList;
+            selectedDevices = mainMenu.selectedDevices;
+            allDevices = mainMenu.allDevices;
+            timeFrame = mainMenu.timeframe;
+
             InitializeComponent();
             InitializeDevicesTV();
             InitializeDGVDevices();
@@ -33,11 +39,11 @@ namespace ELST
         public void InitializeDevicesTV()
         {
             devicesTV.Nodes.Clear();
-            foreach (Device device in devices)
+            foreach (Device device in selectedDevices)
             {
                 devicesTV.Nodes.Add(device.serialNumber);
             }
-            devicesTVSSTLabel.Text = $"{devices.Count} Devices:";
+            devicesTVSSTLabel.Text = $"{selectedDevices.Count} Devices:";
         }
 
         public void InitializeDGVDevices()
@@ -51,7 +57,6 @@ namespace ELST
             dgvDevices.Columns.Add("Revision", "Revision");
             dgvDevices.Columns.Add("ParentID", "Parent ID");
             dgvDevices.Columns.Add("Capacity", "Capacity");
-
 
             // Adjust column widths
             dgvDevices.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -82,14 +87,32 @@ namespace ELST
         {
             dgvDevices.Rows.Clear();
             dgvDeviceEvents.Rows.Clear();
+            selectedNode = e.Node;
 
-            Device currentDevice = devices.FirstOrDefault(d => d.serialNumber == e.Node.Text);
+            Device currentDevice = selectedDevices.FirstOrDefault(d => d.serialNumber == e.Node.Text);
+            selectedDevice = currentDevice;
 
             dgvDevices.Rows.Add(currentDevice.GetAllAttributes().ToArray());
 
             foreach (CustomEvent ce in currentDevice.events)
             {
                 dgvDeviceEvents.Rows.Add(ce.GetUniqueAttributes().ToArray());
+            }
+
+            
+        }
+
+        private void actionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Device completeDevice = allDevices.FirstOrDefault(d => d.serialNumber == selectedNode.Text);
+
+            if (selectedDevice.Equals(completeDevice))
+            {
+                MessageBox.Show($"No other events for {selectedDevice.serialNumber} outside current timeframe.");
+            }
+            else
+            {
+                MessageBox.Show($"{completeDevice.events.Count - selectedDevice.events.Count} events for {selectedDevice.serialNumber} outside current timeframe.");
             }
         }
     }

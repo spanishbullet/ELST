@@ -6,29 +6,122 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Linq;
+using System.Drawing.Text;
+using System.ComponentModel;
 
 
 namespace ELST;
 
 public partial class MainMenu : Form
 {
-    public MainMenu()
+    public MainMenu(string filePath)
     {
+        defaultFilePath = filePath;
+        selectedFolderPath = System.IO.Path.GetDirectoryName(defaultFilePath);
+        baseDirPath = Path.GetPathRoot(defaultFilePath);
+        filesOfInterest.Add(filePath);
+
         InitializeComponent();
-        InitializeDGVEvents();
         AutoLoadFilePath();
-        InitializeTimeControlGB();
+        InitializeMainMenuStrip();
+        InitializeDGVEvents();
+        InitializeDevicesCLB();
+        InitializeTimeControl();
+    }
+    public MainMenu(List<string> files)
+    {
+        filesOfInterest = files;
+        defaultFilePath = files[0];
+        selectedFolderPath = System.IO.Path.GetDirectoryName(defaultFilePath);
+        baseDirPath = Path.GetPathRoot(defaultFilePath);
+
+        InitializeComponent();
+        AutoLoadFilePath();
+        InitializeMainMenuStrip();
+        InitializeDGVEvents();
+        InitializeDevicesCLB();
+        InitializeTimeControl();
     }
 
+    //path variables
+    private string defaultFilePath;
+
+    private string selectedFolderPath;
+
+    private string baseDirPath;
+
+    //list of events
     private List<CustomEvent> customEvents = new List<CustomEvent>();
 
-    private List<Device> devices = new List<Device>();
+    //selected devices
+    public List<Device> selectedDevices = new List<Device>();
 
-    private bool timeframe = false;
+    //devices with events in the current timeframe
+    public List<Device> currentDevices = new List<Device>();
 
-    private DateTime startTime;
+    //all devices in the log
+    public List<Device> allDevices = new List<Device>();
 
-    private DateTime endTime;
+    //variables used for timeframe
+    public bool timeframe = false;
+
+    public DateTime originalStartTime;
+
+    public DateTime originalEndTime;
+
+    public DateTime startTime;
+
+    public DateTime endTime;
+
+    //drive to search for files of interest
+    public string drive;
+
+    //list of files of interest found in drive
+    public List<string> filesOfInterest = new List<string>();
+
+    //for search function
+    private bool caseSensitive = false;
+
+    // event used as filter
+    public CustomEvent filter = new CustomEvent();
+
+    private void InitializeMainMenuStrip()
+    {
+        //mainMenuStrip.
+
+        // Host the DateTimePicker in a ToolStripControlHost
+        ToolStripControlHost startDTPToolStripControlHost = new ToolStripControlHost(startDTP);
+        ToolStripControlHost endDTPToolStripControlHost = new ToolStripControlHost(endDTP);
+        ToolStripControlHost timeArrowLabelToolStripControlHost = new ToolStripControlHost(timeArrowLabel);
+        ToolStripControlHost applyTimeframeButtonToolStripControlHost = new ToolStripControlHost(applyTimeframeButton);
+        ToolStripControlHost resetTiemframeButtomToolStripControlHost = new ToolStripControlHost(resetTimefreameButtom);
+
+        // Add the ToolStripControlHost to the ToolStrip
+        mainMenuStrip.Items.Add(startDTPToolStripControlHost);
+        mainMenuStrip.Items.Add(timeArrowLabelToolStripControlHost);
+        mainMenuStrip.Items.Add(endDTPToolStripControlHost);
+        mainMenuStrip.Items.Add(applyTimeframeButtonToolStripControlHost);
+        mainMenuStrip.Items.Add(resetTiemframeButtomToolStripControlHost);
+
+    }
+
+    public void InitializeDevicesCLB()
+    {
+        selectedDevices.Clear();
+        GetAllDevices();
+        GetCurrentDevices();
+
+        devicesCLB.Items.Clear(); // Clear all items in the CheckedListBox
+        foreach (Device device in currentDevices)
+        {
+            devicesCLB.Items.Add(device.serialNumber); // Add each device's serial number to the CheckedListBox
+        }
+        for (int i = 0; i < devicesCLB.Items.Count; i++)
+        {
+            devicesCLB.SetItemChecked(i, true);
+        }
+        PopulatDGVEvents(customEvents);
+    }
 
 
     private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -62,34 +155,47 @@ public partial class MainMenu : Form
         MessageBox.Show(helpMessage); ;
     }
 
-    private string selectedFolderPath = "D:\\Windows\\System32\\winevt\\Logs";
-    private string defaultFilePath = "D:\\Windows\\System32\\winevt\\Logs\\Microsoft-Windows-Partition%4Diagnostic.evtx";
     private void AutoLoadFilePath()
     {
         ListDirectory(dirTreeView, selectedFolderPath);
-        ActualPathTSSLabel.Text = defaultFilePath;
+        ActualPathTSSLabel.Text = "";
+
+        foreach (string path in filesOfInterest)
+        {
+            ActualPathTSSLabel.Text += path + "\n";
+        }
     }
 
     private void openLogToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        // Open a folder dialog to let the user select a folder
-        using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
-        {
-            folderBrowserDialog.Description = "Select a folder";
-            folderBrowserDialog.ShowNewFolderButton = true;
-            folderBrowserDialog.RootFolder = Environment.SpecialFolder.MyComputer;
+        /*OpenFileDialog openFileDialog = new OpenFileDialog();
 
-            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
-            {
-                // Store the selected folder path in the class-level variable
-                selectedFolderPath = folderBrowserDialog.SelectedPath;
-            }
-            else
-            {
-                return;
-            }
+        // Set filter options and filter index.
+        openFileDialog.Title = "Select a folder";
+        openFileDialog.Filter = "Event Log Files (*.evtx)|*.evtx|All Files (*.*)|*.*";
+        openFileDialog.FilterIndex = 1;
+        openFileDialog.Multiselect = false;
+        openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+
+        // Show the dialog and get result.
+        DialogResult result = openFileDialog.ShowDialog();
+
+        if (result == DialogResult.OK)
+        {
+            // Get the selected file's path.
+            string filePath = openFileDialog.FileName;
+            defaultFilePath = filePath;
+            selectedFolderPath = System.IO.Path.GetDirectoryName(filePath);
         }
+        else
+        {
+            return;
+        }
+
         ListDirectory(dirTreeView, selectedFolderPath);
+        InitializeDGVEvents();
+        InitializeDevicesCLB();
+        InitializeTimeControl();*/
     }
 
     private void ListDirectory(TreeView treeView, string path)
@@ -97,6 +203,7 @@ public partial class MainMenu : Form
         treeView.Nodes.Clear();
         var rootDirInfo = new DirectoryInfo(path);
         treeView.Nodes.Add(CreateDirectoryNode(rootDirInfo));
+        treeView.ExpandAll();
     }
 
     private static TreeNode CreateDirectoryNode(DirectoryInfo dirInfo)
@@ -119,91 +226,121 @@ public partial class MainMenu : Form
         // Check if the node is a file
         if (e.Node.Tag is string filePath && File.Exists(filePath))
         {
-            //MessageBox.Show(filePath);
-            GetEvents(filePath);
+
+            GetEvents(filesOfInterest);
+            InitializeDevicesCLB();
             PopulatDGVEvents(customEvents);
             ActualPathTSSLabel.Text = filePath;
         }
     }
 
-    public void GetEvents(string evtxFilePath)
+    public void GetEvents(List<string> filePaths)
     {
-        try
+        customEvents.Clear();
+
+        foreach (string file in filePaths)
         {
-            // Create an EventLogQuery object for the .evtx file
-            EventLogQuery query = new EventLogQuery(evtxFilePath, PathType.FilePath);
-
-            // Create an EventLogReader object
-            EventLogReader reader = new EventLogReader(query);
-
-            // Read and display the events
-            EventRecord eventRecord;
-            while ((eventRecord = reader.ReadEvent()) != null)
+            try
             {
-                // Creat event object to store events.
-                CustomEvent customEvent = new CustomEvent(eventRecord);
-                customEvents.Add(customEvent);
+                // Create an EventLogQuery object for the .evtx file
+                EventLogQuery query = new EventLogQuery(file, PathType.FilePath);
 
-                eventRecord.Dispose(); // Release resources
+                // Create an EventLogReader object
+                EventLogReader reader = new EventLogReader(query);
+
+                // Read and display the events
+                EventRecord eventRecord;
+                while ((eventRecord = reader.ReadEvent()) != null)
+                {
+                    // Creat event object to store events.
+                    CustomEvent customEvent = new CustomEvent(eventRecord);
+                    customEvents.Add(customEvent);
+
+                    eventRecord.Dispose(); // Release resources
+                }
             }
-        }
-        catch (UnauthorizedAccessException)
-        {
-            MessageBox.Show("Error: Unauthorized access. Please run the application as Administrator.");
-        }
-        catch (EventLogException e)
-        {
-            MessageBox.Show("Error reading the event log file: " + e.Message);
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show("Error: Unauthorized access. Please run the application as Administrator.");
+            }
+            catch (EventLogException e)
+            {
+                MessageBox.Show("Error reading the event log file: " + e.Message);
+            }
         }
     }
 
-    public void GetDevices()
+    public void GetCurrentDevices()
     {
-        devices = new List<Device>();
+        currentDevices.Clear();
         if (timeframe)
         {
             foreach (CustomEvent customEvent in customEvents)
             {
                 if (customEvent.TimeCreated >= startTime && customEvent.TimeCreated <= endTime)
                 {
-                    if (devices.Count == 0)
+                    if (currentDevices.Count == 0)
                     {
                         Device device = new Device(customEvent);
-                        devices.Add(device);
+                        currentDevices.Add(device);
                     }
-                    if (devices.Any(d => d.serialNumber == customEvent.serialNumber))
+                    else if (currentDevices.Any(d => d.serialNumber == customEvent.serialNumber))
                     {
-                        devices.FirstOrDefault(d => d.serialNumber == customEvent.serialNumber).AddEvent(customEvent);
+                        currentDevices.FirstOrDefault(d => d.serialNumber == customEvent.serialNumber).AddEvent(customEvent);
                     }
                     else
                     {
                         Device device = new Device(customEvent);
-                        devices.Add(device);
+                        currentDevices.Add(device);
                     }
                 }
-                
             }
         }
         else
         {
             foreach (CustomEvent customEvent in customEvents)
             {
-                if (devices.Count == 0)
+                if (currentDevices.Count == 0)
                 {
                     Device device = new Device(customEvent);
-                    devices.Add(device);
+                    currentDevices.Add(device);
                 }
-                if (devices.Any(d => d.serialNumber == customEvent.serialNumber))
+                else if (currentDevices.Any(d => d.serialNumber == customEvent.serialNumber))
                 {
-                    devices.FirstOrDefault(d => d.serialNumber == customEvent.serialNumber).AddEvent(customEvent);
+                    currentDevices.FirstOrDefault(d => d.serialNumber == customEvent.serialNumber).AddEvent(customEvent);
                 }
                 else
                 {
                     Device device = new Device(customEvent);
-                    devices.Add(device);
+                    currentDevices.Add(device);
                 }
             }
         }
+    }
+
+
+    public void GetAllDevices()
+    {
+        allDevices = new List<Device>();
+
+        foreach (CustomEvent customEvent in customEvents)
+        {
+            if (allDevices.Count == 0)
+            {
+                Device device = new Device(customEvent);
+                allDevices.Add(device);
+            }
+            if (allDevices.Any(d => d.serialNumber == customEvent.serialNumber))
+            {
+                allDevices.FirstOrDefault(d => d.serialNumber == customEvent.serialNumber).AddEvent(customEvent);
+            }
+            else
+            {
+                Device device = new Device(customEvent);
+                allDevices.Add(device);
+            }
+        }
+
     }
 
     private void PopulatDGVEvents(List<CustomEvent> customEvents)
@@ -216,8 +353,16 @@ public partial class MainMenu : Form
             {
                 if (ce.TimeCreated > startTime && ce.TimeCreated < endTime)
                 {
-                    dgvEvents.Rows.Add(ce.GetAllAttributes().ToArray());
-
+                    foreach (Device device in selectedDevices)
+                    {
+                        if (ce.serialNumber == device.serialNumber)
+                        {
+                            if (ce.Equals(filter))
+                            {
+                                dgvEvents.Rows.Add(ce.GetAllAttributes().ToArray());
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -225,14 +370,27 @@ public partial class MainMenu : Form
         {
             foreach (CustomEvent ce in customEvents)
             {
-                dgvEvents.Rows.Add(ce.GetAllAttributes().ToArray());
+                foreach (Device device in selectedDevices)
+                {
+                    if (ce.serialNumber == device.serialNumber)
+                    {
+                        if (ce.Equals(filter))
+                        {
+                            dgvEvents.Rows.Add(ce.GetAllAttributes().ToArray());
+                        }
+                    }
+                }
             }
         }
 
+        dgvEvents.Sort(dgvEvents.Columns["TimeCreated"], ListSortDirection.Ascending);
+
+        eventsTSSLabel.Text = $"Showing {dgvEvents.Rows.Count - 1} of {customEvents.Count} Events";
     }
 
     private void InitializeDGVEvents()
     {
+        dgvEvents.Columns.Clear();
         // Set up the DataGridView columns
         //ORDER MATTERS*******************
         dgvEvents.Columns.Add("EventId", "Event ID");
@@ -256,15 +414,17 @@ public partial class MainMenu : Form
         dgvEvents.Columns["ProviderName"].Visible = false;
         dgvEvents.Columns["Level"].Visible = false;
 
+        //neccesary for correct sorting/comparison by time
+        dgvEvents.Columns["TimeCreated"].DefaultCellStyle.Format = "MM/dd/yyyy HH:mm:ss";
+        dgvEvents.Columns["TimeCreated"].ValueType = typeof(DateTime);
 
 
 
         // Adjust column widths
-        dgvEvents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        dgvEvents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
-        GetEvents(defaultFilePath);
+        GetEvents(filesOfInterest);
         PopulatDGVEvents(customEvents);
-        //GetDevices();
     }
 
     private void dgvEvents_MouseClick(object sender, MouseEventArgs e)
@@ -291,53 +451,27 @@ public partial class MainMenu : Form
         }
     }
 
-    public static Dictionary<string, List<object>> ExtractDataFromColumns(DataGridView dataGridView, List<string> targetColumnNames)
-    {
-        var columnData = new Dictionary<string, List<object>>();
-
-        // Initialize lists for each specified column
-        foreach (var columnName in targetColumnNames)
-        {
-            if (dataGridView.Columns[columnName] != null) // Check if column exists
-            {
-                columnData[columnName] = new List<object>();
-            }
-            else
-            {
-                // Handle the case where the column does not exist
-                throw new ArgumentException($"Column '{columnName}' does not exist in the DataGridView.");
-            }
-        }
-
-        // Iterate through the rows and collect data
-        foreach (DataGridViewRow row in dataGridView.Rows)
-        {
-            if (!row.IsNewRow)
-            {
-                foreach (var columnName in targetColumnNames)
-                {
-                    if (columnData.ContainsKey(columnName))
-                    {
-                        var cellValue = row.Cells[columnName].Value;
-                        columnData[columnName].Add(cellValue);
-                    }
-                }
-            }
-        }
-
-        return columnData;
-    }
-
     private void recordNumbersToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        MessageBox.Show(Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")));
+        if (selectedDevices.Count == currentDevices.Count)
+        {
+            MessageBox.Show(Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")));
+
+        }
+        else
+        {
+            MessageBox.Show("Must select all devices in current timeframe.");
+        }
     }
 
     private void resetToolStripMenuItem1_Click(object sender, EventArgs e)
     {
         foreach (DataGridViewRow row in dgvEvents.Rows)
         {
-            row.DefaultCellStyle.BackColor = Color.White;
+            foreach (DataGridViewCell cell in row.Cells)
+            {
+                cell.Style.BackColor = Color.White;
+            }
         }
     }
 
@@ -348,28 +482,22 @@ public partial class MainMenu : Form
 
     private void devicesToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        GetDevices();
-        DevicesPage devicePage = new DevicesPage(devices);
+        GetCurrentDevices();
+        DevicesPage devicePage = new DevicesPage(this);
         devicePage.Show();
     }
 
-    private void timeframeToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-        timeControlGB.Show();
-    }
-
-    private void cancelTimeFrameButton_Click(object sender, EventArgs e)
-    {
-        timeControlGB.Hide();
-    }
-
-    private void InitializeTimeControlGB()
+    private void InitializeTimeControl()
     {
         startDTP.CustomFormat = "MM/dd/yyyy hh:mm:ss tt"; // Example: 08/13/2024 02:30 PM
         endDTP.CustomFormat = "MM/dd/yyyy hh:mm:ss tt";
 
-        startDTP.Value = customEvents[0].TimeCreated;
-        endDTP.Value = customEvents[customEvents.Count - 1].TimeCreated;
+
+        startDTP.Value = (DateTime)customEvents[0].TimeCreated;
+        endDTP.Value = (DateTime)customEvents[customEvents.Count - 1].TimeCreated;
+
+        originalStartTime = startDTP.Value;
+        originalEndTime = endDTP.Value;
     }
 
     private void applyTimeFrameButton_Click(object sender, EventArgs e)
@@ -378,21 +506,155 @@ public partial class MainMenu : Form
         {
             MessageBox.Show("Date/Times not valid. \nEnd time must be later than start time. \n Please pick new Date/Times");
         }
-        else
+        else if (startDTP.Value != originalStartTime || endDTP.Value != originalEndTime)
         {
             timeframe = true;
             startTime = startDTP.Value;
             endTime = endDTP.Value;
-            timeControlGB.Hide();
-            timeframeTSSLabel.Text = $"Timeframe: {startDTP.Value} - {endDTP.Value}";
+            selectedDevices.Clear();
+            InitializeDevicesCLB();
             PopulatDGVEvents(customEvents);
-            //MessageBox.Show($"timefram: {timeframe} \nStartTime: {startTime} \nEndTime: {endTime}");
         }
     }
 
-    private void resetTimeToolStripMenuItem_Click(object sender, EventArgs e)
+    private void searchButton_Click(object sender, EventArgs e)
+    {
+        List<Tuple<int, int>> foundCells = Search.SearchDataGridView(dgvEvents, searchTextBox.Text, caseSensitive);
+        Search.HighlightFoundCells(dgvEvents, foundCells);
+    }
+
+    private void cancelSearchButton_Click(object sender, EventArgs e)
+    {
+        searchGB.Hide();
+    }
+
+    private void caseSensitiveCheckBox_CheckedChanged(object sender, EventArgs e)
+    {
+        if (caseSensitiveCheckBox.Checked)
+            caseSensitive = true;
+        if (!caseSensitiveCheckBox.Checked)
+            caseSensitive = false;
+    }
+
+    private Point mousDownLocation;
+
+    private void searchGB_MouseDown(object sender, MouseEventArgs e)
+    {
+        if (e.Button == System.Windows.Forms.MouseButtons.Left)
+        {
+            mousDownLocation = e.Location;
+        }
+    }
+    private void searchGB_MouseMove(object sender, MouseEventArgs e)
+    {
+        if (e.Button == System.Windows.Forms.MouseButtons.Left)
+        {
+            searchGB.Left = e.X + searchGB.Left - mousDownLocation.X;
+            searchGB.Top = e.Y + searchGB.Top - mousDownLocation.Y;
+        }
+    }
+
+    private void searchToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        searchGB.Show();
+    }
+
+    private void resetTimefreameButtom_Click(object sender, EventArgs e)
     {
         timeframe = false;
+        startDTP.Value = originalStartTime;
+        endDTP.Value = originalEndTime;
+        InitializeDevicesCLB();
+        PopulatDGVEvents(customEvents);
+    }
+
+    private void devicesCLB_ItemCheck(object sender, ItemCheckEventArgs e)
+    {
+        if (e.NewValue == CheckState.Checked)
+        {
+            Device currentDevice = currentDevices.FirstOrDefault(d => d.serialNumber == devicesCLB.Items[e.Index].ToString());
+
+            selectedDevices.Add(currentDevice);
+        }
+        else if (e.NewValue == CheckState.Unchecked)
+        {
+            Device currentDevice = currentDevices.FirstOrDefault(d => d.serialNumber == devicesCLB.Items[e.Index].ToString());
+
+            selectedDevices.Remove(currentDevice);
+        }
+        PopulatDGVEvents(customEvents);
+    }
+
+    private void uncheckAllDevicesButton_Click(object sender, EventArgs e)
+    {
+        for (int i = 0; i < devicesCLB.Items.Count; i++)
+        {
+            devicesCLB.SetItemChecked(i, false);
+        }
+        PopulatDGVEvents(customEvents);
+    }
+
+    private void checkAllDevicesButton_Click(object sender, EventArgs e)
+    {
+        for (int i = 0; i < devicesCLB.Items.Count; i++)
+        {
+            devicesCLB.SetItemChecked(i, true);
+        }
+        PopulatDGVEvents(customEvents);
+    }
+
+    private void chooseToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        OpenFileDialog openFileDialog = new OpenFileDialog();
+
+        // Set filter options and filter index.
+        openFileDialog.Title = "Select a folder";
+        openFileDialog.Filter = "Event Log Files (*.evtx)|*.evtx|All Files (*.*)|*.*";
+        openFileDialog.FilterIndex = 1;
+        openFileDialog.Multiselect = false;
+        openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+
+        // Show the dialog and get result.
+        DialogResult result = openFileDialog.ShowDialog();
+
+        if (result == DialogResult.OK)
+        {
+            // Get the selected file's path.
+            string filePath = openFileDialog.FileName;
+            defaultFilePath = filePath;
+            selectedFolderPath = System.IO.Path.GetDirectoryName(filePath);
+        }
+        else
+        {
+            return;
+        }
+
+        ListDirectory(dirTreeView, selectedFolderPath);
+        InitializeDGVEvents();
+        InitializeDevicesCLB();
+        InitializeTimeControl();
+    }
+
+    private void columnsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        ConfigureColumns configureColumns = new ConfigureColumns(dgvEvents);
+        configureColumns.Show();
+    }
+
+    private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        ExportPage export = new ExportPage(dgvEvents);
+        export.Show();
+    }
+
+    private void newFilterToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        FilterWindow filterWindow = new FilterWindow(dgvEvents, filter);
+        filterWindow.Show();
+    }
+
+    private void clearFilterToolStripMenuItem_Click(object sender, EventArgs e)
+    {
         PopulatDGVEvents(customEvents);
     }
 }

@@ -38,8 +38,8 @@ public class Device
         revision = customEvent.revision;
         serialNumber = customEvent.serialNumber;
         parentId = customEvent.parentId;
-        firstInOut = customEvent.TimeCreated;
-        lastInOut = customEvent.TimeCreated;
+        firstInOut = (DateTime)customEvent.TimeCreated;
+        lastInOut = (DateTime)customEvent.TimeCreated;
         events.Add(customEvent);
         appearances = events.Count;
     }
@@ -51,9 +51,9 @@ public class Device
         if (long.Parse(capacity) == 0)
             capacity = customEvent.capacity;
         if (firstInOut >= customEvent.TimeCreated)
-            firstInOut = customEvent.TimeCreated;
+            firstInOut = (DateTime)customEvent.TimeCreated;
         else 
-            lastInOut = customEvent.TimeCreated;
+            lastInOut = (DateTime)customEvent.TimeCreated;
     }
 
     public List<string> GetAllAttributes()
@@ -77,5 +77,14 @@ public class Device
     {
         string message = string.Join(",", this.GetAllAttributes());
         return message;
+    }
+
+    //returns true if both devices are the same. Used to see if there are events outside the current timeframe.
+    public bool Equals(Device device)
+    {
+        if (events.Count == device.events.Count)
+            return true;
+        
+        return false;
     }
 }
