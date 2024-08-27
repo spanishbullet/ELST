@@ -10,33 +10,36 @@ namespace ELSTWinFormsLibrary;
 
 public class CustomEvent
 {
-    public int Id { get; }
-    public string ProviderName { get; }
-    public string Message { get; }
-    public DateTime TimeCreated { get; }
-    public string Level { get; }
+    public int? Id { get; set; }
+    public string ProviderName { get; set; }
+    public string Message { get; set; }
+    public DateTime? TimeCreated { get; set; }
+    public string Level { get; set; }
 
-    public string recordNumber { get; }
+    public string recordNumber { get; set; }
 
-    public string capacity { get; }
+    public string capacity { get; set; }
 
-    public string action { get; }
+    public string action { get; set; }
 
-    public string manufacturer { get; }
+    public string manufacturer { get; set; }
 
-    public string model { get; }
+    public string model { get; set; }
 
-    public string revision { get; }
+    public string revision { get; set; }
 
-    public string serialNumber { get; }
+    public string serialNumber { get; set; }
 
-    public string parentId { get; }
+    public string parentId { get; set; }
 
-    public string vbr0 { get; }
+    public string vbr0 { get; set; }
 
-    public string extractedVbr0 { get; }
+    public string extractedVbr0 { get; set; }
 
+    public CustomEvent()
+    {
 
+    }
 
     public CustomEvent(EventRecord record)
     {
@@ -111,10 +114,19 @@ public class CustomEvent
         return result;
     }
 
-    public bool Equals(FilterEvent filterEvent)
+    public bool Equals(CustomEvent filter)
     {
-        //var filters = filterEvent.Filters;
+        for (int i = 0; i < this.GetAllAttributes().Count - 1; i++)
+        {
+            if (filter.GetAllAttributes()[i] != null)
+            {
+                if (filter.GetAllAttributes()[i] != this.GetAllAttributes()[i])
+                {
+                    return false;
+                }
+            }
+        }
 
-        return false;
+        return true;
     }
 }

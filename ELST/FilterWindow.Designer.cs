@@ -36,22 +36,15 @@
             computerLabel = new Label();
             eventIDLabel = new Label();
             eventIDInstructionsLabel = new Label();
-            textInDescriptionLabel = new Label();
             eventIDTB = new TextBox();
-            textInDiscriptionTB = new TextBox();
-            checkBox1 = new CheckBox();
-            checkBox2 = new CheckBox();
-            checkBox3 = new CheckBox();
-            checkBox4 = new CheckBox();
-            checkBox5 = new CheckBox();
-            checkBox6 = new CheckBox();
             textBox1 = new TextBox();
             textBox2 = new TextBox();
             textBox3 = new TextBox();
             textBox4 = new TextBox();
-            checkBox7 = new CheckBox();
             clearButton = new Button();
             okButton = new Button();
+            testTB = new TextBox();
+            testLabel = new Label();
             eventTypeGB.SuspendLayout();
             SuspendLayout();
             // 
@@ -129,88 +122,12 @@
             eventIDInstructionsLabel.TabIndex = 6;
             eventIDInstructionsLabel.Text = "ID Instructions";
             // 
-            // textInDescriptionLabel
-            // 
-            textInDescriptionLabel.AutoSize = true;
-            textInDescriptionLabel.Location = new Point(15, 283);
-            textInDescriptionLabel.Name = "textInDescriptionLabel";
-            textInDescriptionLabel.Size = new Size(133, 20);
-            textInDescriptionLabel.TabIndex = 7;
-            textInDescriptionLabel.Text = "Text in description:";
-            // 
             // eventIDTB
             // 
             eventIDTB.Location = new Point(15, 222);
             eventIDTB.Name = "eventIDTB";
             eventIDTB.Size = new Size(670, 27);
             eventIDTB.TabIndex = 8;
-            // 
-            // textInDiscriptionTB
-            // 
-            textInDiscriptionTB.Location = new Point(15, 307);
-            textInDiscriptionTB.Name = "textInDiscriptionTB";
-            textInDiscriptionTB.Size = new Size(566, 27);
-            textInDiscriptionTB.TabIndex = 9;
-            // 
-            // checkBox1
-            // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(706, 223);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(82, 24);
-            checkBox1.TabIndex = 10;
-            checkBox1.Text = "Exclude";
-            checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            checkBox2.AutoSize = true;
-            checkBox2.Location = new Point(706, 308);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(82, 24);
-            checkBox2.TabIndex = 11;
-            checkBox2.Text = "Exclude";
-            checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            checkBox3.AutoSize = true;
-            checkBox3.Location = new Point(706, 136);
-            checkBox3.Name = "checkBox3";
-            checkBox3.Size = new Size(82, 24);
-            checkBox3.TabIndex = 12;
-            checkBox3.Text = "Exclude";
-            checkBox3.UseVisualStyleBackColor = true;
-            // 
-            // checkBox4
-            // 
-            checkBox4.AutoSize = true;
-            checkBox4.Location = new Point(706, 98);
-            checkBox4.Name = "checkBox4";
-            checkBox4.Size = new Size(82, 24);
-            checkBox4.TabIndex = 13;
-            checkBox4.Text = "Exclude";
-            checkBox4.UseVisualStyleBackColor = true;
-            // 
-            // checkBox5
-            // 
-            checkBox5.AutoSize = true;
-            checkBox5.Location = new Point(706, 60);
-            checkBox5.Name = "checkBox5";
-            checkBox5.Size = new Size(82, 24);
-            checkBox5.TabIndex = 14;
-            checkBox5.Text = "Exclude";
-            checkBox5.UseVisualStyleBackColor = true;
-            // 
-            // checkBox6
-            // 
-            checkBox6.AutoSize = true;
-            checkBox6.Location = new Point(706, 22);
-            checkBox6.Name = "checkBox6";
-            checkBox6.Size = new Size(82, 24);
-            checkBox6.TabIndex = 15;
-            checkBox6.Text = "Exclude";
-            checkBox6.UseVisualStyleBackColor = true;
             // 
             // textBox1
             // 
@@ -240,16 +157,6 @@
             textBox4.Size = new Size(355, 27);
             textBox4.TabIndex = 19;
             // 
-            // checkBox7
-            // 
-            checkBox7.AutoSize = true;
-            checkBox7.Location = new Point(603, 308);
-            checkBox7.Name = "checkBox7";
-            checkBox7.Size = new Size(81, 24);
-            checkBox7.TabIndex = 20;
-            checkBox7.Text = "RegExp";
-            checkBox7.UseVisualStyleBackColor = true;
-            // 
             // clearButton
             // 
             clearButton.Location = new Point(590, 369);
@@ -270,27 +177,37 @@
             okButton.UseVisualStyleBackColor = true;
             okButton.Click += okButton_Click;
             // 
+            // testTB
+            // 
+            testTB.Location = new Point(91, 315);
+            testTB.Name = "testTB";
+            testTB.Size = new Size(125, 27);
+            testTB.TabIndex = 23;
+            testTB.Text = "test";
+            // 
+            // testLabel
+            // 
+            testLabel.AutoSize = true;
+            testLabel.Location = new Point(26, 316);
+            testLabel.Name = "testLabel";
+            testLabel.Size = new Size(33, 20);
+            testLabel.TabIndex = 24;
+            testLabel.Text = "test";
+            // 
             // FilterWindow
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 410);
+            Controls.Add(testLabel);
+            Controls.Add(testTB);
             Controls.Add(okButton);
             Controls.Add(clearButton);
-            Controls.Add(checkBox7);
             Controls.Add(textBox4);
             Controls.Add(textBox3);
             Controls.Add(textBox2);
             Controls.Add(textBox1);
-            Controls.Add(checkBox6);
-            Controls.Add(checkBox5);
-            Controls.Add(checkBox4);
-            Controls.Add(checkBox3);
-            Controls.Add(checkBox2);
-            Controls.Add(checkBox1);
-            Controls.Add(textInDiscriptionTB);
             Controls.Add(eventIDTB);
-            Controls.Add(textInDescriptionLabel);
             Controls.Add(eventIDInstructionsLabel);
             Controls.Add(eventIDLabel);
             Controls.Add(computerLabel);
@@ -316,21 +233,14 @@
         private Label computerLabel;
         private Label eventIDLabel;
         private Label eventIDInstructionsLabel;
-        private Label textInDescriptionLabel;
         private TextBox eventIDTB;
-        private TextBox textInDiscriptionTB;
-        private CheckBox checkBox1;
-        private CheckBox checkBox2;
-        private CheckBox checkBox3;
-        private CheckBox checkBox4;
-        private CheckBox checkBox5;
-        private CheckBox checkBox6;
         private TextBox textBox1;
         private TextBox textBox2;
         private TextBox textBox3;
         private TextBox textBox4;
-        private CheckBox checkBox7;
         private Button clearButton;
         private Button okButton;
+        private TextBox testTB;
+        private Label testLabel;
     }
 }

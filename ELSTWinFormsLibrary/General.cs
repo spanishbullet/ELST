@@ -190,17 +190,13 @@ public class Analyze
 
     public static string TimeChange(DataGridView dgv, List<CustomEvent> customEvents)
     {
-        /*foreach (DataGridViewRow row in dgv.Rows)
-        {
-            row.DefaultCellStyle.BackColor = Color.White;
-        }*/
         string message = "";
         List<DateTime> times = new List<DateTime>();
         List<int> rows = new List<int>();
 
         foreach (CustomEvent customEvent in customEvents)
         {
-            times.Add(customEvent.TimeCreated);
+            times.Add((DateTime)customEvent.TimeCreated);
         }
 
         DateTime lastItem = times[0];

@@ -253,15 +253,16 @@
             // newFilterToolStripMenuItem
             // 
             newFilterToolStripMenuItem.Name = "newFilterToolStripMenuItem";
-            newFilterToolStripMenuItem.Size = new Size(161, 26);
+            newFilterToolStripMenuItem.Size = new Size(224, 26);
             newFilterToolStripMenuItem.Text = "&New Filter";
             newFilterToolStripMenuItem.Click += newFilterToolStripMenuItem_Click;
             // 
             // clearFilterToolStripMenuItem
             // 
             clearFilterToolStripMenuItem.Name = "clearFilterToolStripMenuItem";
-            clearFilterToolStripMenuItem.Size = new Size(161, 26);
-            clearFilterToolStripMenuItem.Text = "&Clear filter";
+            clearFilterToolStripMenuItem.Size = new Size(224, 26);
+            clearFilterToolStripMenuItem.Text = "&Apply filter";
+            clearFilterToolStripMenuItem.Click += clearFilterToolStripMenuItem_Click;
             // 
             // dirTreeView
             // 

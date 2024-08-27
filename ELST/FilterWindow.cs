@@ -13,47 +13,28 @@ namespace ELST;
 
 public partial class FilterWindow : Form
 {
-    public FilterWindow(List<CustomEvent> _events)
+    public CustomEvent filter;
+    public DataGridView dgv;
+    public FilterWindow(DataGridView _dgv, CustomEvent _filter)
     {
-        events = _events;
+        dgv = _dgv;
+        filter = _filter;
         InitializeComponent();
         InitializeEventTypesCLB();
     }
-
-    private List<CustomEvent> events;
-
-    private List<string> eventTypes = new List<string>();
-
-    private string source;
-    private bool excludeSource;
-
-    private string Category;
-    private bool excludeCategory;
-
-    private string user;
-    private bool excludeUser;
-
-    private string computer;
-    private bool excludeComputer;
-
-    private string eventIDs;
-    private bool excludeEventIDs;
-
-    private string textInDescription;
-    private bool regExp;
-    private bool excludeTextInDescription;
 
     public void InitializeEventTypesCLB()
     {
         for (int i = 0; i < eventTypesCLB.Items.Count; i++)
         {
-            eventTypes.Add(eventTypesCLB.Items[i].ToString());
             eventTypesCLB.SetItemChecked(i, true);
         }
     }
 
     private void okButton_Click(object sender, EventArgs e)
     {
+        filter.serialNumber = testTB.Text;
+        
         this.Close();
     }
 

@@ -82,6 +82,9 @@ public partial class MainMenu : Form
     //for search function
     private bool caseSensitive = false;
 
+    // event used as filter
+    public CustomEvent filter = new CustomEvent();
+
     private void InitializeMainMenuStrip()
     {
         //mainMenuStrip.
@@ -156,7 +159,7 @@ public partial class MainMenu : Form
     {
         ListDirectory(dirTreeView, selectedFolderPath);
         ActualPathTSSLabel.Text = "";
-    
+
         foreach (string path in filesOfInterest)
         {
             ActualPathTSSLabel.Text += path + "\n";
@@ -354,8 +357,10 @@ public partial class MainMenu : Form
                     {
                         if (ce.serialNumber == device.serialNumber)
                         {
-                            dgvEvents.Rows.Add(ce.GetAllAttributes().ToArray());
-
+                            if (ce.Equals(filter))
+                            {
+                                dgvEvents.Rows.Add(ce.GetAllAttributes().ToArray());
+                            }
                         }
                     }
                 }
@@ -369,8 +374,10 @@ public partial class MainMenu : Form
                 {
                     if (ce.serialNumber == device.serialNumber)
                     {
-                        dgvEvents.Rows.Add(ce.GetAllAttributes().ToArray());
-
+                        if (ce.Equals(filter))
+                        {
+                            dgvEvents.Rows.Add(ce.GetAllAttributes().ToArray());
+                        }
                     }
                 }
             }
@@ -486,8 +493,8 @@ public partial class MainMenu : Form
         endDTP.CustomFormat = "MM/dd/yyyy hh:mm:ss tt";
 
 
-        startDTP.Value = customEvents[0].TimeCreated;
-        endDTP.Value = customEvents[customEvents.Count - 1].TimeCreated;
+        startDTP.Value = (DateTime)customEvents[0].TimeCreated;
+        endDTP.Value = (DateTime)customEvents[customEvents.Count - 1].TimeCreated;
 
         originalStartTime = startDTP.Value;
         originalEndTime = endDTP.Value;
@@ -642,7 +649,12 @@ public partial class MainMenu : Form
 
     private void newFilterToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        FilterWindow filterWindow = new FilterWindow(customEvents);
+        FilterWindow filterWindow = new FilterWindow(dgvEvents, filter);
         filterWindow.Show();
+    }
+
+    private void clearFilterToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        PopulatDGVEvents(customEvents);
     }
 }
