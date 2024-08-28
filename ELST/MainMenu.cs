@@ -164,6 +164,7 @@ public partial class MainMenu : Form
         {
             ActualPathTSSLabel.Text += path + "\n";
         }
+        ActualPathTSSLabel.Text = ActualPathTSSLabel.Text.Remove(ActualPathTSSLabel.Text.Length - 2);
     }
 
     private void openLogToolStripMenuItem_Click(object sender, EventArgs e)
@@ -427,6 +428,8 @@ public partial class MainMenu : Form
 
         // Adjust column widths
         dgvEvents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
+        dgvEvents.Height = splitContainer1.Panel2.ClientSize.Height - pathStatusStrip.Height - eventsStatusStrip.Height;
 
         GetEvents(filesOfInterest);
         PopulatDGVEvents(customEvents);

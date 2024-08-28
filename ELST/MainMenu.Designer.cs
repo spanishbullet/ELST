@@ -65,6 +65,7 @@
             uncheckAllDevicesButton = new Button();
             checkAllDevicesButton = new Button();
             splitter1 = new Splitter();
+            splitter3 = new Splitter();
             searchGB = new GroupBox();
             caseSensitiveCheckBox = new CheckBox();
             closeSearchButton = new Button();
@@ -253,14 +254,14 @@
             // newFilterToolStripMenuItem
             // 
             newFilterToolStripMenuItem.Name = "newFilterToolStripMenuItem";
-            newFilterToolStripMenuItem.Size = new Size(224, 26);
+            newFilterToolStripMenuItem.Size = new Size(166, 26);
             newFilterToolStripMenuItem.Text = "&New Filter";
             newFilterToolStripMenuItem.Click += newFilterToolStripMenuItem_Click;
             // 
             // clearFilterToolStripMenuItem
             // 
             clearFilterToolStripMenuItem.Name = "clearFilterToolStripMenuItem";
-            clearFilterToolStripMenuItem.Size = new Size(224, 26);
+            clearFilterToolStripMenuItem.Size = new Size(166, 26);
             clearFilterToolStripMenuItem.Text = "&Apply filter";
             clearFilterToolStripMenuItem.Click += clearFilterToolStripMenuItem_Click;
             // 
@@ -334,6 +335,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            splitContainer1.Panel2.Controls.Add(splitter3);
             splitContainer1.Panel2.Controls.Add(searchGB);
             splitContainer1.Panel2.Controls.Add(eventsStatusStrip);
             splitContainer1.Panel2.Controls.Add(timeControlGB);
@@ -419,6 +421,15 @@
             splitter1.TabIndex = 3;
             splitter1.TabStop = false;
             // 
+            // splitter3
+            // 
+            splitter3.Dock = DockStyle.Bottom;
+            splitter3.Location = new Point(0, 546);
+            splitter3.Name = "splitter3";
+            splitter3.Size = new Size(833, 4);
+            splitter3.TabIndex = 5;
+            splitter3.TabStop = false;
+            // 
             // searchGB
             // 
             searchGB.Anchor = AnchorStyles.None;
@@ -426,7 +437,7 @@
             searchGB.Controls.Add(closeSearchButton);
             searchGB.Controls.Add(searchButton);
             searchGB.Controls.Add(searchTextBox);
-            searchGB.Location = new Point(443, 344);
+            searchGB.Location = new Point(455, 311);
             searchGB.Name = "searchGB";
             searchGB.Size = new Size(378, 201);
             searchGB.TabIndex = 4;
@@ -673,5 +684,6 @@
         private ToolStripMenuItem filterToolStripMenuItem;
         private ToolStripMenuItem newFilterToolStripMenuItem;
         private ToolStripMenuItem clearFilterToolStripMenuItem;
+        private Splitter splitter3;
     }
 }
