@@ -117,43 +117,57 @@ public partial class StartupPage : Form
 
     private void openFileButtonDriveSearch_Click(object sender, EventArgs e)
     {
-        if (foundFilesCLB.CheckedItems.Count == 0)
+        if (foundFilesCLB.Items.Count != 0)
         {
-            foreach (var item in foundFilesCLB.Items)
+            if (foundFilesCLB.CheckedItems.Count == 0)
             {
-                string filePath = item.ToString();
-                MainMenu mainMenu = new MainMenu(filePath);
-                mainMenu.Show();
+                foreach (var item in foundFilesCLB.Items)
+                {
+                    string filePath = item.ToString();
+                    MainMenu mainMenu = new MainMenu(filePath);
+                    mainMenu.Show();
+                }
+            }
+            else
+            {
+                foreach (var item in foundFilesCLB.CheckedItems)
+                {
+                    string filePath = item.ToString();
+                    MainMenu mainMenu = new MainMenu(filePath);
+                    mainMenu.Show();
+                }
             }
         }
         else
         {
-            foreach (var item in foundFilesCLB.CheckedItems)
-            {
-                string filePath = item.ToString();
-                MainMenu mainMenu = new MainMenu(filePath);
-                mainMenu.Show();
-            }
+            MessageBox.Show("No files found. \nSearch again or open file manually.");
         }
 
     }
 
     private void openTogetherButtonDriveSearch_Click(object sender, EventArgs e)
     {
-        if (foundFilesCLB.CheckedItems.Count == 0)
+        if (foundFilesCLB.Items.Count != 0)
         {
-            MainMenu mainMenu = new MainMenu(filesOfInterest);
-            mainMenu.Show();
+            if (foundFilesCLB.CheckedItems.Count == 0)
+            {
+                MainMenu mainMenu = new MainMenu(filesOfInterest);
+                mainMenu.Show();
+            }
+            else
+            {
+                selectedFilesOfInterest.Clear();
+                foreach (var item in foundFilesCLB.CheckedItems)
+                {
+                    selectedFilesOfInterest.Add(item.ToString());
+                }
+                MainMenu mainMenu = new MainMenu(selectedFilesOfInterest);
+                mainMenu.Show();
+            }
         }
         else
         {
-            selectedFilesOfInterest.Clear();
-            foreach (var item in foundFilesCLB.CheckedItems)
-            {
-                selectedFilesOfInterest.Add(item.ToString());
-            }
-            MainMenu mainMenu = new MainMenu(selectedFilesOfInterest);
-            mainMenu.Show();
+            MessageBox.Show("No files found. \nSearch again or open file manually.");
         }
     }
 
