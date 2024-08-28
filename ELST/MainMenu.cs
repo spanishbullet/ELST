@@ -406,6 +406,11 @@ public partial class MainMenu : Form
         dgvEvents.Columns.Add("Revision", "Revision");
         dgvEvents.Columns.Add("SerialNumber", "Serial Number");
         dgvEvents.Columns.Add("ParentID", "Parent ID");
+        dgvEvents.Columns.Add("ProcessId", "Process ID");
+        dgvEvents.Columns.Add("ThreadId", "Thread ID");
+        dgvEvents.Columns.Add("Channel", "Channel");
+        dgvEvents.Columns.Add("Computer", "Computer");
+        dgvEvents.Columns.Add("UserId", "User ID");
         dgvEvents.Columns.Add("Vbr0", "Vbr0");
 
         //Hide Columns
