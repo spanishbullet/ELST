@@ -83,6 +83,7 @@
             pathStatusStrip = new StatusStrip();
             PathTSSLabel = new ToolStripStatusLabel();
             ActualPathTSSLabel = new ToolStripStatusLabel();
+            detailsToolStripMenuItem = new ToolStripMenuItem();
             mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEvents).BeginInit();
             panel1.SuspendLayout();
@@ -104,7 +105,7 @@
             mainMenuStrip.AutoSize = false;
             mainMenuStrip.Dock = DockStyle.None;
             mainMenuStrip.ImageScalingSize = new Size(20, 20);
-            mainMenuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aboutToolStripMenuItem, analyzeToolStripMenuItem, resetToolStripMenuItem, seeToolStripMenuItem, searchToolStripMenuItem, configureToolStripMenuItem, filterToolStripMenuItem });
+            mainMenuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aboutToolStripMenuItem, analyzeToolStripMenuItem, resetToolStripMenuItem, seeToolStripMenuItem, searchToolStripMenuItem, configureToolStripMenuItem, filterToolStripMenuItem, detailsToolStripMenuItem });
             mainMenuStrip.Location = new Point(0, 0);
             mainMenuStrip.Name = "mainMenuStrip";
             mainMenuStrip.Padding = new Padding(4, 1, 0, 1);
@@ -596,6 +597,13 @@
             ActualPathTSSLabel.Text = "path";
             ActualPathTSSLabel.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // detailsToolStripMenuItem
+            // 
+            detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
+            detailsToolStripMenuItem.Size = new Size(67, 32);
+            detailsToolStripMenuItem.Text = "details";
+            detailsToolStripMenuItem.Click += detailsToolStripMenuItem_Click;
+            // 
             // MainMenu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -685,5 +693,6 @@
         private ToolStripMenuItem newFilterToolStripMenuItem;
         private ToolStripMenuItem clearFilterToolStripMenuItem;
         private Splitter splitter3;
+        private ToolStripMenuItem detailsToolStripMenuItem;
     }
 }

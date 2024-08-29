@@ -665,4 +665,10 @@ public partial class MainMenu : Form
     {
         PopulatDGVEvents(customEvents);
     }
+
+    private void detailsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        EventPropertiesPage eventPropertiesPage = new EventPropertiesPage(dgvEvents, customEvents, 0);
+        eventPropertiesPage.Show();
+    }
 }

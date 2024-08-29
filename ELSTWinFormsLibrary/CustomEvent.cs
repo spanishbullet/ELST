@@ -47,6 +47,10 @@ public class CustomEvent
 
     public string extractedVbr0 { get; set; }
 
+    public string xml {  get; }
+
+    public string formattedXml { get; }
+
     public CustomEvent()
     {
 
@@ -66,18 +70,17 @@ public class CustomEvent
         TimeCreated = record.TimeCreated.HasValue ? record.TimeCreated.Value : DateTime.MinValue;
         Level = record.LevelDisplayName;
         recordNumber = record.RecordId.ToString();
-
-        // Get the XML representation of the event
-        string eventXml = record.ToXml();
+        xml = record.ToXml();
+        formattedXml = XmlExtract.FormatXml(xml);
 
         // Parse the XML to extract desired fields
-        capacity = XmlExtract.GetField(eventXml, "Capacity");
-        manufacturer = XmlExtract.GetField(eventXml, "Manufacturer");
-        model = XmlExtract.GetField(eventXml, "Model");
-        revision = XmlExtract.GetField(eventXml, "Revision");
-        serialNumber = XmlExtract.GetField(eventXml, "SerialNumber");
-        parentId = XmlExtract.GetField(eventXml, "ParentId");
-        vbr0 = XmlExtract.GetField(eventXml, "Vbr0");
+        capacity = XmlExtract.GetField(xml, "Capacity");
+        manufacturer = XmlExtract.GetField(xml, "Manufacturer");
+        model = XmlExtract.GetField(xml, "Model");
+        revision = XmlExtract.GetField(xml, "Revision");
+        serialNumber = XmlExtract.GetField(xml, "SerialNumber");
+        parentId = XmlExtract.GetField(xml, "ParentId");
+        vbr0 = XmlExtract.GetField(xml, "Vbr0");
         extractedVbr0 = FormatVbr0.Extract(vbr0);
 
         if (long.Parse(capacity) != 0)
