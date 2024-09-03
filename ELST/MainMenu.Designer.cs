@@ -54,6 +54,7 @@
             filterToolStripMenuItem = new ToolStripMenuItem();
             newFilterToolStripMenuItem = new ToolStripMenuItem();
             clearFilterToolStripMenuItem = new ToolStripMenuItem();
+            detailsToolStripMenuItem = new ToolStripMenuItem();
             dirTreeView = new TreeView();
             dgvEvents = new DataGridView();
             panel1 = new Panel();
@@ -83,7 +84,7 @@
             pathStatusStrip = new StatusStrip();
             PathTSSLabel = new ToolStripStatusLabel();
             ActualPathTSSLabel = new ToolStripStatusLabel();
-            detailsToolStripMenuItem = new ToolStripMenuItem();
+            logPropertiesToolStripMenuItem = new ToolStripMenuItem();
             mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEvents).BeginInit();
             panel1.SuspendLayout();
@@ -115,7 +116,7 @@
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { openLogToolStripMenuItem, exportToolStripMenuItem, exitToolStripMenuItem });
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { openLogToolStripMenuItem, logPropertiesToolStripMenuItem, exportToolStripMenuItem, exitToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             fileToolStripMenuItem.Size = new Size(46, 32);
             fileToolStripMenuItem.Text = "&File";
@@ -124,7 +125,7 @@
             // 
             openLogToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { chooseToolStripMenuItem, filesOfInterestToolStripMenuItem });
             openLogToolStripMenuItem.Name = "openLogToolStripMenuItem";
-            openLogToolStripMenuItem.Size = new Size(157, 26);
+            openLogToolStripMenuItem.Size = new Size(224, 26);
             openLogToolStripMenuItem.Text = "&Open Log";
             // 
             // chooseToolStripMenuItem
@@ -143,14 +144,14 @@
             // exportToolStripMenuItem
             // 
             exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            exportToolStripMenuItem.Size = new Size(157, 26);
+            exportToolStripMenuItem.Size = new Size(224, 26);
             exportToolStripMenuItem.Text = "&Export";
             exportToolStripMenuItem.Click += exportToolStripMenuItem_Click;
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(157, 26);
+            exitToolStripMenuItem.Size = new Size(224, 26);
             exitToolStripMenuItem.Text = "E&xit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
@@ -265,6 +266,13 @@
             clearFilterToolStripMenuItem.Size = new Size(166, 26);
             clearFilterToolStripMenuItem.Text = "&Apply filter";
             clearFilterToolStripMenuItem.Click += clearFilterToolStripMenuItem_Click;
+            // 
+            // detailsToolStripMenuItem
+            // 
+            detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
+            detailsToolStripMenuItem.Size = new Size(67, 32);
+            detailsToolStripMenuItem.Text = "details";
+            detailsToolStripMenuItem.Click += detailsToolStripMenuItem_Click;
             // 
             // dirTreeView
             // 
@@ -597,12 +605,12 @@
             ActualPathTSSLabel.Text = "path";
             ActualPathTSSLabel.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // detailsToolStripMenuItem
+            // logPropertiesToolStripMenuItem
             // 
-            detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
-            detailsToolStripMenuItem.Size = new Size(67, 32);
-            detailsToolStripMenuItem.Text = "details";
-            detailsToolStripMenuItem.Click += detailsToolStripMenuItem_Click;
+            logPropertiesToolStripMenuItem.Name = "logPropertiesToolStripMenuItem";
+            logPropertiesToolStripMenuItem.Size = new Size(224, 26);
+            logPropertiesToolStripMenuItem.Text = "&Log Properties";
+            logPropertiesToolStripMenuItem.Click += logPropertiesToolStripMenuItem_Click;
             // 
             // MainMenu
             // 
@@ -694,5 +702,6 @@
         private ToolStripMenuItem clearFilterToolStripMenuItem;
         private Splitter splitter3;
         private ToolStripMenuItem detailsToolStripMenuItem;
+        private ToolStripMenuItem logPropertiesToolStripMenuItem;
     }
 }

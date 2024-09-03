@@ -691,4 +691,10 @@ public partial class MainMenu : Form
         EventPropertiesPage eventPropertiesPage = new EventPropertiesPage(dgvEvents, customEvents, dgvEvents.SelectedRows[0].Index);
         eventPropertiesPage.Show();
     }
+
+    private void logPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        LogPropertiesWindow logPropertiesWindow = new LogPropertiesWindow(filesOfInterest[0]);
+        logPropertiesWindow.Show();
+    }
 }
