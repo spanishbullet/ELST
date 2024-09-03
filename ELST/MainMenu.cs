@@ -132,8 +132,7 @@ public partial class MainMenu : Form
     private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
     {
         string aboutMessage = "Version 0.1" +
-            " - Prototype still in development.\n" +
-                              "This prototype software is aimed to show event logs in a readable format that allows the user to see different events side by side and in context.";
+            " - Prototype still in development.";
         MessageBox.Show(aboutMessage);
     }
 
@@ -497,7 +496,6 @@ public partial class MainMenu : Form
         if (selectedDevices.Count == currentDevices.Count)
         {
             MessageBox.Show(Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")));
-
         }
         else
         {

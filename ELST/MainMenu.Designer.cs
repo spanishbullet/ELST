@@ -35,7 +35,6 @@
             fileToolStripMenuItem = new ToolStripMenuItem();
             openLogToolStripMenuItem = new ToolStripMenuItem();
             chooseToolStripMenuItem = new ToolStripMenuItem();
-            filesOfInterestToolStripMenuItem = new ToolStripMenuItem();
             logPropertiesToolStripMenuItem = new ToolStripMenuItem();
             exportToolStripMenuItem = new ToolStripMenuItem();
             exitToolStripMenuItem = new ToolStripMenuItem();
@@ -55,7 +54,6 @@
             filterToolStripMenuItem = new ToolStripMenuItem();
             newFilterToolStripMenuItem = new ToolStripMenuItem();
             clearFilterToolStripMenuItem = new ToolStripMenuItem();
-            detailsToolStripMenuItem = new ToolStripMenuItem();
             dirTreeView = new TreeView();
             dgvEvents = new DataGridView();
             panel1 = new Panel();
@@ -106,7 +104,7 @@
             mainMenuStrip.AutoSize = false;
             mainMenuStrip.Dock = DockStyle.None;
             mainMenuStrip.ImageScalingSize = new Size(20, 20);
-            mainMenuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aboutToolStripMenuItem, analyzeToolStripMenuItem, resetToolStripMenuItem, seeToolStripMenuItem, searchToolStripMenuItem, configureToolStripMenuItem, filterToolStripMenuItem, detailsToolStripMenuItem });
+            mainMenuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aboutToolStripMenuItem, analyzeToolStripMenuItem, resetToolStripMenuItem, seeToolStripMenuItem, searchToolStripMenuItem, configureToolStripMenuItem, filterToolStripMenuItem });
             mainMenuStrip.Location = new Point(0, 0);
             mainMenuStrip.Name = "mainMenuStrip";
             mainMenuStrip.Padding = new Padding(4, 1, 0, 1);
@@ -123,42 +121,36 @@
             // 
             // openLogToolStripMenuItem
             // 
-            openLogToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { chooseToolStripMenuItem, filesOfInterestToolStripMenuItem });
+            openLogToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { chooseToolStripMenuItem });
             openLogToolStripMenuItem.Name = "openLogToolStripMenuItem";
-            openLogToolStripMenuItem.Size = new Size(188, 26);
+            openLogToolStripMenuItem.Size = new Size(224, 26);
             openLogToolStripMenuItem.Text = "&Open Log";
             // 
             // chooseToolStripMenuItem
             // 
             chooseToolStripMenuItem.Name = "chooseToolStripMenuItem";
-            chooseToolStripMenuItem.Size = new Size(192, 26);
+            chooseToolStripMenuItem.Size = new Size(224, 26);
             chooseToolStripMenuItem.Text = "&Choose";
             chooseToolStripMenuItem.Click += chooseToolStripMenuItem_Click;
-            // 
-            // filesOfInterestToolStripMenuItem
-            // 
-            filesOfInterestToolStripMenuItem.Name = "filesOfInterestToolStripMenuItem";
-            filesOfInterestToolStripMenuItem.Size = new Size(192, 26);
-            filesOfInterestToolStripMenuItem.Text = "&Files of Interest";
             // 
             // logPropertiesToolStripMenuItem
             // 
             logPropertiesToolStripMenuItem.Name = "logPropertiesToolStripMenuItem";
-            logPropertiesToolStripMenuItem.Size = new Size(188, 26);
+            logPropertiesToolStripMenuItem.Size = new Size(224, 26);
             logPropertiesToolStripMenuItem.Text = "&Log Properties";
             logPropertiesToolStripMenuItem.Click += logPropertiesToolStripMenuItem_Click;
             // 
             // exportToolStripMenuItem
             // 
             exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            exportToolStripMenuItem.Size = new Size(188, 26);
+            exportToolStripMenuItem.Size = new Size(224, 26);
             exportToolStripMenuItem.Text = "&Export";
             exportToolStripMenuItem.Click += exportToolStripMenuItem_Click;
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(188, 26);
+            exitToolStripMenuItem.Size = new Size(224, 26);
             exitToolStripMenuItem.Text = "E&xit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
@@ -172,14 +164,14 @@
             // infoToolStripMenuItem
             // 
             infoToolStripMenuItem.Name = "infoToolStripMenuItem";
-            infoToolStripMenuItem.Size = new Size(133, 26);
+            infoToolStripMenuItem.Size = new Size(224, 26);
             infoToolStripMenuItem.Text = "&Help";
             infoToolStripMenuItem.Click += infoToolStripMenuItem_Click;
             // 
             // aboutToolStripMenuItem1
             // 
             aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            aboutToolStripMenuItem1.Size = new Size(133, 26);
+            aboutToolStripMenuItem1.Size = new Size(224, 26);
             aboutToolStripMenuItem1.Text = "&About";
             aboutToolStripMenuItem1.Click += aboutToolStripMenuItem1_Click;
             // 
@@ -193,14 +185,14 @@
             // recordNumbersToolStripMenuItem
             // 
             recordNumbersToolStripMenuItem.Name = "recordNumbersToolStripMenuItem";
-            recordNumbersToolStripMenuItem.Size = new Size(203, 26);
+            recordNumbersToolStripMenuItem.Size = new Size(224, 26);
             recordNumbersToolStripMenuItem.Text = "&Record Numbers";
             recordNumbersToolStripMenuItem.Click += recordNumbersToolStripMenuItem_Click;
             // 
             // timeCToolStripMenuItem
             // 
             timeCToolStripMenuItem.Name = "timeCToolStripMenuItem";
-            timeCToolStripMenuItem.Size = new Size(203, 26);
+            timeCToolStripMenuItem.Size = new Size(224, 26);
             timeCToolStripMenuItem.Text = "&Time Change";
             timeCToolStripMenuItem.Click += timeCToolStripMenuItem_Click;
             // 
@@ -273,13 +265,6 @@
             clearFilterToolStripMenuItem.Size = new Size(166, 26);
             clearFilterToolStripMenuItem.Text = "&Apply filter";
             clearFilterToolStripMenuItem.Click += clearFilterToolStripMenuItem_Click;
-            // 
-            // detailsToolStripMenuItem
-            // 
-            detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
-            detailsToolStripMenuItem.Size = new Size(67, 32);
-            detailsToolStripMenuItem.Text = "details";
-            detailsToolStripMenuItem.Click += detailsToolStripMenuItem_Click;
             // 
             // dirTreeView
             // 
@@ -693,7 +678,6 @@
         private Button checkAllDevicesButton;
         private TableLayoutPanel tableLayoutPanel1;
         private ToolStripMenuItem chooseToolStripMenuItem;
-        private ToolStripMenuItem filesOfInterestToolStripMenuItem;
         private ToolStripMenuItem configureToolStripMenuItem;
         private ToolStripMenuItem columnsToolStripMenuItem;
         private ToolStripMenuItem exportToolStripMenuItem;
@@ -703,7 +687,6 @@
         private ToolStripMenuItem newFilterToolStripMenuItem;
         private ToolStripMenuItem clearFilterToolStripMenuItem;
         private Splitter splitter3;
-        private ToolStripMenuItem detailsToolStripMenuItem;
         private ToolStripMenuItem logPropertiesToolStripMenuItem;
     }
 }
