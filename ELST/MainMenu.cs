@@ -463,16 +463,29 @@ public partial class MainMenu : Form
                 {
                     DataGridViewRow row = dgvEvents.Rows[rowIndex];
                     ContextMenuStrip menu = new ContextMenuStrip();
-                    ToolStripMenuItem properties = new ToolStripMenuItem
+                    ToolStripMenuItem eventProperties = new ToolStripMenuItem
                     {
-                        Text = "Properties"
+                        Text = "Event Properties"
                     };
-                    properties.Click += (obj, ea) =>
+                    eventProperties.Click += (obj, ea) =>
                     {
                         EventPropertiesPage eventPropertiesPage = new EventPropertiesPage(dgvEvents, customEvents, rowIndex);
                         eventPropertiesPage.Show();
                     };
-                    menu.Items.Add(properties);
+                    ToolStripMenuItem logProperties = new ToolStripMenuItem
+                    {
+                        Text = "Log Properties"
+                    };
+                    logProperties.Click += (obj, ea) =>
+                    {
+                        foreach (var file in filesOfInterest)
+                        {
+                            LogPropertiesWindow logPropertiesWindow = new LogPropertiesWindow(file);
+                            logPropertiesWindow.Show();
+                        }
+                    };
+                    menu.Items.Add(eventProperties);
+                    menu.Items.Add(logProperties);
                     menu.Show(dgvEvents, e.Location);
                 }
             }
@@ -694,7 +707,15 @@ public partial class MainMenu : Form
 
     private void logPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        LogPropertiesWindow logPropertiesWindow = new LogPropertiesWindow(filesOfInterest[0]);
-        logPropertiesWindow.Show();
+        foreach (var file in filesOfInterest)
+        {
+            LogPropertiesWindow logPropertiesWindow = new LogPropertiesWindow(file);
+            logPropertiesWindow.Show();
+        }
+    }
+
+    private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+    {
+
     }
 }

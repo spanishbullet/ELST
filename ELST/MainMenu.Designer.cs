@@ -36,6 +36,7 @@
             openLogToolStripMenuItem = new ToolStripMenuItem();
             chooseToolStripMenuItem = new ToolStripMenuItem();
             filesOfInterestToolStripMenuItem = new ToolStripMenuItem();
+            logPropertiesToolStripMenuItem = new ToolStripMenuItem();
             exportToolStripMenuItem = new ToolStripMenuItem();
             exitToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem = new ToolStripMenuItem();
@@ -84,7 +85,6 @@
             pathStatusStrip = new StatusStrip();
             PathTSSLabel = new ToolStripStatusLabel();
             ActualPathTSSLabel = new ToolStripStatusLabel();
-            logPropertiesToolStripMenuItem = new ToolStripMenuItem();
             mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEvents).BeginInit();
             panel1.SuspendLayout();
@@ -125,7 +125,7 @@
             // 
             openLogToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { chooseToolStripMenuItem, filesOfInterestToolStripMenuItem });
             openLogToolStripMenuItem.Name = "openLogToolStripMenuItem";
-            openLogToolStripMenuItem.Size = new Size(224, 26);
+            openLogToolStripMenuItem.Size = new Size(188, 26);
             openLogToolStripMenuItem.Text = "&Open Log";
             // 
             // chooseToolStripMenuItem
@@ -141,17 +141,24 @@
             filesOfInterestToolStripMenuItem.Size = new Size(192, 26);
             filesOfInterestToolStripMenuItem.Text = "&Files of Interest";
             // 
+            // logPropertiesToolStripMenuItem
+            // 
+            logPropertiesToolStripMenuItem.Name = "logPropertiesToolStripMenuItem";
+            logPropertiesToolStripMenuItem.Size = new Size(188, 26);
+            logPropertiesToolStripMenuItem.Text = "&Log Properties";
+            logPropertiesToolStripMenuItem.Click += logPropertiesToolStripMenuItem_Click;
+            // 
             // exportToolStripMenuItem
             // 
             exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            exportToolStripMenuItem.Size = new Size(224, 26);
+            exportToolStripMenuItem.Size = new Size(188, 26);
             exportToolStripMenuItem.Text = "&Export";
             exportToolStripMenuItem.Click += exportToolStripMenuItem_Click;
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(224, 26);
+            exitToolStripMenuItem.Size = new Size(188, 26);
             exitToolStripMenuItem.Text = "E&xit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
@@ -286,6 +293,8 @@
             // 
             // dgvEvents
             // 
+            dgvEvents.AllowUserToAddRows = false;
+            dgvEvents.AllowUserToDeleteRows = false;
             dgvEvents.AllowUserToOrderColumns = true;
             dgvEvents.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -604,13 +613,6 @@
             ActualPathTSSLabel.Size = new Size(39, 20);
             ActualPathTSSLabel.Text = "path";
             ActualPathTSSLabel.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // logPropertiesToolStripMenuItem
-            // 
-            logPropertiesToolStripMenuItem.Name = "logPropertiesToolStripMenuItem";
-            logPropertiesToolStripMenuItem.Size = new Size(224, 26);
-            logPropertiesToolStripMenuItem.Text = "&Log Properties";
-            logPropertiesToolStripMenuItem.Click += logPropertiesToolStripMenuItem_Click;
             // 
             // MainMenu
             // 
