@@ -26,8 +26,9 @@ public partial class EventPropertiesPage : Form
 
         InitializeComponent();
 
-        xmlViewCB.Checked = true;
-        detailsLabel.Text = events[index].formattedXml;
+        friendlyViewCB.Checked = true;
+        detailsLabel.Text = XmlExtract.FormatFriendly(events[index].formattedXml);
+
     }
 
     private void xmlViewCB_CheckedChanged(object sender, EventArgs e)
@@ -70,6 +71,47 @@ public partial class EventPropertiesPage : Form
                 friendlyViewCB.CheckedChanged += friendlyViewCB_CheckedChanged;
             }
         }
-        detailsLabel.Text = events[index].formattedXml;
+        detailsLabel.Text = XmlExtract.FormatFriendly(events[index].formattedXml);
+    }
+
+    private void closeButton_Click(object sender, EventArgs e)
+    {
+        this.Close();
+    }
+
+    private void nextButton_Click(object sender, EventArgs e)
+    {
+        if (index < dgv.RowCount-2)
+        {
+            dgv.Rows[index].Selected = false;
+            index++;
+            dgv.Rows[index].Selected = true;
+            if (friendlyViewCB.Checked = true)
+            {
+                detailsLabel.Text = XmlExtract.FormatFriendly(events[index].formattedXml);
+            }
+            else
+            {
+                detailsLabel.Text = events[index].formattedXml;
+            }
+        }
+    }
+
+    private void previousButton_Click(object sender, EventArgs e)
+    {
+        if (index > 0)
+        {
+            dgv.Rows[index].Selected = false;
+            index--;
+            dgv.Rows[index].Selected = true;
+            if (friendlyViewCB.Checked = true)
+            {
+                detailsLabel.Text = XmlExtract.FormatFriendly(events[index].formattedXml);
+            }
+            else
+            {
+                detailsLabel.Text = events[index].formattedXml;
+            }
+        }
     }
 }

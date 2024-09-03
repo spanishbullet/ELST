@@ -456,6 +456,26 @@ public partial class MainMenu : Form
                 }
                 menu.Show(dgvEvents, e.Location);
             }
+            else if (hitTestInfo.Type == DataGridViewHitTestType.Cell)
+            {
+                int rowIndex = hitTestInfo.RowIndex;
+                if (rowIndex >= 0 && rowIndex < dgvEvents.Rows.Count && dgvEvents.Rows[rowIndex].Selected)
+                {
+                    DataGridViewRow row = dgvEvents.Rows[rowIndex];
+                    ContextMenuStrip menu = new ContextMenuStrip();
+                    ToolStripMenuItem properties = new ToolStripMenuItem
+                    {
+                        Text = "Properties"
+                    };
+                    properties.Click += (obj, ea) =>
+                    {
+                        EventPropertiesPage eventPropertiesPage = new EventPropertiesPage(dgvEvents, customEvents, rowIndex);
+                        eventPropertiesPage.Show();
+                    };
+                    menu.Items.Add(properties);
+                    menu.Show(dgvEvents, e.Location);
+                }
+            }
         }
     }
 
@@ -668,7 +688,7 @@ public partial class MainMenu : Form
 
     private void detailsToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        EventPropertiesPage eventPropertiesPage = new EventPropertiesPage(dgvEvents, customEvents, 0);
+        EventPropertiesPage eventPropertiesPage = new EventPropertiesPage(dgvEvents, customEvents, dgvEvents.SelectedRows[0].Index);
         eventPropertiesPage.Show();
     }
 }
