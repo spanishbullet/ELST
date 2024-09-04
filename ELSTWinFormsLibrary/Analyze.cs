@@ -43,7 +43,6 @@ public class Analyze
                     message += (i + 1) + "\n";
                     rows.Add(i);
                 }
-
                 lastItem = currentItem;
             }
 

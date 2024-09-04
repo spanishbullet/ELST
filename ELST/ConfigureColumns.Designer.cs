@@ -50,7 +50,7 @@
             columnsCLB.FormattingEnabled = true;
             columnsCLB.Location = new Point(12, 12);
             columnsCLB.Name = "columnsCLB";
-            columnsCLB.Size = new Size(178, 334);
+            columnsCLB.Size = new Size(178, 422);
             columnsCLB.TabIndex = 5;
             columnsCLB.MouseDown += columnsCLB_MouseDown;
             // 
@@ -88,7 +88,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(331, 354);
+            ClientSize = new Size(331, 447);
             Controls.Add(applyButton);
             Controls.Add(moveDownButton);
             Controls.Add(moveUpButton);

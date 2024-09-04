@@ -35,7 +35,7 @@
             fileToolStripMenuItem = new ToolStripMenuItem();
             openLogToolStripMenuItem = new ToolStripMenuItem();
             chooseToolStripMenuItem = new ToolStripMenuItem();
-            filesOfInterestToolStripMenuItem = new ToolStripMenuItem();
+            logPropertiesToolStripMenuItem = new ToolStripMenuItem();
             exportToolStripMenuItem = new ToolStripMenuItem();
             exitToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem = new ToolStripMenuItem();
@@ -65,6 +65,7 @@
             uncheckAllDevicesButton = new Button();
             checkAllDevicesButton = new Button();
             splitter1 = new Splitter();
+            splitter3 = new Splitter();
             searchGB = new GroupBox();
             caseSensitiveCheckBox = new CheckBox();
             closeSearchButton = new Button();
@@ -113,42 +114,43 @@
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { openLogToolStripMenuItem, exportToolStripMenuItem, exitToolStripMenuItem });
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { openLogToolStripMenuItem, logPropertiesToolStripMenuItem, exportToolStripMenuItem, exitToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             fileToolStripMenuItem.Size = new Size(46, 32);
             fileToolStripMenuItem.Text = "&File";
             // 
             // openLogToolStripMenuItem
             // 
-            openLogToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { chooseToolStripMenuItem, filesOfInterestToolStripMenuItem });
+            openLogToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { chooseToolStripMenuItem });
             openLogToolStripMenuItem.Name = "openLogToolStripMenuItem";
-            openLogToolStripMenuItem.Size = new Size(157, 26);
+            openLogToolStripMenuItem.Size = new Size(224, 26);
             openLogToolStripMenuItem.Text = "&Open Log";
             // 
             // chooseToolStripMenuItem
             // 
             chooseToolStripMenuItem.Name = "chooseToolStripMenuItem";
-            chooseToolStripMenuItem.Size = new Size(192, 26);
+            chooseToolStripMenuItem.Size = new Size(224, 26);
             chooseToolStripMenuItem.Text = "&Choose";
             chooseToolStripMenuItem.Click += chooseToolStripMenuItem_Click;
             // 
-            // filesOfInterestToolStripMenuItem
+            // logPropertiesToolStripMenuItem
             // 
-            filesOfInterestToolStripMenuItem.Name = "filesOfInterestToolStripMenuItem";
-            filesOfInterestToolStripMenuItem.Size = new Size(192, 26);
-            filesOfInterestToolStripMenuItem.Text = "&Files of Interest";
+            logPropertiesToolStripMenuItem.Name = "logPropertiesToolStripMenuItem";
+            logPropertiesToolStripMenuItem.Size = new Size(224, 26);
+            logPropertiesToolStripMenuItem.Text = "&Log Properties";
+            logPropertiesToolStripMenuItem.Click += logPropertiesToolStripMenuItem_Click;
             // 
             // exportToolStripMenuItem
             // 
             exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            exportToolStripMenuItem.Size = new Size(157, 26);
+            exportToolStripMenuItem.Size = new Size(224, 26);
             exportToolStripMenuItem.Text = "&Export";
             exportToolStripMenuItem.Click += exportToolStripMenuItem_Click;
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(157, 26);
+            exitToolStripMenuItem.Size = new Size(224, 26);
             exitToolStripMenuItem.Text = "E&xit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
@@ -162,14 +164,14 @@
             // infoToolStripMenuItem
             // 
             infoToolStripMenuItem.Name = "infoToolStripMenuItem";
-            infoToolStripMenuItem.Size = new Size(133, 26);
+            infoToolStripMenuItem.Size = new Size(224, 26);
             infoToolStripMenuItem.Text = "&Help";
             infoToolStripMenuItem.Click += infoToolStripMenuItem_Click;
             // 
             // aboutToolStripMenuItem1
             // 
             aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            aboutToolStripMenuItem1.Size = new Size(133, 26);
+            aboutToolStripMenuItem1.Size = new Size(224, 26);
             aboutToolStripMenuItem1.Text = "&About";
             aboutToolStripMenuItem1.Click += aboutToolStripMenuItem1_Click;
             // 
@@ -183,14 +185,14 @@
             // recordNumbersToolStripMenuItem
             // 
             recordNumbersToolStripMenuItem.Name = "recordNumbersToolStripMenuItem";
-            recordNumbersToolStripMenuItem.Size = new Size(203, 26);
+            recordNumbersToolStripMenuItem.Size = new Size(224, 26);
             recordNumbersToolStripMenuItem.Text = "&Record Numbers";
             recordNumbersToolStripMenuItem.Click += recordNumbersToolStripMenuItem_Click;
             // 
             // timeCToolStripMenuItem
             // 
             timeCToolStripMenuItem.Name = "timeCToolStripMenuItem";
-            timeCToolStripMenuItem.Size = new Size(203, 26);
+            timeCToolStripMenuItem.Size = new Size(224, 26);
             timeCToolStripMenuItem.Text = "&Time Change";
             timeCToolStripMenuItem.Click += timeCToolStripMenuItem_Click;
             // 
@@ -253,14 +255,14 @@
             // newFilterToolStripMenuItem
             // 
             newFilterToolStripMenuItem.Name = "newFilterToolStripMenuItem";
-            newFilterToolStripMenuItem.Size = new Size(224, 26);
+            newFilterToolStripMenuItem.Size = new Size(166, 26);
             newFilterToolStripMenuItem.Text = "&New Filter";
             newFilterToolStripMenuItem.Click += newFilterToolStripMenuItem_Click;
             // 
             // clearFilterToolStripMenuItem
             // 
             clearFilterToolStripMenuItem.Name = "clearFilterToolStripMenuItem";
-            clearFilterToolStripMenuItem.Size = new Size(224, 26);
+            clearFilterToolStripMenuItem.Size = new Size(166, 26);
             clearFilterToolStripMenuItem.Text = "&Apply filter";
             clearFilterToolStripMenuItem.Click += clearFilterToolStripMenuItem_Click;
             // 
@@ -276,6 +278,8 @@
             // 
             // dgvEvents
             // 
+            dgvEvents.AllowUserToAddRows = false;
+            dgvEvents.AllowUserToDeleteRows = false;
             dgvEvents.AllowUserToOrderColumns = true;
             dgvEvents.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -334,6 +338,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            splitContainer1.Panel2.Controls.Add(splitter3);
             splitContainer1.Panel2.Controls.Add(searchGB);
             splitContainer1.Panel2.Controls.Add(eventsStatusStrip);
             splitContainer1.Panel2.Controls.Add(timeControlGB);
@@ -419,6 +424,15 @@
             splitter1.TabIndex = 3;
             splitter1.TabStop = false;
             // 
+            // splitter3
+            // 
+            splitter3.Dock = DockStyle.Bottom;
+            splitter3.Location = new Point(0, 546);
+            splitter3.Name = "splitter3";
+            splitter3.Size = new Size(833, 4);
+            splitter3.TabIndex = 5;
+            splitter3.TabStop = false;
+            // 
             // searchGB
             // 
             searchGB.Anchor = AnchorStyles.None;
@@ -426,7 +440,7 @@
             searchGB.Controls.Add(closeSearchButton);
             searchGB.Controls.Add(searchButton);
             searchGB.Controls.Add(searchTextBox);
-            searchGB.Location = new Point(443, 344);
+            searchGB.Location = new Point(455, 311);
             searchGB.Name = "searchGB";
             searchGB.Size = new Size(378, 201);
             searchGB.TabIndex = 4;
@@ -664,7 +678,6 @@
         private Button checkAllDevicesButton;
         private TableLayoutPanel tableLayoutPanel1;
         private ToolStripMenuItem chooseToolStripMenuItem;
-        private ToolStripMenuItem filesOfInterestToolStripMenuItem;
         private ToolStripMenuItem configureToolStripMenuItem;
         private ToolStripMenuItem columnsToolStripMenuItem;
         private ToolStripMenuItem exportToolStripMenuItem;
@@ -673,5 +686,7 @@
         private ToolStripMenuItem filterToolStripMenuItem;
         private ToolStripMenuItem newFilterToolStripMenuItem;
         private ToolStripMenuItem clearFilterToolStripMenuItem;
+        private Splitter splitter3;
+        private ToolStripMenuItem logPropertiesToolStripMenuItem;
     }
 }

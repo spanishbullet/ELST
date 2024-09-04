@@ -132,8 +132,7 @@ public partial class MainMenu : Form
     private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
     {
         string aboutMessage = "Version 0.1" +
-            " - Prototype still in development.\n" +
-                              "This prototype software is aimed to show event logs in a readable format that allows the user to see different events side by side and in context.";
+            " - Prototype still in development.";
         MessageBox.Show(aboutMessage);
     }
 
@@ -164,6 +163,7 @@ public partial class MainMenu : Form
         {
             ActualPathTSSLabel.Text += path + "\n";
         }
+        ActualPathTSSLabel.Text = ActualPathTSSLabel.Text.Remove(ActualPathTSSLabel.Text.Length - 2);
     }
 
     private void openLogToolStripMenuItem_Click(object sender, EventArgs e)
@@ -406,6 +406,11 @@ public partial class MainMenu : Form
         dgvEvents.Columns.Add("Revision", "Revision");
         dgvEvents.Columns.Add("SerialNumber", "Serial Number");
         dgvEvents.Columns.Add("ParentID", "Parent ID");
+        dgvEvents.Columns.Add("ProcessId", "Process ID");
+        dgvEvents.Columns.Add("ThreadId", "Thread ID");
+        dgvEvents.Columns.Add("Channel", "Channel");
+        dgvEvents.Columns.Add("Computer", "Computer");
+        dgvEvents.Columns.Add("UserId", "User ID");
         dgvEvents.Columns.Add("Vbr0", "Vbr0");
 
         //Hide Columns
@@ -422,6 +427,8 @@ public partial class MainMenu : Form
 
         // Adjust column widths
         dgvEvents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
+        dgvEvents.Height = splitContainer1.Panel2.ClientSize.Height - pathStatusStrip.Height - eventsStatusStrip.Height;
 
         GetEvents(filesOfInterest);
         PopulatDGVEvents(customEvents);
@@ -448,6 +455,39 @@ public partial class MainMenu : Form
                 }
                 menu.Show(dgvEvents, e.Location);
             }
+            else if (hitTestInfo.Type == DataGridViewHitTestType.Cell)
+            {
+                int rowIndex = hitTestInfo.RowIndex;
+                if (rowIndex >= 0 && rowIndex < dgvEvents.Rows.Count && dgvEvents.Rows[rowIndex].Selected)
+                {
+                    DataGridViewRow row = dgvEvents.Rows[rowIndex];
+                    ContextMenuStrip menu = new ContextMenuStrip();
+                    ToolStripMenuItem eventProperties = new ToolStripMenuItem
+                    {
+                        Text = "Event Properties"
+                    };
+                    eventProperties.Click += (obj, ea) =>
+                    {
+                        EventPropertiesPage eventPropertiesPage = new EventPropertiesPage(dgvEvents, customEvents, rowIndex);
+                        eventPropertiesPage.Show();
+                    };
+                    ToolStripMenuItem logProperties = new ToolStripMenuItem
+                    {
+                        Text = "Log Properties"
+                    };
+                    logProperties.Click += (obj, ea) =>
+                    {
+                        foreach (var file in filesOfInterest)
+                        {
+                            LogPropertiesWindow logPropertiesWindow = new LogPropertiesWindow(file);
+                            logPropertiesWindow.Show();
+                        }
+                    };
+                    menu.Items.Add(eventProperties);
+                    menu.Items.Add(logProperties);
+                    menu.Show(dgvEvents, e.Location);
+                }
+            }
         }
     }
 
@@ -456,7 +496,6 @@ public partial class MainMenu : Form
         if (selectedDevices.Count == currentDevices.Count)
         {
             MessageBox.Show(Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")));
-
         }
         else
         {
@@ -656,5 +695,25 @@ public partial class MainMenu : Form
     private void clearFilterToolStripMenuItem_Click(object sender, EventArgs e)
     {
         PopulatDGVEvents(customEvents);
+    }
+
+    private void detailsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        EventPropertiesPage eventPropertiesPage = new EventPropertiesPage(dgvEvents, customEvents, dgvEvents.SelectedRows[0].Index);
+        eventPropertiesPage.Show();
+    }
+
+    private void logPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        foreach (var file in filesOfInterest)
+        {
+            LogPropertiesWindow logPropertiesWindow = new LogPropertiesWindow(file);
+            logPropertiesWindow.Show();
+        }
+    }
+
+    private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+    {
+
     }
 }

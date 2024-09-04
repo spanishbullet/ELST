@@ -10,13 +10,24 @@ namespace ELSTWinFormsLibrary;
 
 public class CustomEvent
 {
-    public int? Id { get; set; }
     public string ProviderName { get; set; }
+    public Guid? guid { get; set; }
+    public int? Id { get; set; }
+    public string Level {  get; set; } 
     public string Message { get; set; }
     public DateTime? TimeCreated { get; set; }
-    public string Level { get; set; }
 
     public string recordNumber { get; set; }
+
+    public int? processId { get; set; }
+
+    public int? threadID { get; set; }
+
+    public string channel {  get; set; }
+
+    public string computer {  get; set; }
+
+    public SecurityIdentifier userID { get; set; }
 
     public string capacity { get; set; }
 
@@ -36,6 +47,10 @@ public class CustomEvent
 
     public string extractedVbr0 { get; set; }
 
+    public string xml {  get; }
+
+    public string formattedXml { get; }
+
     public CustomEvent()
     {
 
@@ -45,22 +60,27 @@ public class CustomEvent
     {
         Id = (int)record.Id;
         ProviderName = record.ProviderName;
+        guid = record.RelatedActivityId;
+        processId = record.ProcessId;
+        threadID = record.ThreadId;
+        channel = record.LogName;
+        computer = record.MachineName;
+        userID = record.UserId;
         Message = record.FormatDescription();
         TimeCreated = record.TimeCreated.HasValue ? record.TimeCreated.Value : DateTime.MinValue;
         Level = record.LevelDisplayName;
         recordNumber = record.RecordId.ToString();
-
-        // Get the XML representation of the event
-        string eventXml = record.ToXml();
+        xml = record.ToXml();
+        formattedXml = XmlExtract.FormatXml(xml);
 
         // Parse the XML to extract desired fields
-        capacity = XmlExtract.GetField(eventXml, "Capacity");
-        manufacturer = XmlExtract.GetField(eventXml, "Manufacturer");
-        model = XmlExtract.GetField(eventXml, "Model");
-        revision = XmlExtract.GetField(eventXml, "Revision");
-        serialNumber = XmlExtract.GetField(eventXml, "SerialNumber");
-        parentId = XmlExtract.GetField(eventXml, "ParentId");
-        vbr0 = XmlExtract.GetField(eventXml, "Vbr0");
+        capacity = XmlExtract.GetField(xml, "Capacity");
+        manufacturer = XmlExtract.GetField(xml, "Manufacturer");
+        model = XmlExtract.GetField(xml, "Model");
+        revision = XmlExtract.GetField(xml, "Revision");
+        serialNumber = XmlExtract.GetField(xml, "SerialNumber");
+        parentId = XmlExtract.GetField(xml, "ParentId");
+        vbr0 = XmlExtract.GetField(xml, "Vbr0");
         extractedVbr0 = FormatVbr0.Extract(vbr0);
 
         if (long.Parse(capacity) != 0)
@@ -80,6 +100,7 @@ public class CustomEvent
 
     public List<object> GetAllAttributes()
     {
+        //orders matter**************************
         List<object> result = new List<object>();
         result.Add(Id);
         result.Add(ProviderName);
@@ -94,6 +115,11 @@ public class CustomEvent
         result.Add(revision);
         result.Add(serialNumber);
         result.Add(parentId);
+        result.Add(processId);
+        result.Add(threadID);
+        result.Add(channel);
+        result.Add(computer);
+        result.Add(userID);
         result.Add(extractedVbr0);
 
         return result;
