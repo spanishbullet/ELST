@@ -39,6 +39,7 @@
             foundFilesLabel = new Label();
             manualOpenGB = new GroupBox();
             openFileButtonManual = new Button();
+            helpButton = new Button();
             driveSearchGB.SuspendLayout();
             manualOpenGB.SuspendLayout();
             SuspendLayout();
@@ -139,6 +140,7 @@
             // 
             // manualOpenGB
             // 
+            manualOpenGB.Controls.Add(helpButton);
             manualOpenGB.Controls.Add(openFileButtonManual);
             manualOpenGB.Dock = DockStyle.Fill;
             manualOpenGB.Location = new Point(0, 299);
@@ -157,6 +159,16 @@
             openFileButtonManual.Text = "Open File";
             openFileButtonManual.UseVisualStyleBackColor = true;
             openFileButtonManual.Click += openFileButtonManual_Click;
+            // 
+            // helpButton
+            // 
+            helpButton.Location = new Point(662, 26);
+            helpButton.Name = "helpButton";
+            helpButton.Size = new Size(94, 29);
+            helpButton.TabIndex = 6;
+            helpButton.Text = "Help";
+            helpButton.UseVisualStyleBackColor = true;
+            helpButton.Click += helpButton_Click;
             // 
             // StartupPage
             // 
@@ -187,5 +199,6 @@
         private Label foundFilesLabel;
         private CheckedListBox foundFilesCLB;
         private Button openTogetherButtonDriveSearch;
+        private Button helpButton;
     }
 }
