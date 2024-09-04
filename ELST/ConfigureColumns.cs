@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NPOI.SS.Formula.Functions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -90,7 +91,12 @@ public partial class ConfigureColumns : Form
         if (index != ListBox.NoMatches)
         {
             // Toggle the checked state
-           columnsCLB.SetItemChecked(index, !columnsCLB.GetItemChecked(index));
+            columnsCLB.SetItemChecked(index, !columnsCLB.GetItemChecked(index));
         }
     }
+
+    /*private void columnsCLB_ItemCheck(object sender, ItemCheckEventArgs e)
+    {
+        columnsCLB.SetItemChecked());
+    }*/
 }

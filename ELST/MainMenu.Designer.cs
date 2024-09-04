@@ -123,34 +123,34 @@
             // 
             openLogToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { chooseToolStripMenuItem });
             openLogToolStripMenuItem.Name = "openLogToolStripMenuItem";
-            openLogToolStripMenuItem.Size = new Size(224, 26);
+            openLogToolStripMenuItem.Size = new Size(188, 26);
             openLogToolStripMenuItem.Text = "&Open Log";
             // 
             // chooseToolStripMenuItem
             // 
             chooseToolStripMenuItem.Name = "chooseToolStripMenuItem";
-            chooseToolStripMenuItem.Size = new Size(224, 26);
+            chooseToolStripMenuItem.Size = new Size(141, 26);
             chooseToolStripMenuItem.Text = "&Choose";
             chooseToolStripMenuItem.Click += chooseToolStripMenuItem_Click;
             // 
             // logPropertiesToolStripMenuItem
             // 
             logPropertiesToolStripMenuItem.Name = "logPropertiesToolStripMenuItem";
-            logPropertiesToolStripMenuItem.Size = new Size(224, 26);
+            logPropertiesToolStripMenuItem.Size = new Size(188, 26);
             logPropertiesToolStripMenuItem.Text = "&Log Properties";
             logPropertiesToolStripMenuItem.Click += logPropertiesToolStripMenuItem_Click;
             // 
             // exportToolStripMenuItem
             // 
             exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            exportToolStripMenuItem.Size = new Size(224, 26);
+            exportToolStripMenuItem.Size = new Size(188, 26);
             exportToolStripMenuItem.Text = "&Export";
             exportToolStripMenuItem.Click += exportToolStripMenuItem_Click;
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(224, 26);
+            exitToolStripMenuItem.Size = new Size(188, 26);
             exitToolStripMenuItem.Text = "E&xit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
@@ -164,14 +164,14 @@
             // infoToolStripMenuItem
             // 
             infoToolStripMenuItem.Name = "infoToolStripMenuItem";
-            infoToolStripMenuItem.Size = new Size(224, 26);
+            infoToolStripMenuItem.Size = new Size(133, 26);
             infoToolStripMenuItem.Text = "&Help";
             infoToolStripMenuItem.Click += infoToolStripMenuItem_Click;
             // 
             // aboutToolStripMenuItem1
             // 
             aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            aboutToolStripMenuItem1.Size = new Size(224, 26);
+            aboutToolStripMenuItem1.Size = new Size(133, 26);
             aboutToolStripMenuItem1.Text = "&About";
             aboutToolStripMenuItem1.Click += aboutToolStripMenuItem1_Click;
             // 
@@ -193,7 +193,7 @@
             // 
             timeCToolStripMenuItem.Name = "timeCToolStripMenuItem";
             timeCToolStripMenuItem.Size = new Size(224, 26);
-            timeCToolStripMenuItem.Text = "&Time Change";
+            timeCToolStripMenuItem.Text = "&Time";
             timeCToolStripMenuItem.Click += timeCToolStripMenuItem_Click;
             // 
             // resetToolStripMenuItem
