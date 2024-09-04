@@ -516,7 +516,7 @@ public partial class MainMenu : Form
 
     private void timeCToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        MessageBox.Show(Analyze.TimeChange2(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "TimeCreated")));
+        MessageBox.Show(Analyze.TimeChange(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "TimeCreated")));
     }
 
     private void devicesToolStripMenuItem_Click(object sender, EventArgs e)

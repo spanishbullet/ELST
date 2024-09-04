@@ -67,47 +67,7 @@ public class Analyze
         return message;
     }
 
-
-    public static string TimeChange(DataGridView dgv, List<CustomEvent> customEvents)
-    {
-        string message = "";
-        List<DateTime> times = new List<DateTime>();
-        List<int> rows = new List<int>();
-
-        foreach (CustomEvent customEvent in customEvents)
-        {
-            times.Add((DateTime)customEvent.TimeCreated);
-        }
-
-        DateTime lastItem = times[0];
-        DateTime currentItem;
-
-        for (int i = 1; i < times.Count; i++)
-        {
-            currentItem = times[i];
-            if (currentItem <= lastItem)
-            {
-                if (message.Length == 0)
-                    message = "Possible anomalies at row(s):\n";
-                message += (i + 1) + "\n";
-                rows.Add(i);
-            }
-            lastItem = currentItem;
-        }
-
-        //highlight rows in dgv
-        foreach (int row in rows)
-        {
-            dgv.Rows[row].DefaultCellStyle.BackColor = Color.Purple;
-        }
-
-        if (message.Length == 0)
-            message = "No anomalies detected";
-
-        return message;
-    }
-
-    public static string TimeChange2(DataGridView dgv, List<object> columnData)
+    public static string TimeChange(DataGridView dgv, List<object> columnData)
     {
         List<DateTime> times = columnData.ConvertAll(new Converter<object, DateTime>(Convert.ToDateTime));
         string message = "";
