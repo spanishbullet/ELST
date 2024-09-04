@@ -78,25 +78,8 @@ public partial class ConfigureColumns : Form
         this.Close();
     }
 
-
-
     private void cancelButton_Click(object sender, EventArgs e)
     {
-        this.Hide();
+        this.Close();
     }
-
-    private void columnsCLB_MouseDown(object sender, MouseEventArgs e)
-    {
-        int index = columnsCLB.IndexFromPoint(e.Location);
-        if (index != ListBox.NoMatches)
-        {
-            // Toggle the checked state
-            columnsCLB.SetItemChecked(index, !columnsCLB.GetItemChecked(index));
-        }
-    }
-
-    /*private void columnsCLB_ItemCheck(object sender, ItemCheckEventArgs e)
-    {
-        columnsCLB.SetItemChecked());
-    }*/
 }
