@@ -138,20 +138,8 @@ public partial class MainMenu : Form
 
     private void infoToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        string helpMessage = "Open Event Log File:\n" +
-                             " - Click the \"File\" button on the main form menu and then \"Open Log\" to launch a folder dialog.\n" +
-                             " - Select a folder containing the .evtx file(s) you want to use.\n" +
-                             " - Select and double click the desired .evtx file.\n" +
-                             "View Event Data:\n" +
-                             " - The event log data will automatically populate in table format within the DataGridView.\n" +
-                             "Configure Fields\n" +
-                             " - There are default fields that automatically populate.You can change the visible feilds by right clicking any of the column headers.\n" +
-                             " - A dropdown menu will apear and you can select or deselect the feilds you wish to see.\n" +
-                             " - You can also drag a column header left or right to change the other the feilds apear in.\n" +
-                             "Exit\n" +
-                             " - You can click the red \"X\" in the top right corner of the window.\n" +
-                             " - Alternatively you can select \"File\" in the menu bar and then select \"Exit\".";
-        MessageBox.Show(helpMessage); ;
+        HelpWindow helpWindow = new HelpWindow();
+        helpWindow.Show();
     }
 
     private void AutoLoadFilePath()
