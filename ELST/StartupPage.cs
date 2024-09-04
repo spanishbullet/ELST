@@ -70,6 +70,7 @@ public partial class StartupPage : Form
                         }
 
                     }));
+                    MessageBox.Show("Search Successful");
                 }
                 else
                 {
