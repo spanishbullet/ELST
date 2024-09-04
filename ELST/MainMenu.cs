@@ -385,7 +385,7 @@ public partial class MainMenu : Form
 
         dgvEvents.Sort(dgvEvents.Columns["TimeCreated"], ListSortDirection.Ascending);
 
-        eventsTSSLabel.Text = $"Showing {dgvEvents.Rows.Count - 1} of {customEvents.Count} Events";
+        eventsTSSLabel.Text = $"Showing {dgvEvents.Rows.Count} of {customEvents.Count} Events";
     }
 
     private void InitializeDGVEvents()
