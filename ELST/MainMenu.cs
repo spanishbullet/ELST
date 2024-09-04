@@ -48,19 +48,19 @@ public partial class MainMenu : Form
 
     private string selectedFolderPath;
 
-    private string baseDirPath;
+    private readonly string baseDirPath;
 
     //list of events
-    private List<CustomEvent> customEvents = new List<CustomEvent>();
+    private readonly List<CustomEvent> customEvents = [];
 
     //selected devices
-    public List<Device> selectedDevices = new List<Device>();
+    public List<Device> selectedDevices = [];
 
     //devices with events in the current timeframe
-    public List<Device> currentDevices = new List<Device>();
+    public List<Device> currentDevices = [];
 
     //all devices in the log
-    public List<Device> allDevices = new List<Device>();
+    public List<Device> allDevices = [];
 
     //variables used for timeframe
     public bool timeframe = false;
@@ -77,24 +77,24 @@ public partial class MainMenu : Form
     public string drive;
 
     //list of files of interest found in drive
-    public List<string> filesOfInterest = new List<string>();
+    public List<string> filesOfInterest = [];
 
     //for search function
     private bool caseSensitive = false;
 
     // event used as filter
-    public CustomEvent filter = new CustomEvent();
+    public CustomEvent filter = new();
 
     private void InitializeMainMenuStrip()
     {
         //mainMenuStrip.
 
         // Host the DateTimePicker in a ToolStripControlHost
-        ToolStripControlHost startDTPToolStripControlHost = new ToolStripControlHost(startDTP);
-        ToolStripControlHost endDTPToolStripControlHost = new ToolStripControlHost(endDTP);
-        ToolStripControlHost timeArrowLabelToolStripControlHost = new ToolStripControlHost(timeArrowLabel);
-        ToolStripControlHost applyTimeframeButtonToolStripControlHost = new ToolStripControlHost(applyTimeframeButton);
-        ToolStripControlHost resetTiemframeButtomToolStripControlHost = new ToolStripControlHost(resetTimefreameButtom);
+        ToolStripControlHost startDTPToolStripControlHost = new(startDTP);
+        ToolStripControlHost endDTPToolStripControlHost = new(endDTP);
+        ToolStripControlHost timeArrowLabelToolStripControlHost = new(timeArrowLabel);
+        ToolStripControlHost applyTimeframeButtonToolStripControlHost = new(applyTimeframeButton);
+        ToolStripControlHost resetTiemframeButtomToolStripControlHost = new(resetTimefreameButtom);
 
         // Add the ToolStripControlHost to the ToolStrip
         mainMenuStrip.Items.Add(startDTPToolStripControlHost);
@@ -198,7 +198,7 @@ public partial class MainMenu : Form
         InitializeTimeControl();*/
     }
 
-    private void ListDirectory(TreeView treeView, string path)
+    private static void ListDirectory(TreeView treeView, string path)
     {
         treeView.Nodes.Clear();
         var rootDirInfo = new DirectoryInfo(path);
@@ -243,17 +243,17 @@ public partial class MainMenu : Form
             try
             {
                 // Create an EventLogQuery object for the .evtx file
-                EventLogQuery query = new EventLogQuery(file, PathType.FilePath);
+                EventLogQuery query = new(file, PathType.FilePath);
 
                 // Create an EventLogReader object
-                EventLogReader reader = new EventLogReader(query);
+                EventLogReader reader = new(query);
 
                 // Read and display the events
                 EventRecord eventRecord;
                 while ((eventRecord = reader.ReadEvent()) != null)
                 {
                     // Creat event object to store events.
-                    CustomEvent customEvent = new CustomEvent(eventRecord);
+                    CustomEvent customEvent = new(eventRecord);
                     customEvents.Add(customEvent);
 
                     eventRecord.Dispose(); // Release resources
@@ -281,7 +281,7 @@ public partial class MainMenu : Form
                 {
                     if (currentDevices.Count == 0)
                     {
-                        Device device = new Device(customEvent);
+                        Device device = new(customEvent);
                         currentDevices.Add(device);
                     }
                     else if (currentDevices.Any(d => d.serialNumber == customEvent.serialNumber))
@@ -290,7 +290,7 @@ public partial class MainMenu : Form
                     }
                     else
                     {
-                        Device device = new Device(customEvent);
+                        Device device = new(customEvent);
                         currentDevices.Add(device);
                     }
                 }
@@ -302,7 +302,7 @@ public partial class MainMenu : Form
             {
                 if (currentDevices.Count == 0)
                 {
-                    Device device = new Device(customEvent);
+                    Device device = new(customEvent);
                     currentDevices.Add(device);
                 }
                 else if (currentDevices.Any(d => d.serialNumber == customEvent.serialNumber))
@@ -311,7 +311,7 @@ public partial class MainMenu : Form
                 }
                 else
                 {
-                    Device device = new Device(customEvent);
+                    Device device = new(customEvent);
                     currentDevices.Add(device);
                 }
             }
@@ -321,13 +321,13 @@ public partial class MainMenu : Form
 
     public void GetAllDevices()
     {
-        allDevices = new List<Device>();
+        allDevices = [];
 
         foreach (CustomEvent customEvent in customEvents)
         {
             if (allDevices.Count == 0)
             {
-                Device device = new Device(customEvent);
+                Device device = new(customEvent);
                 allDevices.Add(device);
             }
             if (allDevices.Any(d => d.serialNumber == customEvent.serialNumber))
@@ -336,7 +336,7 @@ public partial class MainMenu : Form
             }
             else
             {
-                Device device = new Device(customEvent);
+                Device device = new(customEvent);
                 allDevices.Add(device);
             }
         }
@@ -359,7 +359,7 @@ public partial class MainMenu : Form
                         {
                             if (ce.Equals(filter))
                             {
-                                dgvEvents.Rows.Add(ce.GetAllAttributes().ToArray());
+                                dgvEvents.Rows.Add([.. ce.GetAllAttributes()]);
                             }
                         }
                     }
@@ -376,7 +376,7 @@ public partial class MainMenu : Form
                     {
                         if (ce.Equals(filter))
                         {
-                            dgvEvents.Rows.Add(ce.GetAllAttributes().ToArray());
+                            dgvEvents.Rows.Add([.. ce.GetAllAttributes()]);
                         }
                     }
                 }
@@ -441,12 +441,14 @@ public partial class MainMenu : Form
             var hitTestInfo = dgvEvents.HitTest(e.X, e.Y);
             if (hitTestInfo.Type == DataGridViewHitTestType.ColumnHeader)
             {
-                ContextMenuStrip menu = new ContextMenuStrip();
+                ContextMenuStrip menu = new();
                 foreach (DataGridViewColumn column in dgvEvents.Columns)
                 {
-                    ToolStripMenuItem item = new ToolStripMenuItem();
-                    item.Text = column.HeaderText;
-                    item.Checked = column.Visible;
+                    ToolStripMenuItem item = new()
+                    {
+                        Text = column.HeaderText,
+                        Checked = column.Visible
+                    };
                     item.Click += (obj, ea) =>
                     {
                         column.Visible = !item.Checked;
@@ -461,17 +463,17 @@ public partial class MainMenu : Form
                 if (rowIndex >= 0 && rowIndex < dgvEvents.Rows.Count && dgvEvents.Rows[rowIndex].Selected)
                 {
                     DataGridViewRow row = dgvEvents.Rows[rowIndex];
-                    ContextMenuStrip menu = new ContextMenuStrip();
-                    ToolStripMenuItem eventProperties = new ToolStripMenuItem
+                    ContextMenuStrip menu = new();
+                    ToolStripMenuItem eventProperties = new()
                     {
                         Text = "Event Properties"
                     };
                     eventProperties.Click += (obj, ea) =>
                     {
-                        EventPropertiesPage eventPropertiesPage = new EventPropertiesPage(dgvEvents, customEvents, rowIndex);
+                        EventPropertiesPage eventPropertiesPage = new(dgvEvents, customEvents, rowIndex);
                         eventPropertiesPage.Show();
                     };
-                    ToolStripMenuItem logProperties = new ToolStripMenuItem
+                    ToolStripMenuItem logProperties = new()
                     {
                         Text = "Log Properties"
                     };
@@ -479,7 +481,7 @@ public partial class MainMenu : Form
                     {
                         foreach (var file in filesOfInterest)
                         {
-                            LogPropertiesWindow logPropertiesWindow = new LogPropertiesWindow(file);
+                            LogPropertiesWindow logPropertiesWindow = new(file);
                             logPropertiesWindow.Show();
                         }
                     };
@@ -522,7 +524,7 @@ public partial class MainMenu : Form
     private void devicesToolStripMenuItem_Click(object sender, EventArgs e)
     {
         GetCurrentDevices();
-        DevicesPage devicePage = new DevicesPage(this);
+        DevicesPage devicePage = new(this);
         devicePage.Show();
     }
 
@@ -533,7 +535,7 @@ public partial class MainMenu : Form
 
 
         startDTP.Value = (DateTime)customEvents[0].TimeCreated;
-        endDTP.Value = (DateTime)customEvents[customEvents.Count - 1].TimeCreated;
+        endDTP.Value = (DateTime)customEvents[^1].TimeCreated;
 
         originalStartTime = startDTP.Value;
         originalEndTime = endDTP.Value;
@@ -644,14 +646,15 @@ public partial class MainMenu : Form
 
     private void chooseToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        OpenFileDialog openFileDialog = new OpenFileDialog();
-
-        // Set filter options and filter index.
-        openFileDialog.Title = "Select a folder";
-        openFileDialog.Filter = "Event Log Files (*.evtx)|*.evtx|All Files (*.*)|*.*";
-        openFileDialog.FilterIndex = 1;
-        openFileDialog.Multiselect = false;
-        openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+        OpenFileDialog openFileDialog = new()
+        {
+            // Set filter options and filter index.
+            Title = "Select a folder",
+            Filter = "Event Log Files (*.evtx)|*.evtx|All Files (*.*)|*.*",
+            FilterIndex = 1,
+            Multiselect = false,
+            InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer)
+        };
 
         // Show the dialog and get result.
         DialogResult result = openFileDialog.ShowDialog();
@@ -676,19 +679,19 @@ public partial class MainMenu : Form
 
     private void columnsToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        ConfigureColumns configureColumns = new ConfigureColumns(dgvEvents);
+        ConfigureColumns configureColumns = new(dgvEvents);
         configureColumns.Show();
     }
 
     private void exportToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        ExportPage export = new ExportPage(dgvEvents);
+        ExportPage export = new(dgvEvents);
         export.Show();
     }
 
     private void newFilterToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        FilterWindow filterWindow = new FilterWindow(dgvEvents, filter);
+        FilterWindow filterWindow = new(dgvEvents, filter);
         filterWindow.Show();
     }
 
@@ -699,7 +702,7 @@ public partial class MainMenu : Form
 
     private void detailsToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        EventPropertiesPage eventPropertiesPage = new EventPropertiesPage(dgvEvents, customEvents, dgvEvents.SelectedRows[0].Index);
+        EventPropertiesPage eventPropertiesPage = new(dgvEvents, customEvents, dgvEvents.SelectedRows[0].Index);
         eventPropertiesPage.Show();
     }
 
@@ -707,13 +710,9 @@ public partial class MainMenu : Form
     {
         foreach (var file in filesOfInterest)
         {
-            LogPropertiesWindow logPropertiesWindow = new LogPropertiesWindow(file);
+            LogPropertiesWindow logPropertiesWindow = new(file);
             logPropertiesWindow.Show();
         }
     }
 
-    private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-    {
-
-    }
 }

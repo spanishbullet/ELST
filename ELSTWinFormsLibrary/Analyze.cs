@@ -12,7 +12,7 @@ public class Analyze
     {
         string message = "";
         List<int> recordIds = columnData.ConvertAll(new Converter<object, int>(Convert.ToInt32));
-        List<int> rows = new List<int>();
+        List<int> rows = [];
 
         if (recordIds.Count > 0)
         {
@@ -71,10 +71,10 @@ public class Analyze
     {
         List<DateTime> times = columnData.ConvertAll(new Converter<object, DateTime>(Convert.ToDateTime));
         string message = "";
-        List<int> result = new List<int>();
+        List<int> result = [];
         if (columnData.Count > 0)
         {
-            List<int> rows = new List<int>();
+            List<int> rows = [];
             DateTime lastItem = times[0];
             DateTime currentItem;
 

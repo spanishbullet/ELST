@@ -13,7 +13,7 @@ namespace ELST;
 
 public partial class ConfigureColumns : Form
 {
-    private DataGridView _dataGridView;
+    private readonly DataGridView _dataGridView;
 
     public ConfigureColumns(DataGridView dataGridView)
     {
