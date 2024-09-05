@@ -703,4 +703,19 @@ public partial class MainMenu : Form
         }
     }
 
+    private void button1_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void resetSearchButton_Click(object sender, EventArgs e)
+    {
+        foreach (DataGridViewRow row in dgvEvents.Rows)
+        {
+            foreach (DataGridViewCell cell in row.Cells)
+            {
+                cell.Style.BackColor = Color.White;
+            }
+        }
+    }
 }

@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
             mainMenuStrip = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             openLogToolStripMenuItem = new ToolStripMenuItem();
@@ -83,6 +83,7 @@
             pathStatusStrip = new StatusStrip();
             PathTSSLabel = new ToolStripStatusLabel();
             ActualPathTSSLabel = new ToolStripStatusLabel();
+            resetSearchButton = new Button();
             mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEvents).BeginInit();
             panel1.SuspendLayout();
@@ -185,14 +186,14 @@
             // recordNumbersToolStripMenuItem
             // 
             recordNumbersToolStripMenuItem.Name = "recordNumbersToolStripMenuItem";
-            recordNumbersToolStripMenuItem.Size = new Size(224, 26);
+            recordNumbersToolStripMenuItem.Size = new Size(203, 26);
             recordNumbersToolStripMenuItem.Text = "&Record Numbers";
             recordNumbersToolStripMenuItem.Click += recordNumbersToolStripMenuItem_Click;
             // 
             // timeCToolStripMenuItem
             // 
             timeCToolStripMenuItem.Name = "timeCToolStripMenuItem";
-            timeCToolStripMenuItem.Size = new Size(224, 26);
+            timeCToolStripMenuItem.Size = new Size(203, 26);
             timeCToolStripMenuItem.Text = "&Time";
             timeCToolStripMenuItem.Click += timeCToolStripMenuItem_Click;
             // 
@@ -282,33 +283,33 @@
             dgvEvents.AllowUserToDeleteRows = false;
             dgvEvents.AllowUserToOrderColumns = true;
             dgvEvents.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvEvents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = SystemColors.Control;
+            dataGridViewCellStyle7.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dgvEvents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             dgvEvents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgvEvents.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = SystemColors.Window;
+            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle8.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
+            dgvEvents.DefaultCellStyle = dataGridViewCellStyle8;
             dgvEvents.Location = new Point(0, 0);
             dgvEvents.Name = "dgvEvents";
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dgvEvents.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = SystemColors.Control;
+            dataGridViewCellStyle9.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
+            dgvEvents.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             dgvEvents.RowHeadersWidth = 51;
             dgvEvents.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvEvents.Size = new Size(833, 547);
@@ -436,13 +437,14 @@
             // searchGB
             // 
             searchGB.Anchor = AnchorStyles.None;
+            searchGB.Controls.Add(resetSearchButton);
             searchGB.Controls.Add(caseSensitiveCheckBox);
             searchGB.Controls.Add(closeSearchButton);
             searchGB.Controls.Add(searchButton);
             searchGB.Controls.Add(searchTextBox);
             searchGB.Location = new Point(455, 311);
             searchGB.Name = "searchGB";
-            searchGB.Size = new Size(378, 201);
+            searchGB.Size = new Size(378, 174);
             searchGB.TabIndex = 4;
             searchGB.TabStop = false;
             searchGB.Text = "Search";
@@ -463,7 +465,7 @@
             // 
             // closeSearchButton
             // 
-            closeSearchButton.Location = new Point(207, 146);
+            closeSearchButton.Location = new Point(248, 126);
             closeSearchButton.Name = "closeSearchButton";
             closeSearchButton.Size = new Size(94, 29);
             closeSearchButton.TabIndex = 3;
@@ -473,7 +475,7 @@
             // 
             // searchButton
             // 
-            searchButton.Location = new Point(70, 146);
+            searchButton.Location = new Point(132, 126);
             searchButton.Name = "searchButton";
             searchButton.Size = new Size(94, 29);
             searchButton.TabIndex = 2;
@@ -599,6 +601,16 @@
             ActualPathTSSLabel.Text = "path";
             ActualPathTSSLabel.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // resetSearchButton
+            // 
+            resetSearchButton.Location = new Point(206, 81);
+            resetSearchButton.Name = "resetSearchButton";
+            resetSearchButton.Size = new Size(136, 29);
+            resetSearchButton.TabIndex = 5;
+            resetSearchButton.Text = "Reset Highlight";
+            resetSearchButton.UseVisualStyleBackColor = true;
+            resetSearchButton.Click += resetSearchButton_Click;
+            // 
             // MainMenu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -688,5 +700,6 @@
         private ToolStripMenuItem clearFilterToolStripMenuItem;
         private Splitter splitter3;
         private ToolStripMenuItem logPropertiesToolStripMenuItem;
+        private Button resetSearchButton;
     }
 }
