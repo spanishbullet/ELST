@@ -151,9 +151,10 @@ public partial class ExportPage : Form
                     scopeCLB.SetItemChecked(i, false);
                 }
             }
-            scope = scopeCLB.CheckedItems[0].ToString();
+            scope = scopeCLB.Items[index].ToString();
         }
     }
+
 
     private void fieldsCLB_MouseDown(object sender, MouseEventArgs e)
     {
@@ -171,5 +172,31 @@ public partial class ExportPage : Form
     private void closeButton_Click(object sender, EventArgs e)
     {
         this.Close();
+    }
+
+    private void scopeCLB_ItemCheck(object sender, ItemCheckEventArgs e)
+    {
+        // Prevent unchecking the last checked item (ensure at least one item is always checked)
+        if (e.NewValue == CheckState.Unchecked && scopeCLB.CheckedItems.Count == 1)
+        {
+            e.NewValue = CheckState.Checked;
+            return;
+        }
+
+        // Uncheck all other items when a new one is checked
+        if (e.NewValue == CheckState.Checked)
+        {
+            for (int i = 0; i < scopeCLB.Items.Count; i++)
+            {
+                if (i != e.Index)
+                {
+                    // Uncheck the other items
+                    scopeCLB.SetItemChecked(i, false);
+                }
+            }
+
+            // Update the scope with the newly checked item
+            scope = scopeCLB.Items[e.Index].ToString();
+        }
     }
 }
