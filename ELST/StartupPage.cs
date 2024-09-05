@@ -70,6 +70,7 @@ public partial class StartupPage : Form
                         }
 
                     }));
+                    MessageBox.Show("Search Successful");
                 }
                 else
                 {
@@ -202,5 +203,20 @@ public partial class StartupPage : Form
 
         // Set the new value based on the current state
         e.NewValue = e.CurrentValue == CheckState.Checked ? CheckState.Unchecked : CheckState.Checked;
+    }
+
+    private void helpButton_Click(object sender, EventArgs e)
+    {
+        string helpMessage = "Drive Search:\n" +
+                             " - Click the \"Select Drive\" button to launch a folder dialog.\n" +
+                             " - Select the drive/directory you want to search.\n" +
+                             " - Select the file or files you would like to open from the checked box.\n" +
+                             " - Click the \"Open File(s)\" button to open each selected file in it's own window.\n" +
+                             " - Click the \"Open Together\" button to open each selected file in the same window.\n" +
+                             " - If no files are selected it will open all found files according to the button you click.\n" +
+                             "Open Manually:" +
+                             " - Click the \"Open File\" button to launch a folder dialog.\n" +
+                             " - Select the drive/directory you want to search and it will open in it's own window.\n";
+        MessageBox.Show(helpMessage);
     }
 }

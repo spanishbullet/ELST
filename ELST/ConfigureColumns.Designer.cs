@@ -52,7 +52,6 @@
             columnsCLB.Name = "columnsCLB";
             columnsCLB.Size = new Size(178, 422);
             columnsCLB.TabIndex = 5;
-            columnsCLB.MouseDown += columnsCLB_MouseDown;
             // 
             // moveUpButton
             // 

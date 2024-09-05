@@ -39,6 +39,10 @@ public class Search
                 }
             }
         }
+        if (foundCells.Count == 0) 
+        {
+            MessageBox.Show("No matches found.");
+        }
         return foundCells;
     }
 

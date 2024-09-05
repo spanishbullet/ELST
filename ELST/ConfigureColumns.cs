@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NPOI.SS.Formula.Functions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,7 +13,7 @@ namespace ELST;
 
 public partial class ConfigureColumns : Form
 {
-    private DataGridView _dataGridView;
+    private readonly DataGridView _dataGridView;
 
     public ConfigureColumns(DataGridView dataGridView)
     {
@@ -77,20 +78,8 @@ public partial class ConfigureColumns : Form
         this.Close();
     }
 
-
-
     private void cancelButton_Click(object sender, EventArgs e)
     {
-        this.Hide();
-    }
-
-    private void columnsCLB_MouseDown(object sender, MouseEventArgs e)
-    {
-        int index = columnsCLB.IndexFromPoint(e.Location);
-        if (index != ListBox.NoMatches)
-        {
-            // Toggle the checked state
-           columnsCLB.SetItemChecked(index, !columnsCLB.GetItemChecked(index));
-        }
+        this.Close();
     }
 }
