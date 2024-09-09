@@ -42,7 +42,7 @@ public partial class StartupPage : Form
         {
             try
             {
-                filesOfInterest = Startup.Search(drive, "Microsoft-Windows-Partition%4Diagnostic.evtx", progress, cancellationToken);
+                filesOfInterest.AddRange(Startup.Search(drive, "Microsoft-Windows-Partition%4Diagnostic.evtx", progress, cancellationToken));
                 if (filesOfInterest.Count > 0)
                 {
                     this.Invoke(new Action(() =>
@@ -225,5 +225,6 @@ public partial class StartupPage : Form
         filesOfInterest.Clear();
         selectedFilesOfInterest.Clear();
         foundFilesCLB.Items.Clear();
+        foundFilesLabel.Text = $"{filesOfInterest.Count} files of interest found:";
     }
 }
