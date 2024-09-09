@@ -219,4 +219,11 @@ public partial class StartupPage : Form
                              " - Select the drive/directory you want to search and it will open in it's own window.\n";
         MessageBox.Show(helpMessage);
     }
+
+    private void clearItemsButton_Click(object sender, EventArgs e)
+    {
+        filesOfInterest.Clear();
+        selectedFilesOfInterest.Clear();
+        foundFilesCLB.Items.Clear();
+    }
 }

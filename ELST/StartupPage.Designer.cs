@@ -38,8 +38,9 @@
             foundFilesCLB = new CheckedListBox();
             foundFilesLabel = new Label();
             manualOpenGB = new GroupBox();
-            openFileButtonManual = new Button();
             helpButton = new Button();
+            openFileButtonManual = new Button();
+            clearItemsButton = new Button();
             driveSearchGB.SuspendLayout();
             manualOpenGB.SuspendLayout();
             SuspendLayout();
@@ -94,6 +95,7 @@
             // 
             // driveSearchGB
             // 
+            driveSearchGB.Controls.Add(clearItemsButton);
             driveSearchGB.Controls.Add(openTogetherButtonDriveSearch);
             driveSearchGB.Controls.Add(foundFilesCLB);
             driveSearchGB.Controls.Add(foundFilesLabel);
@@ -150,6 +152,16 @@
             manualOpenGB.TabStop = false;
             manualOpenGB.Text = "Open Manually";
             // 
+            // helpButton
+            // 
+            helpButton.Location = new Point(662, 26);
+            helpButton.Name = "helpButton";
+            helpButton.Size = new Size(94, 29);
+            helpButton.TabIndex = 6;
+            helpButton.Text = "Help";
+            helpButton.UseVisualStyleBackColor = true;
+            helpButton.Click += helpButton_Click;
+            // 
             // openFileButtonManual
             // 
             openFileButtonManual.Location = new Point(6, 26);
@@ -160,15 +172,15 @@
             openFileButtonManual.UseVisualStyleBackColor = true;
             openFileButtonManual.Click += openFileButtonManual_Click;
             // 
-            // helpButton
+            // clearItemsButton
             // 
-            helpButton.Location = new Point(662, 26);
-            helpButton.Name = "helpButton";
-            helpButton.Size = new Size(94, 29);
-            helpButton.TabIndex = 6;
-            helpButton.Text = "Help";
-            helpButton.UseVisualStyleBackColor = true;
-            helpButton.Click += helpButton_Click;
+            clearItemsButton.Location = new Point(291, 227);
+            clearItemsButton.Name = "clearItemsButton";
+            clearItemsButton.Size = new Size(94, 29);
+            clearItemsButton.TabIndex = 12;
+            clearItemsButton.Text = "Clear Files";
+            clearItemsButton.UseVisualStyleBackColor = true;
+            clearItemsButton.Click += clearItemsButton_Click;
             // 
             // StartupPage
             // 
@@ -200,5 +212,6 @@
         private CheckedListBox foundFilesCLB;
         private Button openTogetherButtonDriveSearch;
         private Button helpButton;
+        private Button clearItemsButton;
     }
 }
