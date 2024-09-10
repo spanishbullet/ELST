@@ -144,7 +144,8 @@ public partial class MainMenu : Form
 
     private void AutoLoadFilePath()
     {
-        ListDirectory(dirTreeView, selectedFolderPath);
+        //ListDirectory(dirTreeView, selectedFolderPath);
+        ListAllDirectories(dirTreeView, filesOfInterest);
         ActualPathTSSLabel.Text = "";
 
         foreach (string path in filesOfInterest)
@@ -192,6 +193,17 @@ public partial class MainMenu : Form
         var rootDirInfo = new DirectoryInfo(path);
         treeView.Nodes.Add(CreateDirectoryNode(rootDirInfo));
         treeView.ExpandAll();
+    }
+
+    private static void ListAllDirectories(TreeView treeView, List<string> paths)
+    {
+        treeView.Nodes.Clear();
+        foreach (string path in paths)
+        {
+            var rootDirInfo = new DirectoryInfo(System.IO.Path.GetDirectoryName(path));
+            treeView.Nodes.Add(CreateDirectoryNode(rootDirInfo));
+            treeView.ExpandAll();
+        }
     }
 
     private static TreeNode CreateDirectoryNode(DirectoryInfo dirInfo)
@@ -659,7 +671,8 @@ public partial class MainMenu : Form
             return;
         }
 
-        ListDirectory(dirTreeView, selectedFolderPath);
+        //ListDirectory(dirTreeView, selectedFolderPath);
+        ListAllDirectories(dirTreeView, filesOfInterest);
         InitializeDGVEvents();
         InitializeDevicesCLB();
         InitializeTimeControl();
