@@ -190,8 +190,11 @@ public partial class StartupPage : Form
         {
             // Get the selected file's path.
             string filePath = openFileDialog.FileName;
-            MainMenu mainMenu = new MainMenu(filePath);
-            mainMenu.Show();
+            filesOfInterest.Add(filePath);
+            foundFilesLabel.Text = $"{filesOfInterest.Count} files of interest found:";
+            foundFilesCLB.Items.Add(filePath);
+            //MainMenu mainMenu = new MainMenu(filePath);
+            //mainMenu.Show();
         }
     }
 
@@ -226,5 +229,10 @@ public partial class StartupPage : Form
         selectedFilesOfInterest.Clear();
         foundFilesCLB.Items.Clear();
         foundFilesLabel.Text = $"{filesOfInterest.Count} files of interest found:";
+    }
+
+    private void foundFilesCLB_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
     }
 }
