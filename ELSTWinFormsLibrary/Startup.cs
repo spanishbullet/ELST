@@ -166,6 +166,25 @@ public class Startup
 
     private static int CountTotalDirectories(string dir)
     {
+        int count = 1; // Start with 1 to include the current directory
+
+        try
+        {
+            foreach (string subDir in Directory.GetDirectories(dir))
+            {
+                count += CountTotalDirectories(subDir); // Recursively count subdirectories
+            }
+        }
+        catch (UnauthorizedAccessException)
+        {
+            /* Handle or skip inaccessible directories */ }
+        catch (Exception ex) { Console.WriteLine($"Error counting directories: {ex.Message}"); }
+
+        return count;
+    }
+
+    /*private static int CountTotalDirectories(string dir)
+    {
         // Use a thread-safe collection to accumulate the count
         ConcurrentBag<int> directoryCounts = new ConcurrentBag<int>();
         directoryCounts.Add(1); // Start with 1 to include the current directory
@@ -178,14 +197,14 @@ public class Startup
                 {
                     directoryCounts.Add(CountTotalDirectories(subDir)); // Recursively count subdirectories
                 }
-                catch (UnauthorizedAccessException) { /* Handle or skip inaccessible directories */ }
+                catch (UnauthorizedAccessException) { *//* Handle or skip inaccessible directories *//* }
                 catch (Exception ex) { Console.WriteLine($"Error counting directories: {ex.Message}"); }
             });
         }
-        catch (UnauthorizedAccessException) { /* Handle or skip inaccessible directories */ }
+        catch (UnauthorizedAccessException) { *//* Handle or skip inaccessible directories *//* }
         catch (Exception ex) { Console.WriteLine($"Error counting directories: {ex.Message}"); }
 
         return directoryCounts.Sum();
-    }
+    }*/
 }
 
