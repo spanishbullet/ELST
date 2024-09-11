@@ -235,11 +235,11 @@ public partial class ExportPage : Form
 
     private void helpButton_Click(object sender, EventArgs e)
     {
-        MessageBox.Show("Select desired format.\n +" +
-                        "Select events to export. \n Select desired fields. +" +
-                        "Field will order from top to bottom as left to right." +
-                        "Use Buttons to change order. +" +
-                        "Changing oder and selection here will only affect the exproted document, not the application." +
-                        "Use \"Configure Columns\" to change view and selection in the application.");
+        MessageBox.Show("Select desired format.\n " +
+                        "Select events to export. \n Select desired fields. \n" +
+                        "Field will order from top to bottom as left to right.\n" +
+                        "Use Buttons to change order. \n" +
+                        "Changing oder and selection here will only affect the exproted document, not the application.\n" +
+                        "Use \"Configure Columns\" to change view and selection in the application.\n");
     }
 }
