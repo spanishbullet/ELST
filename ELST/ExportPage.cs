@@ -160,20 +160,6 @@ public partial class ExportPage : Form
         }
     }
 
-
-    private void fieldsCLB_MouseDown(object sender, MouseEventArgs e)
-    {
-        // Get the index of the item at the clicked position
-        int index = fieldsCLB.IndexFromPoint(e.Location);
-
-        // Check if the index is valid
-        if (index >= 0)
-        {
-            // Check the clicked item
-            fieldsCLB.SetItemChecked(index, !fieldsCLB.GetItemChecked(index));
-        }
-    }
-
     private void closeButton_Click(object sender, EventArgs e)
     {
         this.Close();
