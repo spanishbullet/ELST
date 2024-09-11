@@ -34,7 +34,7 @@
             infoLabelDriveSearch = new Label();
             openFileButtonDriveSearch = new Button();
             driveSearchGB = new GroupBox();
-            clearItemsButton = new Button();
+            removeAllButton = new Button();
             openTogetherButtonDriveSearch = new Button();
             foundFilesCLB = new CheckedListBox();
             foundFilesLabel = new Label();
@@ -42,6 +42,7 @@
             openFileButtonManual = new Button();
             helpButton = new Button();
             groupBox1 = new GroupBox();
+            removeSelectedButton = new Button();
             driveSearchGB.SuspendLayout();
             manualOpenGB.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -108,19 +109,19 @@
             driveSearchGB.TabStop = false;
             driveSearchGB.Text = "Drive Search";
             // 
-            // clearItemsButton
+            // removeAllButton
             // 
-            clearItemsButton.Location = new Point(291, 132);
-            clearItemsButton.Name = "clearItemsButton";
-            clearItemsButton.Size = new Size(94, 29);
-            clearItemsButton.TabIndex = 12;
-            clearItemsButton.Text = "Clear Files";
-            clearItemsButton.UseVisualStyleBackColor = true;
-            clearItemsButton.Click += clearItemsButton_Click;
+            removeAllButton.Location = new Point(449, 132);
+            removeAllButton.Name = "removeAllButton";
+            removeAllButton.Size = new Size(94, 29);
+            removeAllButton.TabIndex = 12;
+            removeAllButton.Text = "Remove All";
+            removeAllButton.UseVisualStyleBackColor = true;
+            removeAllButton.Click += removeAllButton_Click;
             // 
             // openTogetherButtonDriveSearch
             // 
-            openTogetherButtonDriveSearch.Location = new Point(133, 132);
+            openTogetherButtonDriveSearch.Location = new Point(134, 132);
             openTogetherButtonDriveSearch.Name = "openTogetherButtonDriveSearch";
             openTogetherButtonDriveSearch.Size = new Size(140, 29);
             openTogetherButtonDriveSearch.TabIndex = 11;
@@ -179,7 +180,8 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(clearItemsButton);
+            groupBox1.Controls.Add(removeSelectedButton);
+            groupBox1.Controls.Add(removeAllButton);
             groupBox1.Controls.Add(foundFilesLabel);
             groupBox1.Controls.Add(helpButton);
             groupBox1.Controls.Add(openFileButtonDriveSearch);
@@ -191,6 +193,16 @@
             groupBox1.Size = new Size(763, 169);
             groupBox1.TabIndex = 13;
             groupBox1.TabStop = false;
+            // 
+            // removeSelectedButton
+            // 
+            removeSelectedButton.Location = new Point(291, 132);
+            removeSelectedButton.Name = "removeSelectedButton";
+            removeSelectedButton.Size = new Size(141, 29);
+            removeSelectedButton.TabIndex = 13;
+            removeSelectedButton.Text = "Remove Selected";
+            removeSelectedButton.UseVisualStyleBackColor = true;
+            removeSelectedButton.Click += removeSelectedButton_Click;
             // 
             // StartupPage
             // 
@@ -225,7 +237,8 @@
         private CheckedListBox foundFilesCLB;
         private Button openTogetherButtonDriveSearch;
         private Button helpButton;
-        private Button clearItemsButton;
+        private Button removeAllButton;
         private GroupBox groupBox1;
+        private Button removeSelectedButton;
     }
 }

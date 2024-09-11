@@ -248,7 +248,12 @@ public partial class StartupPage : Form
         MessageBox.Show(helpMessage);
     }
 
-    private void clearItemsButton_Click(object sender, EventArgs e)
+    private void foundFilesCLB_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    private void removeAllButton_Click(object sender, EventArgs e)
     {
         filesOfInterest.Clear();
         selectedFilesOfInterest.Clear();
@@ -256,8 +261,23 @@ public partial class StartupPage : Form
         foundFilesLabel.Text = $"{filesOfInterest.Count} files of interest found:";
     }
 
-    private void foundFilesCLB_SelectedIndexChanged(object sender, EventArgs e)
+    private void removeSelectedButton_Click(object sender, EventArgs e)
     {
+        // Create a list to hold the checked items
+        var itemsToRemove = new List<object>();
 
+        // Add the checked items to the new list
+        foreach (var item in foundFilesCLB.CheckedItems)
+        {
+            itemsToRemove.Add(item);
+        }
+
+        // Remove items from the CheckedListBox and filesOfInterest
+        foreach (var item in itemsToRemove)
+        {
+            filesOfInterest.Remove(item.ToString());
+            foundFilesCLB.Items.Remove(item);
+        }
+        foundFilesLabel.Text = $"{filesOfInterest.Count} files of interest found:";
     }
 }
