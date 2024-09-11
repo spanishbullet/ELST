@@ -485,8 +485,45 @@ public partial class MainMenu : Form
                             logPropertiesWindow.Show();
                         }
                     };
+                    ToolStripMenuItem highlightEvent = new()
+                    {
+                        Text = "Highlight Event"
+                    };
+                    highlightEvent.Click += (obj, ea) =>
+                    {
+                        dgvEvents.Rows[rowIndex].DefaultCellStyle.BackColor = Color.LightSkyBlue;
+                    };
+                    ToolStripMenuItem removeHighlight = new()
+                    {
+                        Text = "Remove Highlight"
+                    };
+                    removeHighlight.Click += (obj, ea) =>
+                    {
+                        dgvEvents.Rows[rowIndex].DefaultCellStyle.BackColor = Color.White;
+                    };
+                    ToolStripMenuItem hideEvent = new()
+                    {
+                        Text = "Hide Event"
+                    };
+                    hideEvent.Click += (obj, ea) =>
+                    {
+                        dgvEvents.Rows.RemoveAt(rowIndex);
+                    };
+                    ToolStripMenuItem showHiddenEvents = new()
+                    {
+                        Text = "Show Hidden Events"
+                    };
+                    showHiddenEvents.Click += (obj, ea) =>
+                    {
+                        PopulatDGVEvents(customEvents);
+                    };
+
                     menu.Items.Add(eventProperties);
                     menu.Items.Add(logProperties);
+                    menu.Items.Add(highlightEvent);
+                    menu.Items.Add(removeHighlight);
+                    menu.Items.Add(hideEvent);
+                    menu.Items.Add(showHiddenEvents);
                     menu.Show(dgvEvents, e.Location);
                 }
             }
