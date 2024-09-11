@@ -487,31 +487,40 @@ public partial class MainMenu : Form
                     };
                     ToolStripMenuItem highlightEvent = new()
                     {
-                        Text = "Highlight Event"
+                        Text = "Highlight"
                     };
                     highlightEvent.Click += (obj, ea) =>
                     {
-                        dgvEvents.Rows[rowIndex].DefaultCellStyle.BackColor = Color.LightSkyBlue;
+                        foreach (DataGridViewRow row in dgvEvents.SelectedRows)
+                        {
+                            dgvEvents.Rows[row.Index].DefaultCellStyle.BackColor = Color.LightSkyBlue;
+                        }
                     };
                     ToolStripMenuItem removeHighlight = new()
                     {
-                        Text = "Remove Highlight"
+                        Text = "Unhighlight"
                     };
                     removeHighlight.Click += (obj, ea) =>
                     {
-                        dgvEvents.Rows[rowIndex].DefaultCellStyle.BackColor = Color.White;
+                        foreach (DataGridViewRow row in dgvEvents.SelectedRows)
+                        {
+                            dgvEvents.Rows[row.Index].DefaultCellStyle.BackColor = Color.White;
+                        }
                     };
                     ToolStripMenuItem hideEvent = new()
                     {
-                        Text = "Hide Event"
+                        Text = "Hide"
                     };
                     hideEvent.Click += (obj, ea) =>
                     {
-                        dgvEvents.Rows.RemoveAt(rowIndex);
+                        foreach (DataGridViewRow row in dgvEvents.SelectedRows)
+                        {
+                            dgvEvents.Rows.RemoveAt(row.Index);
+                        }
                     };
                     ToolStripMenuItem showHiddenEvents = new()
                     {
-                        Text = "Show Hidden Events"
+                        Text = "Show Hidden"
                     };
                     showHiddenEvents.Click += (obj, ea) =>
                     {
@@ -532,6 +541,16 @@ public partial class MainMenu : Form
 
     private void recordNumbersToolStripMenuItem_Click(object sender, EventArgs e)
     {
+        if (customEvents.Count != dgvEvents.RowCount)
+        {
+            DialogResult result = MessageBox.Show("One or more events are hidden and could cause a false alarm or prevent anomoly detection.\nDo you want to show hidden events?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                PopulatDGVEvents(customEvents);
+            }
+        }
+
         if (selectedDevices.Count == currentDevices.Count)
         {
             MessageBox.Show(Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")));
@@ -555,6 +574,15 @@ public partial class MainMenu : Form
 
     private void timeCToolStripMenuItem_Click(object sender, EventArgs e)
     {
+        if (customEvents.Count != dgvEvents.RowCount)
+        {
+            DialogResult result = MessageBox.Show("One or more events are hidden and could cause a false alarm or prevent anomoly detection.\nDo you want to show hidden events?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                PopulatDGVEvents(customEvents);
+            }
+        }
         MessageBox.Show(Analyze.TimeChange(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "TimeCreated")));
     }
 
