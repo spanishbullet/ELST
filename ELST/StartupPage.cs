@@ -1,4 +1,5 @@
 ﻿using ELSTWinFormsLibrary;
+using Microsoft.Extensions.FileProviders;
 using NPOI.SS.Formula.Functions;
 using System;
 using System.Collections.Generic;
@@ -38,11 +39,21 @@ public partial class StartupPage : Form
 
         var progress = new Progress<int>(percent => searchingWindow.UpdateProgress(percent));
 
+        int newFileCount = 0;
         Task.Run(() =>
         {
             try
             {
-                filesOfInterest.AddRange(Startup.Search(drive, "Microsoft-Windows-Partition%4Diagnostic.evtx", progress, cancellationToken));
+                List<string> files = Startup.Search(drive, "Microsoft-Windows-Partition%4Diagnostic.evtx", progress, cancellationToken);
+                foreach (string file in files)
+                {
+                    if (!filesOfInterest.Contains(file))
+                    {
+                        filesOfInterest.Add(file);
+                        newFileCount++;
+                    }
+                }
+
                 if (filesOfInterest.Count > 0)
                 {
                     this.Invoke(new Action(() =>
@@ -70,7 +81,15 @@ public partial class StartupPage : Form
                         }
 
                     }));
-                    MessageBox.Show("Search Successful");
+
+                    if (newFileCount > 0)
+                    {
+                        MessageBox.Show($"Search Complete. \n{newFileCount} new files found.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Search Complete.\nNo new files found.");
+                    }
                 }
                 else
                 {
@@ -141,7 +160,7 @@ public partial class StartupPage : Form
         }
         else
         {
-            MessageBox.Show("No files found. \nSearch again or open file manually.");
+            MessageBox.Show("No files found. \nSearch again or add file manually.");
         }
 
     }
@@ -168,7 +187,7 @@ public partial class StartupPage : Form
         }
         else
         {
-            MessageBox.Show("No files found. \nSearch again or open file manually.");
+            MessageBox.Show("No files found. \nSearch again or add file manually.");
         }
     }
 
@@ -190,11 +209,17 @@ public partial class StartupPage : Form
         {
             // Get the selected file's path.
             string filePath = openFileDialog.FileName;
-            filesOfInterest.Add(filePath);
-            foundFilesLabel.Text = $"{filesOfInterest.Count} files of interest found:";
-            foundFilesCLB.Items.Add(filePath);
-            //MainMenu mainMenu = new MainMenu(filePath);
-            //mainMenu.Show();
+
+            if (!filesOfInterest.Contains(filePath))
+            {
+                filesOfInterest.Add(filePath);
+                foundFilesLabel.Text = $"{filesOfInterest.Count} files of interest found:";
+                foundFilesCLB.Items.Add(filePath);
+            }
+            else
+            {
+                MessageBox.Show("File already present");
+            }
         }
     }
 
