@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             mainMenuStrip = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             openLogToolStripMenuItem = new ToolStripMenuItem();
@@ -67,6 +67,7 @@
             splitter1 = new Splitter();
             splitter3 = new Splitter();
             searchGB = new GroupBox();
+            resetSearchButton = new Button();
             caseSensitiveCheckBox = new CheckBox();
             closeSearchButton = new Button();
             searchButton = new Button();
@@ -83,7 +84,6 @@
             pathStatusStrip = new StatusStrip();
             PathTSSLabel = new ToolStripStatusLabel();
             ActualPathTSSLabel = new ToolStripStatusLabel();
-            resetSearchButton = new Button();
             mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEvents).BeginInit();
             panel1.SuspendLayout();
@@ -283,33 +283,33 @@
             dgvEvents.AllowUserToDeleteRows = false;
             dgvEvents.AllowUserToOrderColumns = true;
             dgvEvents.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = SystemColors.Control;
-            dataGridViewCellStyle7.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
-            dgvEvents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvEvents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvEvents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = SystemColors.Window;
-            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle8.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
-            dgvEvents.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvEvents.DefaultCellStyle = dataGridViewCellStyle2;
             dgvEvents.Location = new Point(0, 0);
             dgvEvents.Name = "dgvEvents";
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = SystemColors.Control;
-            dataGridViewCellStyle9.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
-            dgvEvents.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvEvents.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgvEvents.RowHeadersWidth = 51;
             dgvEvents.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvEvents.Size = new Size(833, 547);
@@ -452,6 +452,16 @@
             searchGB.MouseDown += searchGB_MouseDown;
             searchGB.MouseMove += searchGB_MouseMove;
             // 
+            // resetSearchButton
+            // 
+            resetSearchButton.Location = new Point(206, 81);
+            resetSearchButton.Name = "resetSearchButton";
+            resetSearchButton.Size = new Size(136, 29);
+            resetSearchButton.TabIndex = 5;
+            resetSearchButton.Text = "Reset Highlight";
+            resetSearchButton.UseVisualStyleBackColor = true;
+            resetSearchButton.Click += resetSearchButton_Click;
+            // 
             // caseSensitiveCheckBox
             // 
             caseSensitiveCheckBox.AutoSize = true;
@@ -561,7 +571,7 @@
             // 
             // timeArrowLabel
             // 
-            timeArrowLabel.Font = new Font("Segoe UI", 14F);
+            timeArrowLabel.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             timeArrowLabel.Location = new Point(262, 3);
             timeArrowLabel.Name = "timeArrowLabel";
             timeArrowLabel.Size = new Size(35, 35);
@@ -600,16 +610,6 @@
             ActualPathTSSLabel.Size = new Size(39, 20);
             ActualPathTSSLabel.Text = "path";
             ActualPathTSSLabel.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // resetSearchButton
-            // 
-            resetSearchButton.Location = new Point(206, 81);
-            resetSearchButton.Name = "resetSearchButton";
-            resetSearchButton.Size = new Size(136, 29);
-            resetSearchButton.TabIndex = 5;
-            resetSearchButton.Text = "Reset Highlight";
-            resetSearchButton.UseVisualStyleBackColor = true;
-            resetSearchButton.Click += resetSearchButton_Click;
             // 
             // MainMenu
             // 
