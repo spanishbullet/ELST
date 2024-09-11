@@ -36,7 +36,12 @@ public partial class ExportPage : Form
     private void LoadColumnSettings()
     {
         fieldsCLB.Items.Clear();
-        foreach (DataGridViewColumn column in dgv.Columns)
+        var sortedColumns = dgv.Columns.Cast<DataGridViewColumn>()
+                                .OrderBy(c => c.DisplayIndex)
+                                .ToList();
+
+        // Add columns to the CheckedListBox in sorted order
+        foreach (DataGridViewColumn column in sortedColumns)
         {
             fieldsCLB.Items.Add(column.HeaderText, column.Visible);
         }
@@ -198,5 +203,43 @@ public partial class ExportPage : Form
             // Update the scope with the newly checked item
             scope = scopeCLB.Items[e.Index].ToString();
         }
+    }
+
+    private void moveUpButton_Click(object sender, EventArgs e)
+    {
+        int index = fieldsCLB.SelectedIndex;
+        if (index > 0)
+        {
+            var item = fieldsCLB.SelectedItem;
+            var isChecked = fieldsCLB.GetItemChecked(index);
+            fieldsCLB.Items.RemoveAt(index);
+            fieldsCLB.Items.Insert(index - 1, item);
+            fieldsCLB.SetItemChecked(index - 1, isChecked);
+            fieldsCLB.SelectedIndex = index - 1;
+        }
+    }
+
+    private void moveDownButton_Click(object sender, EventArgs e)
+    {
+        int index = fieldsCLB.SelectedIndex;
+        if (index >= 0 && index < fieldsCLB.Items.Count - 1)
+        {
+            var item = fieldsCLB.SelectedItem;
+            var isChecked = fieldsCLB.GetItemChecked(index);
+            fieldsCLB.Items.RemoveAt(index);
+            fieldsCLB.Items.Insert(index + 1, item);
+            fieldsCLB.SetItemChecked(index + 1, isChecked);
+            fieldsCLB.SelectedIndex = index + 1;
+        }
+    }
+
+    private void helpButton_Click(object sender, EventArgs e)
+    {
+        MessageBox.Show("Select desired format.\n +" +
+                        "Select events to export. \n Select desired fields. +" +
+                        "Field will order from top to bottom as left to right." +
+                        "Use Buttons to change order. +" +
+                        "Changing oder and selection here will only affect the exproted document, not the application." +
+                        "Use \"Configure Columns\" to change view and selection in the application.");
     }
 }
