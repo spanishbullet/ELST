@@ -28,7 +28,6 @@ public partial class ConfigureColumns : Form
         var sortedColumns = _dataGridView.Columns.Cast<DataGridViewColumn>()
                                 .OrderBy(c => c.DisplayIndex)
                                 .ToList();
-
         // Add columns to the CheckedListBox in sorted order
         foreach (DataGridViewColumn column in sortedColumns)
         {
@@ -81,24 +80,6 @@ public partial class ConfigureColumns : Form
 
         _dataGridView.ResumeLayout();
     }
-
-    private void applyButton1_Click(object sender, EventArgs e)
-    {
-        var newOrder = columnsCLB.Items.Cast<string>().ToArray();
-        _dataGridView.SuspendLayout();
-
-        for (int i = 0; i < columnsCLB.Items.Count; i++)
-        {
-            var columnName = columnsCLB.Items[i].ToString();
-            var column = _dataGridView.Columns.Cast<DataGridViewColumn>()
-                          .First(c => c.HeaderText == columnName);
-            column.Visible = columnsCLB.GetItemChecked(i);
-            column.DisplayIndex = i; // Set DisplayIndex to reflect new order
-        }
-
-        _dataGridView.ResumeLayout();
-    }
-
 
     private void cancelButton_Click(object sender, EventArgs e)
     {
