@@ -24,8 +24,13 @@ public partial class ConfigureColumns : Form
 
     private void LoadColumnSettings()
     {
-        columnsCLB.Items.Clear();
-        foreach (DataGridViewColumn column in _dataGridView.Columns)
+        // Get columns from the DataGridView and sort them by DisplayIndex
+        var sortedColumns = _dataGridView.Columns.Cast<DataGridViewColumn>()
+                                .OrderBy(c => c.DisplayIndex)
+                                .ToList();
+
+        // Add columns to the CheckedListBox in sorted order
+        foreach (DataGridViewColumn column in sortedColumns)
         {
             columnsCLB.Items.Add(column.HeaderText, column.Visible);
         }
@@ -75,8 +80,25 @@ public partial class ConfigureColumns : Form
         }
 
         _dataGridView.ResumeLayout();
-        this.Close();
     }
+
+    private void applyButton1_Click(object sender, EventArgs e)
+    {
+        var newOrder = columnsCLB.Items.Cast<string>().ToArray();
+        _dataGridView.SuspendLayout();
+
+        for (int i = 0; i < columnsCLB.Items.Count; i++)
+        {
+            var columnName = columnsCLB.Items[i].ToString();
+            var column = _dataGridView.Columns.Cast<DataGridViewColumn>()
+                          .First(c => c.HeaderText == columnName);
+            column.Visible = columnsCLB.GetItemChecked(i);
+            column.DisplayIndex = i; // Set DisplayIndex to reflect new order
+        }
+
+        _dataGridView.ResumeLayout();
+    }
+
 
     private void cancelButton_Click(object sender, EventArgs e)
     {
