@@ -364,6 +364,7 @@
             // 
             devicesCLB.Dock = DockStyle.Fill;
             devicesCLB.FormattingEnabled = true;
+            devicesCLB.HorizontalScrollbar = true;
             devicesCLB.Location = new Point(0, 273);
             devicesCLB.Name = "devicesCLB";
             devicesCLB.Size = new Size(227, 291);
