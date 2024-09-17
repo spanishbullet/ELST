@@ -32,6 +32,8 @@
             cancelButton = new Button();
             searchPB = new ProgressBar();
             progressLabel = new Label();
+            directoriesLB = new Label();
+            numDirectoriesLB = new Label();
             SuspendLayout();
             // 
             // searchLabel
@@ -69,11 +71,31 @@
             progressLabel.TabIndex = 3;
             progressLabel.Text = "Progres: 0%";
             // 
+            // directoriesLB
+            // 
+            directoriesLB.AutoSize = true;
+            directoriesLB.Location = new Point(81, 57);
+            directoriesLB.Name = "directoriesLB";
+            directoriesLB.Size = new Size(154, 20);
+            directoriesLB.TabIndex = 4;
+            directoriesLB.Text = "Directories Processed:";
+            // 
+            // numDirectoriesLB
+            // 
+            numDirectoriesLB.AutoSize = true;
+            numDirectoriesLB.Location = new Point(241, 57);
+            numDirectoriesLB.Name = "numDirectoriesLB";
+            numDirectoriesLB.Size = new Size(17, 20);
+            numDirectoriesLB.TabIndex = 5;
+            numDirectoriesLB.Text = "0";
+            // 
             // SearchingWindow
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(485, 244);
+            Controls.Add(numDirectoriesLB);
+            Controls.Add(directoriesLB);
             Controls.Add(progressLabel);
             Controls.Add(searchPB);
             Controls.Add(cancelButton);
@@ -92,5 +114,7 @@
         private Button cancelButton;
         private ProgressBar searchPB;
         private Label progressLabel;
+        private Label directoriesLB;
+        private Label numDirectoriesLB;
     }
 }
