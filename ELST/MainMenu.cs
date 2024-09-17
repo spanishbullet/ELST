@@ -414,6 +414,7 @@ public partial class MainMenu : Form
         dgvEvents.Columns.Add("Computer", "Computer");
         dgvEvents.Columns.Add("UserId", "User ID");
         dgvEvents.Columns.Add("Vbr0", "Vbr0");
+        dgvEvents.Columns.Add("MachineName", "Machine Name");
 
         //Hide Columns
         dgvEvents.Columns["EventId"].Visible = false;

@@ -51,6 +51,8 @@ public class CustomEvent
 
     public string formattedXml { get; }
 
+    public string machineName { get; }
+
     public CustomEvent()
     {
 
@@ -70,6 +72,7 @@ public class CustomEvent
         TimeCreated = record.TimeCreated.HasValue ? record.TimeCreated.Value : DateTime.MinValue;
         Level = record.LevelDisplayName;
         recordNumber = record.RecordId.ToString();
+        machineName = record.MachineName;
         xml = record.ToXml();
         formattedXml = XmlExtract.FormatXml(xml);
 
@@ -121,6 +124,7 @@ public class CustomEvent
         result.Add(computer);
         result.Add(userID);
         result.Add(extractedVbr0);
+        result.Add(machineName);
 
         return result;
     }
