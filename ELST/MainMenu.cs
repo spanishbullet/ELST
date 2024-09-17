@@ -750,7 +750,7 @@ public partial class MainMenu : Form
 
     private void columnsToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        ConfigureColumns configureColumns = new(dgvEvents);
+        ConfigureColumns configureColumns = new(dgvEvents, columnsTSSLabel);
         configureColumns.Show();
     }
 

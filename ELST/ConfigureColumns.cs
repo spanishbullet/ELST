@@ -15,10 +15,13 @@ public partial class ConfigureColumns : Form
 {
     private readonly DataGridView _dataGridView;
 
-    public ConfigureColumns(DataGridView dataGridView)
+    private ToolStripStatusLabel _toolStripStatusLabel;
+
+    public ConfigureColumns(DataGridView dataGridView, ToolStripStatusLabel toolStripStatusLabel)
     {
         InitializeComponent();
         _dataGridView = dataGridView;
+        _toolStripStatusLabel = toolStripStatusLabel;
         LoadColumnSettings();
     }
 
@@ -68,15 +71,22 @@ public partial class ConfigureColumns : Form
         // Apply visibility changes and reordering
         var newOrder = columnsCLB.Items.Cast<string>().ToArray();
         _dataGridView.SuspendLayout();
+        int visibleCount = 0;
 
         for (int i = 0; i < columnsCLB.Items.Count; i++)
         {
             var columnName = columnsCLB.Items[i].ToString();
             var column = _dataGridView.Columns.Cast<DataGridViewColumn>()
                           .First(c => c.HeaderText == columnName);
-            column.Visible = columnsCLB.GetItemChecked(i);
+            if (columnsCLB.GetItemChecked(i))
+            {
+                column.Visible = true;
+                visibleCount++;
+            }
             column.DisplayIndex = i; // Set DisplayIndex to reflect new order
         }
+
+        _toolStripStatusLabel.Text = $"Showing {visibleCount} of 20 Columns";
 
         _dataGridView.ResumeLayout();
     }

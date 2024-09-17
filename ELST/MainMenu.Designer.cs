@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             mainMenuStrip = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             openLogToolStripMenuItem = new ToolStripMenuItem();
@@ -74,6 +74,7 @@
             searchTextBox = new TextBox();
             eventsStatusStrip = new StatusStrip();
             eventsTSSLabel = new ToolStripStatusLabel();
+            columnsTSSLabel = new ToolStripStatusLabel();
             timeControlGB = new GroupBox();
             resetTimefreameButtom = new Button();
             applyTimeframeButton = new Button();
@@ -84,7 +85,6 @@
             pathStatusStrip = new StatusStrip();
             PathTSSLabel = new ToolStripStatusLabel();
             ActualPathTSSLabel = new ToolStripStatusLabel();
-            columnsTSSLabel = new ToolStripStatusLabel();
             mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEvents).BeginInit();
             panel1.SuspendLayout();
@@ -284,33 +284,33 @@
             dgvEvents.AllowUserToDeleteRows = false;
             dgvEvents.AllowUserToOrderColumns = true;
             dgvEvents.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvEvents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvEvents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvEvents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.Window;
-            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
-            dgvEvents.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvEvents.DefaultCellStyle = dataGridViewCellStyle2;
             dgvEvents.Location = new Point(0, 0);
             dgvEvents.Name = "dgvEvents";
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.Control;
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            dgvEvents.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvEvents.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgvEvents.RowHeadersWidth = 51;
             dgvEvents.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvEvents.Size = new Size(833, 547);
@@ -516,10 +516,16 @@
             // eventsTSSLabel
             // 
             eventsTSSLabel.Name = "eventsTSSLabel";
-            eventsTSSLabel.Size = new Size(647, 20);
+            eventsTSSLabel.Size = new Size(602, 20);
             eventsTSSLabel.Spring = true;
             eventsTSSLabel.Text = "Showing # of # Events";
             eventsTSSLabel.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // columnsTSSLabel
+            // 
+            columnsTSSLabel.Name = "columnsTSSLabel";
+            columnsTSSLabel.Size = new Size(177, 20);
+            columnsTSSLabel.Text = "Showing 7 of 20 Columns";
             // 
             // timeControlGB
             // 
@@ -614,12 +620,6 @@
             ActualPathTSSLabel.Size = new Size(39, 20);
             ActualPathTSSLabel.Text = "path";
             ActualPathTSSLabel.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // columnsTSSLabel
-            // 
-            columnsTSSLabel.Name = "columnsTSSLabel";
-            columnsTSSLabel.Size = new Size(171, 20);
-            columnsTSSLabel.Text = "Showing # of # Columns";
             // 
             // MainMenu
             // 
