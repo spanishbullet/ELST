@@ -91,14 +91,21 @@ public partial class StartupPage : Form
                         MessageBox.Show("Search Complete.\nNo new files found.");
                     }
                 }
-                else
-                {
-                    MessageBox.Show("No files found. Please use Manual Selection.");
-                }
             }
             catch (OperationCanceledException)
             {
-                MessageBox.Show("Search canceled.");
+                // Handle the cancellation case
+                this.Invoke(new Action(() =>
+                {
+                    if (newFileCount > 0)
+                    {
+                        MessageBox.Show($"Search Canceled. \n{newFileCount} new files found before cancellation.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Search Canceled.\nNo new files found.");
+                    }
+                }));
             }
             finally
             {
