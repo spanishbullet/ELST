@@ -53,6 +53,8 @@ public partial class MainMenu : Form
     //list of events
     private readonly List<CustomEvent> customEvents = [];
 
+    private List<CustomEvent> hiddenEvents = new List<CustomEvent>();
+
     //selected devices
     public List<Device> selectedDevices = [];
 
@@ -507,6 +509,7 @@ public partial class MainMenu : Form
                             dgvEvents.Rows[row.Index].DefaultCellStyle.BackColor = Color.White;
                         }
                     };
+                    ContextMenuStrip hiddenContextMenu = new();
                     ToolStripMenuItem hideEvent = new()
                     {
                         Text = "Hide"
@@ -515,6 +518,8 @@ public partial class MainMenu : Form
                     {
                         foreach (DataGridViewRow row in dgvEvents.SelectedRows)
                         {
+                            hiddenEvents.Add(customEvents[rowIndex]);
+
                             dgvEvents.Rows.RemoveAt(row.Index);
                         }
                     };
@@ -541,7 +546,7 @@ public partial class MainMenu : Form
 
     private void recordNumbersToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        if (customEvents.Count != dgvEvents.RowCount)
+        if (hiddenEvents.Count > 0)
         {
             DialogResult result = MessageBox.Show("One or more events are hidden and could cause a false alarm or prevent anomoly detection.\nDo you want to show hidden events?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -574,7 +579,7 @@ public partial class MainMenu : Form
 
     private void timeCToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        if (customEvents.Count != dgvEvents.RowCount)
+        if (hiddenEvents.Count > 0)
         {
             DialogResult result = MessageBox.Show("One or more events are hidden and could cause a false alarm or prevent anomoly detection.\nDo you want to show hidden events?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -795,5 +800,11 @@ public partial class MainMenu : Form
                 cell.Style.BackColor = Color.White;
             }
         }
+    }
+
+    private void MainMenu_Shown(object sender, EventArgs e)
+    {
+        MessageBox.Show(Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")));
+        MessageBox.Show(Analyze.TimeChange(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "TimeCreated")));
     }
 }
