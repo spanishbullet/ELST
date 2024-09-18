@@ -530,6 +530,7 @@ public partial class MainMenu : Form
                     };
                     showHiddenEvents.Click += (obj, ea) =>
                     {
+                        hiddenEvents.Clear();
                         PopulatDGVEvents(customEvents);
                     };
 
@@ -547,23 +548,23 @@ public partial class MainMenu : Form
 
     private void recordNumbersToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        if (hiddenEvents.Count > 0)
+        if (selectedDevices.Count != currentDevices.Count)
         {
-            DialogResult result = MessageBox.Show("One or more events are hidden and could cause a false alarm or prevent anomoly detection.\nDo you want to show hidden events?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (result == DialogResult.Yes)
-            {
-                PopulatDGVEvents(customEvents);
-            }
-        }
-
-        if (selectedDevices.Count == currentDevices.Count)
-        {
-            MessageBox.Show(Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")));
+            MessageBox.Show("Must select all devices in current timeframe.");
         }
         else
         {
-            MessageBox.Show("Must select all devices in current timeframe.");
+            if (hiddenEvents.Count > 0)
+            {
+                DialogResult result = MessageBox.Show("One or more events are hidden and could cause a false alarm or prevent anomoly detection.\nDo you want to show hidden events?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    hiddenEvents.Clear();
+                    PopulatDGVEvents(customEvents);
+                }
+            }
+            MessageBox.Show(Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")));
         }
     }
 
@@ -586,6 +587,7 @@ public partial class MainMenu : Form
 
             if (result == DialogResult.Yes)
             {
+                hiddenEvents.Clear();
                 PopulatDGVEvents(customEvents);
             }
         }
