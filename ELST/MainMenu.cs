@@ -395,23 +395,23 @@ public partial class MainMenu : Form
         dgvEvents.Columns.Clear();
         // Set up the DataGridView columns
         //ORDER MATTERS*******************
+        dgvEvents.Columns.Add("TimeCreated", "Time Created");
+        dgvEvents.Columns.Add("Manufacturer", "Manufacturer");
+        dgvEvents.Columns.Add("Model", "Model");
+        dgvEvents.Columns.Add("SerialNumber", "Serial Number");
+        dgvEvents.Columns.Add("Action", "Action");
+        dgvEvents.Columns.Add("Capacity", "Capacity");
+        dgvEvents.Columns.Add("Computer", "Computer");
         dgvEvents.Columns.Add("EventId", "Event ID");
         dgvEvents.Columns.Add("ProviderName", "Provider Name");
         dgvEvents.Columns.Add("Level", "Level");
         dgvEvents.Columns.Add("Message", "Message");
         dgvEvents.Columns.Add("RecordId", "Record Number");
-        dgvEvents.Columns.Add("TimeCreated", "Time Created");
-        dgvEvents.Columns.Add("Capacity", "Capacity");
-        dgvEvents.Columns.Add("Action", "Action");
-        dgvEvents.Columns.Add("Manufacturer", "Manufacturer");
-        dgvEvents.Columns.Add("Model", "Model");
         dgvEvents.Columns.Add("Revision", "Revision");
-        dgvEvents.Columns.Add("SerialNumber", "Serial Number");
         dgvEvents.Columns.Add("ParentID", "Parent ID");
         dgvEvents.Columns.Add("ProcessId", "Process ID");
         dgvEvents.Columns.Add("ThreadId", "Thread ID");
         dgvEvents.Columns.Add("Channel", "Channel");
-        dgvEvents.Columns.Add("Computer", "Computer");
         dgvEvents.Columns.Add("UserId", "User ID");
         dgvEvents.Columns.Add("Vbr0", "Vbr0");
         dgvEvents.Columns.Add("MachineName", "Machine Name");
@@ -421,6 +421,17 @@ public partial class MainMenu : Form
         dgvEvents.Columns["Message"].Visible = false;
         dgvEvents.Columns["ProviderName"].Visible = false;
         dgvEvents.Columns["Level"].Visible = false;
+        dgvEvents.Columns["Computer"].Visible = false;
+        dgvEvents.Columns["RecordId"].Visible = false;
+        dgvEvents.Columns["Revision"].Visible = false;
+        dgvEvents.Columns["ParentID"].Visible = false;
+        dgvEvents.Columns["ProcessId"].Visible = false;
+        dgvEvents.Columns["ThreadId"].Visible = false;
+        dgvEvents.Columns["Channel"].Visible = false;
+        dgvEvents.Columns["UserId"].Visible = false;
+        dgvEvents.Columns["Vbr0"].Visible = false;
+        dgvEvents.Columns["MachineName"].Visible = false;
+
 
         //neccesary for correct sorting/comparison by time
         dgvEvents.Columns["TimeCreated"].DefaultCellStyle.Format = "MM/dd/yyyy HH:mm:ss";
@@ -429,7 +440,7 @@ public partial class MainMenu : Form
 
 
         // Adjust column widths
-        dgvEvents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+        dgvEvents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
         dgvEvents.Height = splitContainer1.Panel2.ClientSize.Height - pathStatusStrip.Height - eventsStatusStrip.Height;
 

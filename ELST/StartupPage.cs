@@ -1,15 +1,4 @@
 ﻿using ELSTWinFormsLibrary;
-using Microsoft.Extensions.FileProviders;
-using NPOI.SS.Formula.Functions;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace ELST;
 
@@ -19,13 +8,46 @@ public partial class StartupPage : Form
     private string drive;
     private List<string> filesOfInterest = new List<string>();
     private List<string> selectedFilesOfInterest = new List<string>();
-
+    //private TutorialManager tutorialManager;
 
     public StartupPage()
     {
         InitializeComponent();
         cancel = false;
+        /*tutorialManager = new TutorialManager(this);
+
+        // Initialize the tutorial
+        tutorialManager.AddStep(selectDriveButtonDriveSearch, "Step 1: Click here to select a drive.");
+        tutorialManager.AddStep(searchButtonDriveSearch, "Step 2: Click here to search the selected drive.");
+        tutorialManager.AddStep(helpButton, "Step 3: Click here if you need help.");
+
+        // Start the tutorial on first load (assuming you have logic to check if it's the first run)
+        if (IsFirstTimeStartup())
+        {
+            tutorialManager.StartTutorial();
+        }*/
     }
+
+    //Tutorial Code:
+    private bool IsFirstTimeStartup()
+    {
+        // Implement logic to check if this is the first time the app is being opened
+        if (Properties.Settings.Default.FirstRun)
+        {
+            return true;
+        }
+        else
+        {
+            return false; // Placeholder for demonstration
+        }
+    }
+
+    // A method that triggers when the overlay is clicked to move to the next step
+    protected void OnOverlayClicked()
+    {
+        //tutorialManager.ContinueToNextStep();
+    }
+
 
     private CancellationTokenSource _cancellationTokenSource;
 

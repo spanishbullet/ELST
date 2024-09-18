@@ -34,5 +34,17 @@ namespace ELST.Properties {
                 this["FirstRun"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int TutorialStep {
+            get {
+                return ((int)(this["TutorialStep"]));
+            }
+            set {
+                this["TutorialStep"] = value;
+            }
+        }
     }
 }

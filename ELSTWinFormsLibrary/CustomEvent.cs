@@ -105,23 +105,23 @@ public class CustomEvent
     {
         //orders matter**************************
         List<object> result = new List<object>();
+        result.Add(TimeCreated);
+        result.Add(manufacturer);
+        result.Add(model);
+        result.Add(serialNumber);
+        result.Add(action);
+        result.Add(capacity);
+        result.Add(computer);
         result.Add(Id);
         result.Add(ProviderName);
         result.Add(Level);
         result.Add(Message);
         result.Add(recordNumber);
-        result.Add(TimeCreated);
-        result.Add(capacity);
-        result.Add(action);
-        result.Add(manufacturer);
-        result.Add(model);
         result.Add(revision);
-        result.Add(serialNumber);
         result.Add(parentId);
         result.Add(processId);
         result.Add(threadID);
         result.Add(channel);
-        result.Add(computer);
         result.Add(userID);
         result.Add(extractedVbr0);
         result.Add(machineName);

@@ -110,7 +110,7 @@
             mainMenuStrip.Location = new Point(0, 0);
             mainMenuStrip.Name = "mainMenuStrip";
             mainMenuStrip.Padding = new Padding(4, 1, 0, 1);
-            mainMenuStrip.Size = new Size(1064, 34);
+            mainMenuStrip.Size = new Size(1169, 34);
             mainMenuStrip.TabIndex = 0;
             mainMenuStrip.Text = "menuStrip1";
             // 
@@ -274,7 +274,7 @@
             dirTreeView.Location = new Point(0, 0);
             dirTreeView.Margin = new Padding(2);
             dirTreeView.Name = "dirTreeView";
-            dirTreeView.Size = new Size(227, 269);
+            dirTreeView.Size = new Size(216, 269);
             dirTreeView.TabIndex = 1;
             dirTreeView.NodeMouseDoubleClick += DirTreeViewNode_DoubleClick;
             // 
@@ -313,7 +313,7 @@
             dgvEvents.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgvEvents.RowHeadersWidth = 51;
             dgvEvents.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvEvents.Size = new Size(833, 547);
+            dgvEvents.Size = new Size(949, 547);
             dgvEvents.TabIndex = 0;
             dgvEvents.MouseClick += dgvEvents_MouseClick;
             // 
@@ -323,7 +323,7 @@
             panel1.Controls.Add(splitContainer1);
             panel1.Location = new Point(0, 33);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1064, 602);
+            panel1.Size = new Size(1169, 602);
             panel1.TabIndex = 2;
             // 
             // splitContainer1
@@ -346,8 +346,8 @@
             splitContainer1.Panel2.Controls.Add(timeControlGB);
             splitContainer1.Panel2.Controls.Add(pathStatusStrip);
             splitContainer1.Panel2.Controls.Add(dgvEvents);
-            splitContainer1.Size = new Size(1064, 602);
-            splitContainer1.SplitterDistance = 227;
+            splitContainer1.Size = new Size(1169, 602);
+            splitContainer1.SplitterDistance = 216;
             splitContainer1.TabIndex = 0;
             // 
             // panel2
@@ -358,7 +358,7 @@
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 4);
             panel2.Name = "panel2";
-            panel2.Size = new Size(227, 564);
+            panel2.Size = new Size(216, 564);
             panel2.TabIndex = 4;
             // 
             // devicesCLB
@@ -368,7 +368,7 @@
             devicesCLB.HorizontalScrollbar = true;
             devicesCLB.Location = new Point(0, 273);
             devicesCLB.Name = "devicesCLB";
-            devicesCLB.Size = new Size(227, 291);
+            devicesCLB.Size = new Size(216, 291);
             devicesCLB.TabIndex = 2;
             devicesCLB.ItemCheck += devicesCLB_ItemCheck;
             // 
@@ -377,7 +377,7 @@
             splitter2.Dock = DockStyle.Top;
             splitter2.Location = new Point(0, 269);
             splitter2.Name = "splitter2";
-            splitter2.Size = new Size(227, 4);
+            splitter2.Size = new Size(216, 4);
             splitter2.TabIndex = 2;
             splitter2.TabStop = false;
             // 
@@ -393,15 +393,15 @@
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(227, 34);
+            tableLayoutPanel1.Size = new Size(216, 34);
             tableLayoutPanel1.TabIndex = 2;
             // 
             // uncheckAllDevicesButton
             // 
             uncheckAllDevicesButton.Dock = DockStyle.Fill;
-            uncheckAllDevicesButton.Location = new Point(116, 3);
+            uncheckAllDevicesButton.Location = new Point(111, 3);
             uncheckAllDevicesButton.Name = "uncheckAllDevicesButton";
-            uncheckAllDevicesButton.Size = new Size(108, 28);
+            uncheckAllDevicesButton.Size = new Size(102, 28);
             uncheckAllDevicesButton.TabIndex = 1;
             uncheckAllDevicesButton.Text = "Uncheck All";
             uncheckAllDevicesButton.UseVisualStyleBackColor = true;
@@ -412,7 +412,7 @@
             checkAllDevicesButton.Dock = DockStyle.Fill;
             checkAllDevicesButton.Location = new Point(3, 3);
             checkAllDevicesButton.Name = "checkAllDevicesButton";
-            checkAllDevicesButton.Size = new Size(107, 28);
+            checkAllDevicesButton.Size = new Size(102, 28);
             checkAllDevicesButton.TabIndex = 0;
             checkAllDevicesButton.Text = "Check All";
             checkAllDevicesButton.UseVisualStyleBackColor = true;
@@ -423,7 +423,7 @@
             splitter1.Dock = DockStyle.Top;
             splitter1.Location = new Point(0, 0);
             splitter1.Name = "splitter1";
-            splitter1.Size = new Size(227, 4);
+            splitter1.Size = new Size(216, 4);
             splitter1.TabIndex = 3;
             splitter1.TabStop = false;
             // 
@@ -432,7 +432,7 @@
             splitter3.Dock = DockStyle.Bottom;
             splitter3.Location = new Point(0, 546);
             splitter3.Name = "splitter3";
-            splitter3.Size = new Size(833, 4);
+            splitter3.Size = new Size(949, 4);
             splitter3.TabIndex = 5;
             splitter3.TabStop = false;
             // 
@@ -444,7 +444,7 @@
             searchGB.Controls.Add(closeSearchButton);
             searchGB.Controls.Add(searchButton);
             searchGB.Controls.Add(searchTextBox);
-            searchGB.Location = new Point(455, 311);
+            searchGB.Location = new Point(513, 311);
             searchGB.Name = "searchGB";
             searchGB.Size = new Size(378, 174);
             searchGB.TabIndex = 4;
@@ -509,14 +509,14 @@
             eventsStatusStrip.Items.AddRange(new ToolStripItem[] { eventsTSSLabel, columnsTSSLabel });
             eventsStatusStrip.Location = new Point(0, 550);
             eventsStatusStrip.Name = "eventsStatusStrip";
-            eventsStatusStrip.Size = new Size(833, 26);
+            eventsStatusStrip.Size = new Size(949, 26);
             eventsStatusStrip.TabIndex = 3;
             eventsStatusStrip.Text = "Showing # of # Events";
             // 
             // eventsTSSLabel
             // 
             eventsTSSLabel.Name = "eventsTSSLabel";
-            eventsTSSLabel.Size = new Size(602, 20);
+            eventsTSSLabel.Size = new Size(757, 20);
             eventsTSSLabel.Spring = true;
             eventsTSSLabel.Text = "Showing # of # Events";
             eventsTSSLabel.TextAlign = ContentAlignment.MiddleLeft;
@@ -603,7 +603,7 @@
             pathStatusStrip.Items.AddRange(new ToolStripItem[] { PathTSSLabel, ActualPathTSSLabel });
             pathStatusStrip.Location = new Point(0, 576);
             pathStatusStrip.Name = "pathStatusStrip";
-            pathStatusStrip.Size = new Size(833, 26);
+            pathStatusStrip.Size = new Size(949, 26);
             pathStatusStrip.TabIndex = 1;
             pathStatusStrip.Text = "statusStrip1";
             // 
@@ -625,7 +625,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1064, 635);
+            ClientSize = new Size(1169, 635);
             Controls.Add(panel1);
             Controls.Add(mainMenuStrip);
             DoubleBuffered = true;
