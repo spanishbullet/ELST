@@ -85,6 +85,7 @@
             pathStatusStrip = new StatusStrip();
             PathTSSLabel = new ToolStripStatusLabel();
             ActualPathTSSLabel = new ToolStripStatusLabel();
+            tutorialToolStripMenuItem = new ToolStripMenuItem();
             mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEvents).BeginInit();
             panel1.SuspendLayout();
@@ -158,7 +159,7 @@
             // 
             // aboutToolStripMenuItem
             // 
-            aboutToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { infoToolStripMenuItem, aboutToolStripMenuItem1 });
+            aboutToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { infoToolStripMenuItem, aboutToolStripMenuItem1, tutorialToolStripMenuItem });
             aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             aboutToolStripMenuItem.Size = new Size(55, 32);
             aboutToolStripMenuItem.Text = "&Help";
@@ -166,14 +167,14 @@
             // infoToolStripMenuItem
             // 
             infoToolStripMenuItem.Name = "infoToolStripMenuItem";
-            infoToolStripMenuItem.Size = new Size(133, 26);
+            infoToolStripMenuItem.Size = new Size(224, 26);
             infoToolStripMenuItem.Text = "&Help";
             infoToolStripMenuItem.Click += infoToolStripMenuItem_Click;
             // 
             // aboutToolStripMenuItem1
             // 
             aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            aboutToolStripMenuItem1.Size = new Size(133, 26);
+            aboutToolStripMenuItem1.Size = new Size(224, 26);
             aboutToolStripMenuItem1.Text = "&About";
             aboutToolStripMenuItem1.Click += aboutToolStripMenuItem1_Click;
             // 
@@ -621,6 +622,13 @@
             ActualPathTSSLabel.Text = "path";
             ActualPathTSSLabel.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // tutorialToolStripMenuItem
+            // 
+            tutorialToolStripMenuItem.Name = "tutorialToolStripMenuItem";
+            tutorialToolStripMenuItem.Size = new Size(224, 26);
+            tutorialToolStripMenuItem.Text = "&Tutorial";
+            tutorialToolStripMenuItem.Click += tutorialToolStripMenuItem_Click;
+            // 
             // MainMenu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -713,5 +721,6 @@
         private ToolStripMenuItem logPropertiesToolStripMenuItem;
         private Button resetSearchButton;
         private ToolStripStatusLabel columnsTSSLabel;
+        private ToolStripMenuItem tutorialToolStripMenuItem;
     }
 }

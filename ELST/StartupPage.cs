@@ -14,40 +14,7 @@ public partial class StartupPage : Form
     {
         InitializeComponent();
         cancel = false;
-        /*tutorialManager = new TutorialManager(this);
-
-        // Initialize the tutorial
-        tutorialManager.AddStep(selectDriveButtonDriveSearch, "Step 1: Click here to select a drive.");
-        tutorialManager.AddStep(searchButtonDriveSearch, "Step 2: Click here to search the selected drive.");
-        tutorialManager.AddStep(helpButton, "Step 3: Click here if you need help.");
-
-        // Start the tutorial on first load (assuming you have logic to check if it's the first run)
-        if (IsFirstTimeStartup())
-        {
-            tutorialManager.StartTutorial();
-        }*/
     }
-
-    //Tutorial Code:
-    private bool IsFirstTimeStartup()
-    {
-        // Implement logic to check if this is the first time the app is being opened
-        if (Properties.Settings.Default.FirstRun)
-        {
-            return true;
-        }
-        else
-        {
-            return false; // Placeholder for demonstration
-        }
-    }
-
-    // A method that triggers when the overlay is clicked to move to the next step
-    protected void OnOverlayClicked()
-    {
-        //tutorialManager.ContinueToNextStep();
-    }
-
 
     private CancellationTokenSource _cancellationTokenSource;
 
@@ -308,5 +275,38 @@ public partial class StartupPage : Form
             foundFilesCLB.Items.Remove(item);
         }
         foundFilesLabel.Text = $"{filesOfInterest.Count} files of interest found:";
+    }
+
+    private void test_Click(object sender, EventArgs e)
+    {
+        driveSearchGB.BackColor = Color.Yellow;
+        MessageBox.Show("Use these controlls to search a drive");
+        driveSearchGB.BackColor = SystemColors.Control;
+
+        manualOpenGB.BackColor = Color.Yellow;
+        MessageBox.Show("Use these controlls to manually select a file");
+        manualOpenGB.BackColor = SystemColors.Control;
+
+        foundFilesCLB.BackColor = Color.Yellow;
+        MessageBox.Show("Files found during a search and files selected manually will apear here with their full file path.");
+        foundFilesCLB.BackColor = SystemColors.Control;
+
+        openFileButtonDriveSearch.BackColor = Color.Yellow;
+        MessageBox.Show("This button will open the selected file(s) in their own window.");
+        openFileButtonDriveSearch.BackColor = SystemColors.Control;
+
+        openTogetherButtonDriveSearch.BackColor = Color.Yellow;
+        MessageBox.Show("This Button will open the selected files(s) in the same window.");
+        openTogetherButtonDriveSearch.BackColor = SystemColors.Control;
+
+        removeSelectedButton.BackColor = Color.Yellow;
+        removeAllButton.BackColor = Color.Yellow;
+        MessageBox.Show("Use these buttons to remove files from the files of interest box.");
+        removeAllButton.BackColor = SystemColors.Control;
+        removeSelectedButton.BackColor = SystemColors.Control;
+
+        helpButton.BackColor = Color.Yellow;
+        MessageBox.Show("Use this button for more help or to see the tutorial again.");
+        helpButton.BackColor = SystemColors.Control;
     }
 }

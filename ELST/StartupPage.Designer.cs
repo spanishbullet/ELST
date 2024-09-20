@@ -43,6 +43,7 @@
             helpButton = new Button();
             groupBox1 = new GroupBox();
             removeSelectedButton = new Button();
+            test = new Button();
             driveSearchGB.SuspendLayout();
             manualOpenGB.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -150,6 +151,7 @@
             // 
             // manualOpenGB
             // 
+            manualOpenGB.Controls.Add(test);
             manualOpenGB.Controls.Add(openFileButtonManual);
             manualOpenGB.Location = new Point(386, 0);
             manualOpenGB.Name = "manualOpenGB";
@@ -204,6 +206,16 @@
             removeSelectedButton.UseVisualStyleBackColor = true;
             removeSelectedButton.Click += removeSelectedButton_Click;
             // 
+            // test
+            // 
+            test.Location = new Point(243, 65);
+            test.Name = "test";
+            test.Size = new Size(94, 29);
+            test.TabIndex = 6;
+            test.Text = "test";
+            test.UseVisualStyleBackColor = true;
+            test.Click += test_Click;
+            // 
             // StartupPage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -240,5 +252,6 @@
         private Button removeAllButton;
         private GroupBox groupBox1;
         private Button removeSelectedButton;
+        private Button test;
     }
 }

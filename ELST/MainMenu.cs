@@ -828,4 +828,16 @@ public partial class MainMenu : Form
         MessageBox.Show(Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")));
         MessageBox.Show(Analyze.TimeChange(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "TimeCreated")));
     }
+
+    private void tutorialToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        Tutorial();
+    }
+
+    private void Tutorial()
+    {
+        MessageBox.Show("Main Menu Tutorial. Press Cancel at anytime to end the tutorial.");
+
+
+    }
 }
