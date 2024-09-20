@@ -27,6 +27,7 @@ namespace ELST
 
             InitializeComponent();
             InitializeDevicesTV();
+            selectedDevice = selectedDevices[1];
             InitializeDGVDevices();
             InitializeDGVDeviceEvents();
         }
@@ -104,15 +105,23 @@ namespace ELST
 
         private void actionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Device completeDevice = allDevices.FirstOrDefault(d => d.serialNumber == selectedNode.Text);
-
-            if (selectedDevice.Equals(completeDevice))
+            if (selectedNode == null)
             {
-                MessageBox.Show($"No other events for {selectedDevice.serialNumber} outside current timeframe.");
+                MessageBox.Show("Please select a device");
             }
             else
             {
-                MessageBox.Show($"{completeDevice.events.Count - selectedDevice.events.Count} events for {selectedDevice.serialNumber} outside current timeframe.");
+
+                Device completeDevice = allDevices.FirstOrDefault(d => d.serialNumber == selectedNode.Text);
+
+                if (selectedDevice.Equals(completeDevice))
+                {
+                    MessageBox.Show($"No other events for {selectedDevice.serialNumber} outside current timeframe.");
+                }
+                else
+                {
+                    MessageBox.Show($"{completeDevice.events.Count - selectedDevice.events.Count} events for {selectedDevice.serialNumber} outside current timeframe.");
+                }
             }
         }
     }

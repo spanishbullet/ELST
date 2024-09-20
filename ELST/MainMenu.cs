@@ -347,6 +347,7 @@ public partial class MainMenu : Form
 
     private void PopulatDGVEvents(List<CustomEvent> customEvents)
     {
+        dgvEvents.SuspendLayout();
         dgvEvents.Rows.Clear();
 
         if (timeframe)
@@ -386,7 +387,7 @@ public partial class MainMenu : Form
         }
 
         dgvEvents.Sort(dgvEvents.Columns["TimeCreated"], ListSortDirection.Ascending);
-
+        dgvEvents.ResumeLayout();
         eventsTSSLabel.Text = $"Showing {dgvEvents.Rows.Count} of {customEvents.Count} Events";
     }
 
@@ -712,20 +713,26 @@ public partial class MainMenu : Form
 
     private void uncheckAllDevicesButton_Click(object sender, EventArgs e)
     {
+        dgvEvents.Rows.Clear();
+        dgvEvents.SuspendLayout();
         for (int i = 0; i < devicesCLB.Items.Count; i++)
         {
             devicesCLB.SetItemChecked(i, false);
         }
+        //dgvEvents.ResumeLayout();
         PopulatDGVEvents(customEvents);
+        dgvEvents.ResumeLayout();
     }
 
     private void checkAllDevicesButton_Click(object sender, EventArgs e)
     {
+        dgvEvents.SuspendLayout();
         for (int i = 0; i < devicesCLB.Items.Count; i++)
         {
             devicesCLB.SetItemChecked(i, true);
         }
         PopulatDGVEvents(customEvents);
+        dgvEvents.ResumeLayout();
     }
 
     private void chooseToolStripMenuItem_Click(object sender, EventArgs e)
