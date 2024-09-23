@@ -826,19 +826,46 @@ public partial class MainMenu : Form
 
     private void MainMenu_Shown(object sender, EventArgs e)
     {
+        if (Properties.Settings.Default.MainMenuFirstRun == true)
+        {
+            StartTutorial();
+        }
+
         MessageBox.Show(Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")));
         MessageBox.Show(Analyze.TimeChange(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "TimeCreated")));
     }
 
     private void tutorialToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        Tutorial();
+        StartTutorial();
     }
 
-    private void Tutorial()
+    private void StartTutorial()
     {
-        MessageBox.Show("Main Menu Tutorial. Press Cancel at anytime to end the tutorial.");
+        DialogResult result = MessageBox.Show("Welcome To the Event Log Story Teller Main Menu.\nAt Any point during the tutorial press \"Cancel\" to end and \"OK\" to continue.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.MainMenuFirstRun = false;
+            Properties.Settings.Default.Save();
+            return;
+        }
 
-
+        dgvEvents.BackColor = Color.Yellow;
+        TransparentPanel dgvPanel = new TransparentPanel();
+        dgvPanel.Size = dgvEvents.Size;
+        dgvPanel.Location = dgvEvents.Location;
+        this.splitContainer1.Panel2.Controls.Add(dgvPanel);
+        dgvPanel.BringToFront();
+        DialogResult result0 = MessageBox.Show("This section displays parsed information from each event in the log.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result0 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.MainMenuFirstRun = false;
+            Properties.Settings.Default.Save();
+            dgvEvents.BackColor = SystemColors.Control;
+            return;
+        }
+        dgvPanel.Hide();
+        dgvEvents.BackColor = SystemColors.Control;
     }
+
 }

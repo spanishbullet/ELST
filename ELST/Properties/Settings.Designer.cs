@@ -26,24 +26,24 @@ namespace ELST.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool FirstRun {
+        public bool StartupFirstRun {
             get {
-                return ((bool)(this["FirstRun"]));
+                return ((bool)(this["StartupFirstRun"]));
             }
             set {
-                this["FirstRun"] = value;
+                this["StartupFirstRun"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int TutorialStep {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool MainMenuFirstRun {
             get {
-                return ((int)(this["TutorialStep"]));
+                return ((bool)(this["MainMenuFirstRun"]));
             }
             set {
-                this["TutorialStep"] = value;
+                this["MainMenuFirstRun"] = value;
             }
         }
     }

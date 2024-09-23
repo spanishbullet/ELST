@@ -283,10 +283,10 @@ public partial class StartupPage : Form
 
     private void StartTutorial()
     {
-        DialogResult result = MessageBox.Show("Welcome To the Event Log Story Teller.\nAt Any point during the tutorial press \"Cancel\" to end and \"OK\" to continue.", "Tutorial", MessageBoxButtons.OKCancel);
+        DialogResult result = MessageBox.Show("Welcome To the Event Log Story Teller Startup Menu.\nAt Any point during the tutorial press \"Cancel\" to end and \"OK\" to continue.", "Tutorial", MessageBoxButtons.OKCancel);
         if (result == DialogResult.Cancel)
         {
-            Properties.Settings.Default.FirstRun = false;
+            Properties.Settings.Default.StartupFirstRun = false;
             Properties.Settings.Default.Save();
             return;
         }
@@ -295,7 +295,7 @@ public partial class StartupPage : Form
         DialogResult result0 = MessageBox.Show("Use these controlls to search a drive", "Tutorial", MessageBoxButtons.OKCancel);
         if (result0 == DialogResult.Cancel)
         {
-            Properties.Settings.Default.FirstRun = false;
+            Properties.Settings.Default.StartupFirstRun = false;
             Properties.Settings.Default.Save();
             driveSearchGB.BackColor = SystemColors.Control;
             return;
@@ -306,7 +306,7 @@ public partial class StartupPage : Form
         DialogResult result1 = MessageBox.Show("Use these controlls to manually select a file", "Tutorial", MessageBoxButtons.OKCancel);
         if (result1 == DialogResult.Cancel)
         {
-            Properties.Settings.Default.FirstRun = false;
+            Properties.Settings.Default.StartupFirstRun = false;
             Properties.Settings.Default.Save();
             manualOpenGB.BackColor = SystemColors.Control;
             return;
@@ -317,7 +317,7 @@ public partial class StartupPage : Form
         DialogResult result2 = MessageBox.Show("Files found during a search and files selected manually will apear here with their full file path.", "Tutorial", MessageBoxButtons.OKCancel);
         if (result2 == DialogResult.Cancel)
         {
-            Properties.Settings.Default.FirstRun = false;
+            Properties.Settings.Default.StartupFirstRun = false;
             Properties.Settings.Default.Save();
             foundFilesCLB.BackColor = SystemColors.Control;
             return;
@@ -328,7 +328,7 @@ public partial class StartupPage : Form
         DialogResult result3 = MessageBox.Show("This button will open the selected file(s) in their own window.", "Tutorial", MessageBoxButtons.OKCancel);
         if (result3 == DialogResult.Cancel)
         {
-            Properties.Settings.Default.FirstRun = false;
+            Properties.Settings.Default.StartupFirstRun = false;
             Properties.Settings.Default.Save();
             openFileButtonDriveSearch.BackColor = SystemColors.Control;
             return;
@@ -339,7 +339,7 @@ public partial class StartupPage : Form
         DialogResult result4 = MessageBox.Show("This Button will open the selected files(s) in the same window.", "Tutorial", MessageBoxButtons.OKCancel);
         if (result4 == DialogResult.Cancel)
         {
-            Properties.Settings.Default.FirstRun = false;
+            Properties.Settings.Default.StartupFirstRun = false;
             Properties.Settings.Default.Save();
             openTogetherButtonDriveSearch.BackColor = SystemColors.Control;
             return;
@@ -351,7 +351,7 @@ public partial class StartupPage : Form
         DialogResult result5 = MessageBox.Show("Use these buttons to remove files from the files of interest box.", "Tutorial", MessageBoxButtons.OKCancel);
         if (result5 == DialogResult.Cancel)
         {
-            Properties.Settings.Default.FirstRun = false;
+            Properties.Settings.Default.StartupFirstRun = false;
             Properties.Settings.Default.Save();
             removeAllButton.BackColor = SystemColors.Control;
             removeSelectedButton.BackColor = SystemColors.Control;
@@ -364,7 +364,7 @@ public partial class StartupPage : Form
         DialogResult result6 = MessageBox.Show("Use this button for more help or to see the tutorial again.", "Tutorial", MessageBoxButtons.OKCancel);
         if (result6 == DialogResult.Cancel)
         {
-            Properties.Settings.Default.FirstRun = false;
+            Properties.Settings.Default.StartupFirstRun = false;
             Properties.Settings.Default.Save();
             helpButton.BackColor = SystemColors.Control;
             return;
@@ -374,7 +374,7 @@ public partial class StartupPage : Form
 
     private void StartupPage_Shown(object sender, EventArgs e)
     {
-        if (Properties.Settings.Default.FirstRun == true)
+        if (Properties.Settings.Default.StartupFirstRun == true)
         {
             StartTutorial();
         }
