@@ -122,6 +122,7 @@ public partial class MainMenu : Form
         {
             devicesCLB.SetItemChecked(i, true);
         }
+        devicesTSSLabel.Text = $"Showing {currentDevices.Count} of {allDevices.Count} Devices";
         PopulatDGVEvents(customEvents);
     }
 

@@ -41,6 +41,7 @@
             aboutToolStripMenuItem = new ToolStripMenuItem();
             infoToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem1 = new ToolStripMenuItem();
+            tutorialToolStripMenuItem = new ToolStripMenuItem();
             analyzeToolStripMenuItem = new ToolStripMenuItem();
             recordNumbersToolStripMenuItem = new ToolStripMenuItem();
             timeCToolStripMenuItem = new ToolStripMenuItem();
@@ -62,6 +63,8 @@
             devicesCLB = new CheckedListBox();
             splitter2 = new Splitter();
             tableLayoutPanel1 = new TableLayoutPanel();
+            statusStrip1 = new StatusStrip();
+            devicesTSSLabel = new ToolStripStatusLabel();
             uncheckAllDevicesButton = new Button();
             checkAllDevicesButton = new Button();
             splitter1 = new Splitter();
@@ -85,7 +88,6 @@
             pathStatusStrip = new StatusStrip();
             PathTSSLabel = new ToolStripStatusLabel();
             ActualPathTSSLabel = new ToolStripStatusLabel();
-            tutorialToolStripMenuItem = new ToolStripMenuItem();
             mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEvents).BeginInit();
             panel1.SuspendLayout();
@@ -95,6 +97,7 @@
             splitContainer1.SuspendLayout();
             panel2.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
+            statusStrip1.SuspendLayout();
             searchGB.SuspendLayout();
             eventsStatusStrip.SuspendLayout();
             timeControlGB.SuspendLayout();
@@ -167,16 +170,23 @@
             // infoToolStripMenuItem
             // 
             infoToolStripMenuItem.Name = "infoToolStripMenuItem";
-            infoToolStripMenuItem.Size = new Size(224, 26);
+            infoToolStripMenuItem.Size = new Size(143, 26);
             infoToolStripMenuItem.Text = "&Help";
             infoToolStripMenuItem.Click += infoToolStripMenuItem_Click;
             // 
             // aboutToolStripMenuItem1
             // 
             aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            aboutToolStripMenuItem1.Size = new Size(224, 26);
+            aboutToolStripMenuItem1.Size = new Size(143, 26);
             aboutToolStripMenuItem1.Text = "&About";
             aboutToolStripMenuItem1.Click += aboutToolStripMenuItem1_Click;
+            // 
+            // tutorialToolStripMenuItem
+            // 
+            tutorialToolStripMenuItem.Name = "tutorialToolStripMenuItem";
+            tutorialToolStripMenuItem.Size = new Size(143, 26);
+            tutorialToolStripMenuItem.Text = "&Tutorial";
+            tutorialToolStripMenuItem.Click += tutorialToolStripMenuItem_Click;
             // 
             // analyzeToolStripMenuItem
             // 
@@ -359,7 +369,7 @@
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 4);
             panel2.Name = "panel2";
-            panel2.Size = new Size(216, 564);
+            panel2.Size = new Size(216, 542);
             panel2.TabIndex = 4;
             // 
             // devicesCLB
@@ -369,7 +379,7 @@
             devicesCLB.HorizontalScrollbar = true;
             devicesCLB.Location = new Point(0, 273);
             devicesCLB.Name = "devicesCLB";
-            devicesCLB.Size = new Size(216, 291);
+            devicesCLB.Size = new Size(216, 269);
             devicesCLB.TabIndex = 2;
             devicesCLB.ItemCheck += devicesCLB_ItemCheck;
             // 
@@ -387,22 +397,42 @@
             tableLayoutPanel1.ColumnCount = 2;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Controls.Add(uncheckAllDevicesButton, 1, 0);
-            tableLayoutPanel1.Controls.Add(checkAllDevicesButton, 0, 0);
+            tableLayoutPanel1.Controls.Add(statusStrip1, 0, 0);
+            tableLayoutPanel1.Controls.Add(uncheckAllDevicesButton, 1, 1);
+            tableLayoutPanel1.Controls.Add(checkAllDevicesButton, 0, 1);
             tableLayoutPanel1.Dock = DockStyle.Bottom;
-            tableLayoutPanel1.Location = new Point(0, 568);
+            tableLayoutPanel1.Location = new Point(0, 546);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(216, 34);
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.Size = new Size(216, 56);
             tableLayoutPanel1.TabIndex = 2;
+            // 
+            // statusStrip1
+            // 
+            tableLayoutPanel1.SetColumnSpan(statusStrip1, 2);
+            statusStrip1.Dock = DockStyle.Fill;
+            statusStrip1.ImageScalingSize = new Size(20, 20);
+            statusStrip1.Items.AddRange(new ToolStripItem[] { devicesTSSLabel });
+            statusStrip1.Location = new Point(0, 0);
+            statusStrip1.Name = "statusStrip1";
+            statusStrip1.Size = new Size(216, 25);
+            statusStrip1.TabIndex = 3;
+            statusStrip1.Text = "statusStrip1";
+            // 
+            // devicesTSSLabel
+            // 
+            devicesTSSLabel.Name = "devicesTSSLabel";
+            devicesTSSLabel.Size = new Size(165, 19);
+            devicesTSSLabel.Text = "Showing # of # Devices";
             // 
             // uncheckAllDevicesButton
             // 
             uncheckAllDevicesButton.Dock = DockStyle.Fill;
-            uncheckAllDevicesButton.Location = new Point(111, 3);
+            uncheckAllDevicesButton.Location = new Point(111, 28);
             uncheckAllDevicesButton.Name = "uncheckAllDevicesButton";
-            uncheckAllDevicesButton.Size = new Size(102, 28);
+            uncheckAllDevicesButton.Size = new Size(102, 25);
             uncheckAllDevicesButton.TabIndex = 1;
             uncheckAllDevicesButton.Text = "Uncheck All";
             uncheckAllDevicesButton.UseVisualStyleBackColor = true;
@@ -411,9 +441,9 @@
             // checkAllDevicesButton
             // 
             checkAllDevicesButton.Dock = DockStyle.Fill;
-            checkAllDevicesButton.Location = new Point(3, 3);
+            checkAllDevicesButton.Location = new Point(3, 28);
             checkAllDevicesButton.Name = "checkAllDevicesButton";
-            checkAllDevicesButton.Size = new Size(102, 28);
+            checkAllDevicesButton.Size = new Size(102, 25);
             checkAllDevicesButton.TabIndex = 0;
             checkAllDevicesButton.Text = "Check All";
             checkAllDevicesButton.UseVisualStyleBackColor = true;
@@ -622,13 +652,6 @@
             ActualPathTSSLabel.Text = "path";
             ActualPathTSSLabel.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // tutorialToolStripMenuItem
-            // 
-            tutorialToolStripMenuItem.Name = "tutorialToolStripMenuItem";
-            tutorialToolStripMenuItem.Size = new Size(224, 26);
-            tutorialToolStripMenuItem.Text = "&Tutorial";
-            tutorialToolStripMenuItem.Click += tutorialToolStripMenuItem_Click;
-            // 
             // MainMenu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -654,6 +677,9 @@
             splitContainer1.ResumeLayout(false);
             panel2.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
+            statusStrip1.ResumeLayout(false);
+            statusStrip1.PerformLayout();
             searchGB.ResumeLayout(false);
             searchGB.PerformLayout();
             eventsStatusStrip.ResumeLayout(false);
@@ -722,5 +748,7 @@
         private Button resetSearchButton;
         private ToolStripStatusLabel columnsTSSLabel;
         private ToolStripMenuItem tutorialToolStripMenuItem;
+        private StatusStrip statusStrip1;
+        private ToolStripStatusLabel devicesTSSLabel;
     }
 }
