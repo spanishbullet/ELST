@@ -241,7 +241,11 @@ public partial class StartupPage : Form
                              "Open Manually:" +
                              " - Click the \"Open File\" button to launch a folder dialog.\n" +
                              " - Select the drive/directory you want to search and it will open in it's own window.\n";
-        MessageBox.Show(helpMessage);
+        DialogResult result = MessageBox.Show(helpMessage, "Press \"Yes\" to see tutorial again, Press \"No\" to close this window.", MessageBoxButtons.YesNo);
+        if (result == DialogResult.Yes)
+        {
+            StartTutorial();
+        }
     }
 
     private void foundFilesCLB_SelectedIndexChanged(object sender, EventArgs e)
@@ -277,36 +281,102 @@ public partial class StartupPage : Form
         foundFilesLabel.Text = $"{filesOfInterest.Count} files of interest found:";
     }
 
-    private void test_Click(object sender, EventArgs e)
+    private void StartTutorial()
     {
+        DialogResult result = MessageBox.Show("Welcome To the Event Log Story Teller.\nAt Any point during the tutorial press \"Cancel\" to end and \"OK\" to continue.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.FirstRun = false;
+            Properties.Settings.Default.Save();
+            return;
+        }
+
         driveSearchGB.BackColor = Color.Yellow;
-        MessageBox.Show("Use these controlls to search a drive");
+        DialogResult result0 = MessageBox.Show("Use these controlls to search a drive", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result0 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.FirstRun = false;
+            Properties.Settings.Default.Save();
+            driveSearchGB.BackColor = SystemColors.Control;
+            return;
+        }
         driveSearchGB.BackColor = SystemColors.Control;
 
         manualOpenGB.BackColor = Color.Yellow;
-        MessageBox.Show("Use these controlls to manually select a file");
+        DialogResult result1 = MessageBox.Show("Use these controlls to manually select a file", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result1 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.FirstRun = false;
+            Properties.Settings.Default.Save();
+            manualOpenGB.BackColor = SystemColors.Control;
+            return;
+        }
         manualOpenGB.BackColor = SystemColors.Control;
 
         foundFilesCLB.BackColor = Color.Yellow;
-        MessageBox.Show("Files found during a search and files selected manually will apear here with their full file path.");
+        DialogResult result2 = MessageBox.Show("Files found during a search and files selected manually will apear here with their full file path.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result2 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.FirstRun = false;
+            Properties.Settings.Default.Save();
+            foundFilesCLB.BackColor = SystemColors.Control;
+            return;
+        }
         foundFilesCLB.BackColor = SystemColors.Control;
 
         openFileButtonDriveSearch.BackColor = Color.Yellow;
-        MessageBox.Show("This button will open the selected file(s) in their own window.");
+        DialogResult result3 = MessageBox.Show("This button will open the selected file(s) in their own window.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result3 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.FirstRun = false;
+            Properties.Settings.Default.Save();
+            openFileButtonDriveSearch.BackColor = SystemColors.Control;
+            return;
+        }
         openFileButtonDriveSearch.BackColor = SystemColors.Control;
 
         openTogetherButtonDriveSearch.BackColor = Color.Yellow;
-        MessageBox.Show("This Button will open the selected files(s) in the same window.");
+        DialogResult result4 = MessageBox.Show("This Button will open the selected files(s) in the same window.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result4 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.FirstRun = false;
+            Properties.Settings.Default.Save();
+            openTogetherButtonDriveSearch.BackColor = SystemColors.Control;
+            return;
+        }
         openTogetherButtonDriveSearch.BackColor = SystemColors.Control;
 
         removeSelectedButton.BackColor = Color.Yellow;
         removeAllButton.BackColor = Color.Yellow;
-        MessageBox.Show("Use these buttons to remove files from the files of interest box.");
+        DialogResult result5 = MessageBox.Show("Use these buttons to remove files from the files of interest box.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result5 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.FirstRun = false;
+            Properties.Settings.Default.Save();
+            removeAllButton.BackColor = SystemColors.Control;
+            removeSelectedButton.BackColor = SystemColors.Control;
+            return;
+        }
         removeAllButton.BackColor = SystemColors.Control;
         removeSelectedButton.BackColor = SystemColors.Control;
 
         helpButton.BackColor = Color.Yellow;
-        MessageBox.Show("Use this button for more help or to see the tutorial again.");
+        DialogResult result6 = MessageBox.Show("Use this button for more help or to see the tutorial again.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result6 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.FirstRun = false;
+            Properties.Settings.Default.Save();
+            helpButton.BackColor = SystemColors.Control;
+            return;
+        }
         helpButton.BackColor = SystemColors.Control;
+    }
+
+    private void StartupPage_Shown(object sender, EventArgs e)
+    {
+        if (Properties.Settings.Default.FirstRun == true)
+        {
+            StartTutorial();
+        }
     }
 }
