@@ -16,6 +16,8 @@ public partial class MainMenu : Form
 {
     public MainMenu(string filePath)
     {
+        Properties.Settings.Default.Reset();
+
         defaultFilePath = filePath;
         selectedFolderPath = System.IO.Path.GetDirectoryName(defaultFilePath);
         baseDirPath = Path.GetPathRoot(defaultFilePath);
@@ -30,6 +32,8 @@ public partial class MainMenu : Form
     }
     public MainMenu(List<string> files)
     {
+        Properties.Settings.Default.Reset();
+
         filesOfInterest = files;
         defaultFilePath = files[0];
         selectedFolderPath = System.IO.Path.GetDirectoryName(defaultFilePath);
@@ -842,6 +846,12 @@ public partial class MainMenu : Form
 
     private void StartTutorial()
     {
+        TransparentPanel highlightPanel = new TransparentPanel();
+
+        highlightPanel.Location = new Point(500, 0);
+        highlightPanel.Size = new Size(100, 5);
+        this.panel1.Controls.Add(highlightPanel);
+
         DialogResult result = MessageBox.Show("Welcome To the Event Log Story Teller Main Menu.\nAt Any point during the tutorial press \"Cancel\" to end and \"OK\" to continue.", "Tutorial", MessageBoxButtons.OKCancel);
         if (result == DialogResult.Cancel)
         {
@@ -850,22 +860,137 @@ public partial class MainMenu : Form
             return;
         }
 
-        dgvEvents.BackColor = Color.Yellow;
-        TransparentPanel dgvPanel = new TransparentPanel();
-        dgvPanel.Size = dgvEvents.Size;
-        dgvPanel.Location = dgvEvents.Location;
-        this.splitContainer1.Panel2.Controls.Add(dgvPanel);
-        dgvPanel.BringToFront();
+        highlightPanel.Size = dgvEvents.Size;
+        highlightPanel.Location = dgvEvents.Location;
+        this.splitContainer1.Panel2.Controls.Add(highlightPanel);
+        highlightPanel.BringToFront();
         DialogResult result0 = MessageBox.Show("This section displays parsed information from each event in the log.", "Tutorial", MessageBoxButtons.OKCancel);
         if (result0 == DialogResult.Cancel)
         {
             Properties.Settings.Default.MainMenuFirstRun = false;
             Properties.Settings.Default.Save();
-            dgvEvents.BackColor = SystemColors.Control;
+            this.splitContainer1.Panel2.Controls.Remove(highlightPanel);
             return;
         }
-        dgvPanel.Hide();
-        dgvEvents.BackColor = SystemColors.Control;
+        this.splitContainer1.Panel2.Controls.Remove(highlightPanel);
+
+        devicesCLB.BackColor = Color.Yellow;
+        DialogResult result1 = MessageBox.Show("Devices\nThis section displays each of the unique serial numbers.\n " +
+                                               "Check or uncheck the devices to show/hide all events associaded with " +
+                                               "that sn.\nYou can click individual devices or use the \"Check All\" " +
+                                               "or \"Uncheck All\" buttons.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result1 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.MainMenuFirstRun = false;
+            Properties.Settings.Default.Save();
+            devicesCLB.BackColor = SystemColors.Control;
+            return;
+        }
+        devicesCLB.BackColor = SystemColors.Control;
+
+        dirTreeView.BackColor = Color.Yellow;
+        DialogResult result2 = MessageBox.Show("Directory Tree\nThis section shows the parent folder of the log " +
+                                               "file(s)", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.MainMenuFirstRun = false;
+            Properties.Settings.Default.Save();
+            dirTreeView.BackColor = SystemColors.Control;
+            return;
+        }
+        dirTreeView.BackColor = SystemColors.Control;
+
+        MainMenuStrip.BackColor = Color.Yellow;
+        DialogResult result3 = MessageBox.Show("Menu Strip\nThe menu strip contains many helpful tools that allow you to" +
+                                               " better analyze and export your findings.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result3 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.MainMenuFirstRun = false;
+            Properties.Settings.Default.Save();
+            MainMenuStrip.BackColor = SystemColors.Control;
+            return;
+        }
+        mainMenuStrip.BackColor = SystemColors.Control;
+
+        fileToolStripMenuItem.ShowDropDown();
+        openLogToolStripMenuItem.BackColor = Color.Yellow;
+        logPropertiesToolStripMenuItem.BackColor = Color.Yellow;
+        exportToolStripMenuItem.BackColor = Color.Yellow;
+        exitToolStripMenuItem.BackColor = Color.Yellow;
+        
+        DialogResult result4 = MessageBox.Show("File\nHere you can view log properties, Export the parsed log and exit this page.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result4 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.MainMenuFirstRun = false;
+            Properties.Settings.Default.Save();
+            openLogToolStripMenuItem.BackColor = SystemColors.Control;
+            logPropertiesToolStripMenuItem.BackColor = SystemColors.Control;
+            exportToolStripMenuItem.BackColor = SystemColors.Control;
+            exitToolStripMenuItem.BackColor = SystemColors.Control;
+            fileToolStripMenuItem.HideDropDown();
+            return;
+        }
+        openLogToolStripMenuItem.BackColor = SystemColors.Control;
+        logPropertiesToolStripMenuItem.BackColor = SystemColors.Control;
+        exportToolStripMenuItem.BackColor = SystemColors.Control;
+        exitToolStripMenuItem.BackColor = SystemColors.Control;
+        fileToolStripMenuItem.HideDropDown();
+
+        aboutToolStripMenuItem.ShowDropDown();
+        infoToolStripMenuItem.BackColor = Color.Yellow;
+        aboutToolStripMenuItem1.BackColor = Color.Yellow;
+        tutorialToolStripMenuItem.BackColor = Color.Yellow;
+        DialogResult result5 = MessageBox.Show("Help\nHere you can view more information about this application and view the tutorial again.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result5 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.MainMenuFirstRun = false;
+            Properties.Settings.Default.Save();
+            infoToolStripMenuItem.BackColor = SystemColors.Control;
+            aboutToolStripMenuItem1.BackColor = SystemColors.Control;
+            tutorialToolStripMenuItem.BackColor = SystemColors.Control;
+            aboutToolStripMenuItem.HideDropDown();
+            return;
+        }
+        infoToolStripMenuItem.BackColor = SystemColors.Control;
+        aboutToolStripMenuItem1.BackColor = SystemColors.Control;
+        tutorialToolStripMenuItem.BackColor = SystemColors.Control;
+        aboutToolStripMenuItem.HideDropDown();
+
+        analyzeToolStripMenuItem.ShowDropDown();
+        recordNumbersToolStripMenuItem.BackColor = Color.Yellow;
+        timeCToolStripMenuItem.BackColor = Color.Yellow;
+        DialogResult result6 = MessageBox.Show("Analyze\nHere you can analyze Record Numbers and Times of events. This is automatically done when you open a log file.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result6 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.MainMenuFirstRun = false;
+            Properties.Settings.Default.Save();
+            recordNumbersToolStripMenuItem.BackColor = SystemColors.Control;
+            timeCToolStripMenuItem.BackColor = SystemColors.Control;
+            analyzeToolStripMenuItem.HideDropDown();
+            return;
+        }
+        recordNumbersToolStripMenuItem.BackColor = SystemColors.Control;
+        timeCToolStripMenuItem.BackColor = SystemColors.Control;
+        analyzeToolStripMenuItem.HideDropDown();
+
+        resetToolStripMenuItem.ShowDropDown();
+        resetCellsToolStripMenuItem1.BackColor = Color.Yellow;
+        DialogResult result7 = MessageBox.Show("Reset\nHere you can reset any highlighting or other formatting to cells.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result7 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.MainMenuFirstRun = false;
+            Properties.Settings.Default.Save();
+            resetCellsToolStripMenuItem1.BackColor = SystemColors.Control;
+            resetToolStripMenuItem.HideDropDown();
+            return;
+        }
+        resetCellsToolStripMenuItem1.BackColor = SystemColors.Control;
+        resetToolStripMenuItem.HideDropDown();
+
+        highlightPanel.Location = new Point(500,0);
+        highlightPanel.Size = new Size(100, 5);
     }
+
+
 
 }
