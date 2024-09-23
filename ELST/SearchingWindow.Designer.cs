@@ -30,8 +30,6 @@
         {
             searchLabel = new Label();
             cancelButton = new Button();
-            searchPB = new ProgressBar();
-            progressLabel = new Label();
             directoriesLB = new Label();
             numDirectoriesLB = new Label();
             SuspendLayout();
@@ -39,7 +37,7 @@
             // searchLabel
             // 
             searchLabel.AutoSize = true;
-            searchLabel.Location = new Point(129, 29);
+            searchLabel.Location = new Point(129, 30);
             searchLabel.Name = "searchLabel";
             searchLabel.Size = new Size(208, 20);
             searchLabel.TabIndex = 0;
@@ -47,7 +45,7 @@
             // 
             // cancelButton
             // 
-            cancelButton.Location = new Point(186, 168);
+            cancelButton.Location = new Point(186, 108);
             cancelButton.Name = "cancelButton";
             cancelButton.Size = new Size(94, 29);
             cancelButton.TabIndex = 1;
@@ -55,26 +53,10 @@
             cancelButton.UseVisualStyleBackColor = true;
             cancelButton.Click += cancelButton_Click;
             // 
-            // searchPB
-            // 
-            searchPB.Location = new Point(129, 118);
-            searchPB.Name = "searchPB";
-            searchPB.Size = new Size(208, 29);
-            searchPB.TabIndex = 2;
-            // 
-            // progressLabel
-            // 
-            progressLabel.AutoSize = true;
-            progressLabel.Location = new Point(190, 77);
-            progressLabel.Name = "progressLabel";
-            progressLabel.Size = new Size(86, 20);
-            progressLabel.TabIndex = 3;
-            progressLabel.Text = "Progres: 0%";
-            // 
             // directoriesLB
             // 
             directoriesLB.AutoSize = true;
-            directoriesLB.Location = new Point(81, 57);
+            directoriesLB.Location = new Point(129, 67);
             directoriesLB.Name = "directoriesLB";
             directoriesLB.Size = new Size(154, 20);
             directoriesLB.TabIndex = 4;
@@ -83,7 +65,7 @@
             // numDirectoriesLB
             // 
             numDirectoriesLB.AutoSize = true;
-            numDirectoriesLB.Location = new Point(241, 57);
+            numDirectoriesLB.Location = new Point(289, 67);
             numDirectoriesLB.Name = "numDirectoriesLB";
             numDirectoriesLB.Size = new Size(17, 20);
             numDirectoriesLB.TabIndex = 5;
@@ -93,11 +75,9 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(485, 244);
+            ClientSize = new Size(485, 162);
             Controls.Add(numDirectoriesLB);
             Controls.Add(directoriesLB);
-            Controls.Add(progressLabel);
-            Controls.Add(searchPB);
             Controls.Add(cancelButton);
             Controls.Add(searchLabel);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
@@ -112,8 +92,6 @@
 
         private Label searchLabel;
         private Button cancelButton;
-        private ProgressBar searchPB;
-        private Label progressLabel;
         private Label directoriesLB;
         private Label numDirectoriesLB;
     }
