@@ -86,7 +86,7 @@ public partial class ConfigureColumns : Form
             column.DisplayIndex = i; // Set DisplayIndex to reflect new order
         }
 
-        _toolStripStatusLabel.Text = $"Showing {visibleCount} of 20 Columns";
+        _toolStripStatusLabel.Text = $"Showing {visibleCount} of 23 Columns";
 
         _dataGridView.ResumeLayout();
     }
