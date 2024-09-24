@@ -45,7 +45,7 @@ public class CustomEvent
 
     public string vbr0 { get; set; }
 
-    public string extractedVbr0 { get; set; }
+    public string formattedVbr0 { get; set; }
 
     public string xml {  get; }
 
@@ -88,7 +88,7 @@ public class CustomEvent
         serialNumber = XmlExtract.GetField(xml, "SerialNumber");
         parentId = XmlExtract.GetField(xml, "ParentId");
         vbr0 = XmlExtract.GetField(xml, "Vbr0");
-        extractedVbr0 = FormatVbr0.Extract(vbr0);
+        formattedVbr0 = FormatVbr0.Extract(vbr0);
         registryID = XmlExtract.GetField(xml, "RegistryId");
         diskID = XmlExtract.GetField(xml, "DiskId");
 
@@ -129,7 +129,8 @@ public class CustomEvent
         result.Add(threadID);
         result.Add(channel);
         result.Add(userID);
-        result.Add(extractedVbr0);
+        result.Add(vbr0);
+        result.Add(formattedVbr0);
         result.Add(machineName);
         result.Add(registryID);
         result.Add(diskID);
@@ -147,7 +148,7 @@ public class CustomEvent
         result.Add(recordNumber);
         result.Add(TimeCreated.ToString());
         result.Add(action);
-        result.Add(extractedVbr0);
+        result.Add(formattedVbr0);
 
         return result;
     }

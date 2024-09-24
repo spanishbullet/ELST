@@ -420,7 +420,8 @@ public partial class MainMenu : Form
         dgvEvents.Columns.Add("ThreadId", "Thread ID");
         dgvEvents.Columns.Add("Channel", "Channel");
         dgvEvents.Columns.Add("UserId", "User ID");
-        dgvEvents.Columns.Add("Vbr0", "Vbr0");
+        dgvEvents.Columns.Add("VBR0", "VBR0");
+        dgvEvents.Columns.Add("FormattedVBR0", "Formatted VBR0");
         dgvEvents.Columns.Add("MachineName", "Machine Name");
         dgvEvents.Columns.Add("RegistryID", "RegistryID");
         dgvEvents.Columns.Add("DiskID", "Disk ID");
@@ -438,7 +439,8 @@ public partial class MainMenu : Form
         dgvEvents.Columns["ThreadId"].Visible = false;
         dgvEvents.Columns["Channel"].Visible = false;
         dgvEvents.Columns["UserId"].Visible = false;
-        dgvEvents.Columns["Vbr0"].Visible = false;
+        dgvEvents.Columns["VBR0"].Visible = false;
+        dgvEvents.Columns["FormattedVBR0"].Visible = false;
         dgvEvents.Columns["MachineName"].Visible = false;
         dgvEvents.Columns["RegistryID"].Visible = false;
         dgvEvents.Columns["DiskID"].Visible = false;
