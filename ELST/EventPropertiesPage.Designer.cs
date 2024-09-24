@@ -83,6 +83,7 @@
             // 
             // closeButton
             // 
+            closeButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             closeButton.Location = new Point(724, 540);
             closeButton.Name = "closeButton";
             closeButton.Size = new Size(94, 29);
@@ -93,6 +94,7 @@
             // 
             // previousButton
             // 
+            previousButton.Anchor = AnchorStyles.Right;
             previousButton.Location = new Point(744, 192);
             previousButton.Name = "previousButton";
             previousButton.Size = new Size(74, 68);
@@ -103,6 +105,7 @@
             // 
             // nextButton
             // 
+            nextButton.Anchor = AnchorStyles.Right;
             nextButton.Location = new Point(744, 278);
             nextButton.Name = "nextButton";
             nextButton.Size = new Size(74, 68);
