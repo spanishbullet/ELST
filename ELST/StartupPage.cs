@@ -205,8 +205,15 @@ public partial class StartupPage : Form
 
         if (result == DialogResult.OK)
         {
+            
             // Get the selected file's path.
             string filePath = openFileDialog.FileName;
+
+            if (!filePath.Contains("Microsoft-Windows-Partition%4Diagnostic.evtx"))
+            {
+                MessageBox.Show("This type of log or file type is not yet supported. Please select another file.");
+                return;
+            }
 
             if (!filesOfInterest.Contains(filePath))
             {
