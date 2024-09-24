@@ -99,4 +99,20 @@ public partial class ConfigureColumns : Form
     {
         this.Close();
     }
+
+    private void checkAllButton_Click(object sender, EventArgs e)
+    {
+        for (int i = 0; i < columnsCLB.Items.Count; i++)
+        {
+            columnsCLB.SetItemChecked(i, true);
+        }
+    }
+
+    private void uncheckAllButton_Click(object sender, EventArgs e)
+    {
+        for (int i = 0; i < columnsCLB.Items.Count; i++)
+        {
+            columnsCLB.SetItemChecked(i, false);
+        }
+    }
 }
