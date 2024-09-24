@@ -585,6 +585,10 @@ public partial class MainMenu : Form
                 }
             }
             MessageBox.Show(Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")));
+            if ("No anomalies detected in event record numbers." != Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")))
+            {
+                dgvEvents.Columns["RecordId"].Visible = true;
+            }
         }
     }
 
@@ -832,9 +836,16 @@ public partial class MainMenu : Form
         {
             StartTutorial();
         }
-
-        MessageBox.Show(Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")));
-        MessageBox.Show(Analyze.TimeChange(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "TimeCreated")));
+        
+        if ("No anomalies detected in event record numbers." != Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")))
+        {
+            MessageBox.Show(Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")));
+            dgvEvents.Columns["RecordId"].Visible = true;
+        }
+        if ("No anomalies detected in event times." != Analyze.TimeChange(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "TimeCreated")))
+        {
+            MessageBox.Show(Analyze.TimeChange(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "TimeCreated")));
+        }
     }
 
     private void tutorialToolStripMenuItem_Click(object sender, EventArgs e)

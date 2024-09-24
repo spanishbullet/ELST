@@ -63,7 +63,7 @@ public class Analyze
         }
 
         if (message.Length == 0)
-            message = "No anomalies detected in evvent record numbers.";
+            message = "No anomalies detected in event record numbers.";
 
         return message;
     }
