@@ -8,6 +8,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Linq;
 using System.Drawing.Text;
 using System.ComponentModel;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 
 namespace ELST;
@@ -404,7 +405,7 @@ public partial class MainMenu : Form
         dgvEvents.Columns.Add("TimeCreated", "Time Created");
         dgvEvents.Columns.Add("Manufacturer", "Manufacturer");
         dgvEvents.Columns.Add("Model", "Model");
-        dgvEvents.Columns.Add("SerialNumber", "Serial Number");
+        dgvEvents.Columns.Add("SerialNumber", "SCSI Serial Number");
         dgvEvents.Columns.Add("Action", "Action");
         dgvEvents.Columns.Add("Capacity", "Capacity");
         dgvEvents.Columns.Add("Computer", "Computer");
@@ -421,6 +422,8 @@ public partial class MainMenu : Form
         dgvEvents.Columns.Add("UserId", "User ID");
         dgvEvents.Columns.Add("Vbr0", "Vbr0");
         dgvEvents.Columns.Add("MachineName", "Machine Name");
+        dgvEvents.Columns.Add("RegistryID", "RegistryID");
+        dgvEvents.Columns.Add("DiskID", "Disk ID");
 
         //Hide Columns
         dgvEvents.Columns["EventId"].Visible = false;
@@ -437,6 +440,8 @@ public partial class MainMenu : Form
         dgvEvents.Columns["UserId"].Visible = false;
         dgvEvents.Columns["Vbr0"].Visible = false;
         dgvEvents.Columns["MachineName"].Visible = false;
+        dgvEvents.Columns["RegistryID"].Visible = false;
+        dgvEvents.Columns["DiskID"].Visible = false;
 
 
         //neccesary for correct sorting/comparison by time
@@ -685,11 +690,6 @@ public partial class MainMenu : Form
         }
     }
 
-    private void searchToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-        searchGB.Show();
-    }
-
     private void resetTimefreameButtom_Click(object sender, EventArgs e)
     {
         timeframe = false;
@@ -848,7 +848,7 @@ public partial class MainMenu : Form
     {
         TransparentPanel highlightPanel = new TransparentPanel();
 
-        
+
 
         DialogResult result = MessageBox.Show("Welcome To the Event Log Story Teller Main Menu.\nAt Any point during the tutorial press \"Cancel\" to end and \"OK\" to continue.", "Tutorial", MessageBoxButtons.OKCancel);
         if (result == DialogResult.Cancel)
@@ -915,7 +915,7 @@ public partial class MainMenu : Form
         logPropertiesToolStripMenuItem.BackColor = Color.Yellow;
         exportToolStripMenuItem.BackColor = Color.Yellow;
         exitToolStripMenuItem.BackColor = Color.Yellow;
-        
+
         DialogResult result4 = MessageBox.Show("File\nHere you can view log properties, Export the parsed log and exit this page.", "Tutorial", MessageBoxButtons.OKCancel);
         if (result4 == DialogResult.Cancel)
         {
@@ -985,13 +985,26 @@ public partial class MainMenu : Form
         resetCellsToolStripMenuItem1.BackColor = SystemColors.Control;
         resetToolStripMenuItem.HideDropDown();
 
+        searchToolStripMenuItem.ShowDropDown();
+        searchTSMI.BackColor = Color.Yellow;
+        DialogResult result8 = MessageBox.Show("Use this control to search through all displayed data.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result8 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.MainMenuFirstRun = false;
+            Properties.Settings.Default.Save();
+            searchTSMI.BackColor = SystemColors.Control;
+            searchToolStripMenuItem.HideDropDown();
+        }
+        searchTSMI.BackColor = SystemColors.Control;
+        searchToolStripMenuItem.HideDropDown();
+
         timeArrowLabel.BackColor = Color.Yellow;
         applyTimeframeButton.BackColor = Color.Yellow;
         resetTimefreameButtom.BackColor = Color.Yellow;
-        DialogResult result8 = MessageBox.Show("Time Scope\nUse these controlls to time scpoe the events and devices displayed.\n" +
+        DialogResult result9 = MessageBox.Show("Time Scope\nUse these controlls to time scpoe the events and devices displayed.\n" +
                                                "Pick a start and end time and then press \"Aplly\" to activate the filter and \"Reset\"" +
                                                "to remove the filter.", "Tutorial", MessageBoxButtons.OKCancel);
-        if (result8 == DialogResult.Cancel)
+        if (result9 == DialogResult.Cancel)
         {
             Properties.Settings.Default.MainMenuFirstRun = false;
             Properties.Settings.Default.Save();
@@ -1003,10 +1016,15 @@ public partial class MainMenu : Form
         applyTimeframeButton.BackColor = SystemColors.Control;
         resetTimefreameButtom.BackColor = SystemColors.Control;
 
-        DialogResult result9 = MessageBox.Show("End of Tutorial\nDo you want to see the tutorial again?", "Tutorial", MessageBoxButtons.YesNo);
-        if (result9 == DialogResult.Yes)
+        DialogResult result10 = MessageBox.Show("End of Tutorial\nDo you want to see the tutorial again?", "Tutorial", MessageBoxButtons.YesNo);
+        if (result10 == DialogResult.Yes)
         {
             StartTutorial();
         }
+    }
+
+    private void searchTSMI_Click(object sender, EventArgs e)
+    {
+        searchGB.Show();
     }
 }

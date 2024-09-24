@@ -53,6 +53,10 @@ public class CustomEvent
 
     public string machineName { get; }
 
+    public string registryID { get; }
+
+    public string diskID { get; }
+
     public CustomEvent()
     {
 
@@ -85,6 +89,8 @@ public class CustomEvent
         parentId = XmlExtract.GetField(xml, "ParentId");
         vbr0 = XmlExtract.GetField(xml, "Vbr0");
         extractedVbr0 = FormatVbr0.Extract(vbr0);
+        registryID = XmlExtract.GetField(xml, "RegistryId");
+        diskID = XmlExtract.GetField(xml, "DiskId");
 
         if (long.Parse(capacity) != 0)
         {
@@ -125,6 +131,8 @@ public class CustomEvent
         result.Add(userID);
         result.Add(extractedVbr0);
         result.Add(machineName);
+        result.Add(registryID);
+        result.Add(diskID);
 
         return result;
     }

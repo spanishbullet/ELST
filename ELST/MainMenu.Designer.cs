@@ -47,14 +47,10 @@
             timeCToolStripMenuItem = new ToolStripMenuItem();
             resetToolStripMenuItem = new ToolStripMenuItem();
             resetCellsToolStripMenuItem1 = new ToolStripMenuItem();
-            seeToolStripMenuItem = new ToolStripMenuItem();
-            devicesToolStripMenuItem = new ToolStripMenuItem();
             searchToolStripMenuItem = new ToolStripMenuItem();
+            searchTSMI = new ToolStripMenuItem();
             configureToolStripMenuItem = new ToolStripMenuItem();
             columnsToolStripMenuItem = new ToolStripMenuItem();
-            filterToolStripMenuItem = new ToolStripMenuItem();
-            newFilterToolStripMenuItem = new ToolStripMenuItem();
-            clearFilterToolStripMenuItem = new ToolStripMenuItem();
             dirTreeView = new TreeView();
             dgvEvents = new DataGridView();
             panel1 = new Panel();
@@ -110,7 +106,7 @@
             mainMenuStrip.AutoSize = false;
             mainMenuStrip.Dock = DockStyle.None;
             mainMenuStrip.ImageScalingSize = new Size(20, 20);
-            mainMenuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aboutToolStripMenuItem, analyzeToolStripMenuItem, resetToolStripMenuItem, seeToolStripMenuItem, searchToolStripMenuItem, configureToolStripMenuItem, filterToolStripMenuItem });
+            mainMenuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aboutToolStripMenuItem, analyzeToolStripMenuItem, resetToolStripMenuItem, searchToolStripMenuItem, configureToolStripMenuItem });
             mainMenuStrip.Location = new Point(0, 0);
             mainMenuStrip.Name = "mainMenuStrip";
             mainMenuStrip.Padding = new Padding(4, 1, 0, 1);
@@ -198,14 +194,14 @@
             // recordNumbersToolStripMenuItem
             // 
             recordNumbersToolStripMenuItem.Name = "recordNumbersToolStripMenuItem";
-            recordNumbersToolStripMenuItem.Size = new Size(203, 26);
+            recordNumbersToolStripMenuItem.Size = new Size(224, 26);
             recordNumbersToolStripMenuItem.Text = "&Record Numbers";
             recordNumbersToolStripMenuItem.Click += recordNumbersToolStripMenuItem_Click;
             // 
             // timeCToolStripMenuItem
             // 
             timeCToolStripMenuItem.Name = "timeCToolStripMenuItem";
-            timeCToolStripMenuItem.Size = new Size(203, 26);
+            timeCToolStripMenuItem.Size = new Size(224, 26);
             timeCToolStripMenuItem.Text = "&Time";
             timeCToolStripMenuItem.Click += timeCToolStripMenuItem_Click;
             // 
@@ -223,26 +219,19 @@
             resetCellsToolStripMenuItem1.Text = "Reset &Cells";
             resetCellsToolStripMenuItem1.Click += resetToolStripMenuItem1_Click;
             // 
-            // seeToolStripMenuItem
-            // 
-            seeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { devicesToolStripMenuItem });
-            seeToolStripMenuItem.Name = "seeToolStripMenuItem";
-            seeToolStripMenuItem.Size = new Size(47, 32);
-            seeToolStripMenuItem.Text = "&See";
-            // 
-            // devicesToolStripMenuItem
-            // 
-            devicesToolStripMenuItem.Name = "devicesToolStripMenuItem";
-            devicesToolStripMenuItem.Size = new Size(143, 26);
-            devicesToolStripMenuItem.Text = "&Devices";
-            devicesToolStripMenuItem.Click += devicesToolStripMenuItem_Click;
-            // 
             // searchToolStripMenuItem
             // 
+            searchToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { searchTSMI });
             searchToolStripMenuItem.Name = "searchToolStripMenuItem";
             searchToolStripMenuItem.Size = new Size(67, 32);
             searchToolStripMenuItem.Text = "&Search";
-            searchToolStripMenuItem.Click += searchToolStripMenuItem_Click;
+            // 
+            // searchTSMI
+            // 
+            searchTSMI.Name = "searchTSMI";
+            searchTSMI.Size = new Size(224, 26);
+            searchTSMI.Text = "&Search";
+            searchTSMI.Click += searchTSMI_Click;
             // 
             // configureToolStripMenuItem
             // 
@@ -254,30 +243,9 @@
             // columnsToolStripMenuItem
             // 
             columnsToolStripMenuItem.Name = "columnsToolStripMenuItem";
-            columnsToolStripMenuItem.Size = new Size(149, 26);
+            columnsToolStripMenuItem.Size = new Size(224, 26);
             columnsToolStripMenuItem.Text = "&Columns";
             columnsToolStripMenuItem.Click += columnsToolStripMenuItem_Click;
-            // 
-            // filterToolStripMenuItem
-            // 
-            filterToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newFilterToolStripMenuItem, clearFilterToolStripMenuItem });
-            filterToolStripMenuItem.Name = "filterToolStripMenuItem";
-            filterToolStripMenuItem.Size = new Size(56, 32);
-            filterToolStripMenuItem.Text = "&Filter";
-            // 
-            // newFilterToolStripMenuItem
-            // 
-            newFilterToolStripMenuItem.Name = "newFilterToolStripMenuItem";
-            newFilterToolStripMenuItem.Size = new Size(166, 26);
-            newFilterToolStripMenuItem.Text = "&New Filter";
-            newFilterToolStripMenuItem.Click += newFilterToolStripMenuItem_Click;
-            // 
-            // clearFilterToolStripMenuItem
-            // 
-            clearFilterToolStripMenuItem.Name = "clearFilterToolStripMenuItem";
-            clearFilterToolStripMenuItem.Size = new Size(166, 26);
-            clearFilterToolStripMenuItem.Text = "&Apply filter";
-            clearFilterToolStripMenuItem.Click += clearFilterToolStripMenuItem_Click;
             // 
             // dirTreeView
             // 
@@ -712,8 +680,6 @@
         private StatusStrip pathStatusStrip;
         private ToolStripStatusLabel PathTSSLabel;
         private ToolStripStatusLabel ActualPathTSSLabel;
-        private ToolStripMenuItem seeToolStripMenuItem;
-        private ToolStripMenuItem devicesToolStripMenuItem;
         private StatusStrip eventsStatusStrip;
         private ToolStripStatusLabel eventsTSSLabel;
         private GroupBox searchGB;
@@ -740,9 +706,6 @@
         private ToolStripMenuItem exportToolStripMenuItem;
         private Panel panel2;
         private Splitter splitter2;
-        private ToolStripMenuItem filterToolStripMenuItem;
-        private ToolStripMenuItem newFilterToolStripMenuItem;
-        private ToolStripMenuItem clearFilterToolStripMenuItem;
         private Splitter splitter3;
         private ToolStripMenuItem logPropertiesToolStripMenuItem;
         private Button resetSearchButton;
@@ -750,5 +713,6 @@
         private ToolStripMenuItem tutorialToolStripMenuItem;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel devicesTSSLabel;
+        private ToolStripMenuItem searchTSMI;
     }
 }
