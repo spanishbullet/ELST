@@ -848,9 +848,7 @@ public partial class MainMenu : Form
     {
         TransparentPanel highlightPanel = new TransparentPanel();
 
-        highlightPanel.Location = new Point(500, 0);
-        highlightPanel.Size = new Size(100, 5);
-        this.panel1.Controls.Add(highlightPanel);
+        
 
         DialogResult result = MessageBox.Show("Welcome To the Event Log Story Teller Main Menu.\nAt Any point during the tutorial press \"Cancel\" to end and \"OK\" to continue.", "Tutorial", MessageBoxButtons.OKCancel);
         if (result == DialogResult.Cancel)
@@ -987,10 +985,28 @@ public partial class MainMenu : Form
         resetCellsToolStripMenuItem1.BackColor = SystemColors.Control;
         resetToolStripMenuItem.HideDropDown();
 
-        highlightPanel.Location = new Point(500,0);
-        highlightPanel.Size = new Size(100, 5);
+        timeArrowLabel.BackColor = Color.Yellow;
+        applyTimeframeButton.BackColor = Color.Yellow;
+        resetTimefreameButtom.BackColor = Color.Yellow;
+        DialogResult result8 = MessageBox.Show("Time Scope\nUse these controlls to time scpoe the events and devices displayed.\n" +
+                                               "Pick a start and end time and then press \"Aplly\" to activate the filter and \"Reset\"" +
+                                               "to remove the filter.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result8 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.MainMenuFirstRun = false;
+            Properties.Settings.Default.Save();
+            timeArrowLabel.BackColor = SystemColors.Control;
+            applyTimeframeButton.BackColor = SystemColors.Control;
+            resetTimefreameButtom.BackColor = SystemColors.Control;
+        }
+        timeArrowLabel.BackColor = SystemColors.Control;
+        applyTimeframeButton.BackColor = SystemColors.Control;
+        resetTimefreameButtom.BackColor = SystemColors.Control;
+
+        DialogResult result9 = MessageBox.Show("End of Tutorial\nDo you want to see the tutorial again?", "Tutorial", MessageBoxButtons.YesNo);
+        if (result9 == DialogResult.Yes)
+        {
+            StartTutorial();
+        }
     }
-
-
-
 }
