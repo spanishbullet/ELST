@@ -12,8 +12,6 @@ public partial class StartupPage : Form
 
     public StartupPage()
     {
-        Properties.Settings.Default.Reset();
-
         InitializeComponent();
         cancel = false;
     }

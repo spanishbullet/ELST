@@ -17,8 +17,6 @@ public partial class MainMenu : Form
 {
     public MainMenu(string filePath)
     {
-        Properties.Settings.Default.Reset();
-
         defaultFilePath = filePath;
         selectedFolderPath = System.IO.Path.GetDirectoryName(defaultFilePath);
         baseDirPath = Path.GetPathRoot(defaultFilePath);
@@ -33,8 +31,6 @@ public partial class MainMenu : Form
     }
     public MainMenu(List<string> files)
     {
-        Properties.Settings.Default.Reset();
-
         filesOfInterest = files;
         defaultFilePath = files[0];
         selectedFolderPath = System.IO.Path.GetDirectoryName(defaultFilePath);
