@@ -83,6 +83,10 @@ public partial class ConfigureColumns : Form
                 column.Visible = true;
                 visibleCount++;
             }
+            else
+            {
+                column.Visible = false;
+            }
             column.DisplayIndex = i; // Set DisplayIndex to reflect new order
         }
 
