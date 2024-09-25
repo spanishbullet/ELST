@@ -92,14 +92,26 @@ public class CustomEvent
         registryID = XmlExtract.GetField(xml, "RegistryId");
         diskID = XmlExtract.GetField(xml, "DiskId");
 
-        if (long.Parse(capacity) != 0)
+        if (string.IsNullOrEmpty(capacity))
         {
-            action = "Plugged In";
+            action = "Unknown";  // Handle the null/empty case
+        }
+        else if (long.TryParse(capacity, out long capacityValue))
+        {
+            if (capacityValue != 0)
+            {
+                action = "Plugged In";  // Handle non-zero numbers
+            }
+            else
+            {
+                action = "Ejected";  // Handle when capacity is exactly 0
+            }
         }
         else
         {
-            action = "Ejected";
+            action = "Invalid";  // Handle when capacity is not a valid number
         }
+
     }
 
     public string Display()
