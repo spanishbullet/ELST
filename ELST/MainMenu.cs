@@ -135,8 +135,8 @@ public partial class MainMenu : Form
 
     private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
     {
-        string aboutMessage = "Version 0.1" +
-            " - Prototype still in development.";
+        string aboutMessage = "Version 1.0" +
+            "Please visit https://github.com/spanishbullet/ELST for documentation and to report issues.";
         MessageBox.Show(aboutMessage);
     }
 
