@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
@@ -35,7 +36,7 @@ public class XmlExtract
     public static string FormatXml(string xml)
     {
         XmlDocument xmlDoc = new XmlDocument();
-        xmlDoc.LoadXml(xml);
+        xmlDoc.LoadXml(SanitizeXmlString(xml));
 
         // Create a string writer to hold the formatted XML
         using (var stringWriter = new System.IO.StringWriter())
@@ -59,7 +60,7 @@ public class XmlExtract
         try
         {
             XmlDocument doc = new XmlDocument();
-            doc.LoadXml(xml);
+            doc.LoadXml(SanitizeXmlString(xml));
 
             StringBuilder result = new StringBuilder();
             int maxLabelLength = GetMaxLabelLength(doc.DocumentElement, 0);
@@ -115,5 +116,12 @@ public class XmlExtract
 
         return maxLength + 1; // Add 1 to create space between label and value
     }
+
+    private static string SanitizeXmlString(string xml)
+    {
+        // Replace invalid XML characters with the Unicode Replacement Character (0xFFFD)
+        return Regex.Replace(xml, @"[^\u0009\u000A\u000D\u0020-\uD7FF\uE000-\uFFFD]", "\uFFFD");
+    }
+
 }
 

@@ -8,6 +8,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Linq;
 using System.Drawing.Text;
 using System.ComponentModel;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 
 namespace ELST;
@@ -52,6 +53,8 @@ public partial class MainMenu : Form
 
     //list of events
     private readonly List<CustomEvent> customEvents = [];
+
+    private List<CustomEvent> hiddenEvents = new List<CustomEvent>();
 
     //selected devices
     public List<Device> selectedDevices = [];
@@ -120,6 +123,7 @@ public partial class MainMenu : Form
         {
             devicesCLB.SetItemChecked(i, true);
         }
+        devicesTSSLabel.Text = $"Showing {currentDevices.Count} of {allDevices.Count} Devices";
         PopulatDGVEvents(customEvents);
     }
 
@@ -131,8 +135,8 @@ public partial class MainMenu : Form
 
     private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
     {
-        string aboutMessage = "Version 0.1" +
-            " - Prototype still in development.";
+        string aboutMessage = "Version 1.0" +
+            "Please visit https://github.com/spanishbullet/ELST for documentation and to report issues.";
         MessageBox.Show(aboutMessage);
     }
 
@@ -144,7 +148,8 @@ public partial class MainMenu : Form
 
     private void AutoLoadFilePath()
     {
-        ListDirectory(dirTreeView, selectedFolderPath);
+        //ListDirectory(dirTreeView, selectedFolderPath);
+        ListAllDirectories(dirTreeView, filesOfInterest);
         ActualPathTSSLabel.Text = "";
 
         foreach (string path in filesOfInterest)
@@ -192,6 +197,17 @@ public partial class MainMenu : Form
         var rootDirInfo = new DirectoryInfo(path);
         treeView.Nodes.Add(CreateDirectoryNode(rootDirInfo));
         treeView.ExpandAll();
+    }
+
+    private static void ListAllDirectories(TreeView treeView, List<string> paths)
+    {
+        treeView.Nodes.Clear();
+        foreach (string path in paths)
+        {
+            var rootDirInfo = new DirectoryInfo(System.IO.Path.GetDirectoryName(path));
+            treeView.Nodes.Add(CreateDirectoryNode(rootDirInfo));
+            treeView.ExpandAll();
+        }
     }
 
     private static TreeNode CreateDirectoryNode(DirectoryInfo dirInfo)
@@ -333,6 +349,7 @@ public partial class MainMenu : Form
 
     private void PopulatDGVEvents(List<CustomEvent> customEvents)
     {
+        dgvEvents.SuspendLayout();
         dgvEvents.Rows.Clear();
 
         if (timeframe)
@@ -372,7 +389,7 @@ public partial class MainMenu : Form
         }
 
         dgvEvents.Sort(dgvEvents.Columns["TimeCreated"], ListSortDirection.Ascending);
-
+        dgvEvents.ResumeLayout();
         eventsTSSLabel.Text = $"Showing {dgvEvents.Rows.Count} of {customEvents.Count} Events";
     }
 
@@ -381,31 +398,49 @@ public partial class MainMenu : Form
         dgvEvents.Columns.Clear();
         // Set up the DataGridView columns
         //ORDER MATTERS*******************
+        dgvEvents.Columns.Add("TimeCreated", "Time Created");
+        dgvEvents.Columns.Add("Manufacturer", "Manufacturer");
+        dgvEvents.Columns.Add("Model", "Model");
+        dgvEvents.Columns.Add("SerialNumber", "SCSI Serial Number");
+        dgvEvents.Columns.Add("Action", "Action");
+        dgvEvents.Columns.Add("Capacity", "Capacity");
+        dgvEvents.Columns.Add("Computer", "Computer");
         dgvEvents.Columns.Add("EventId", "Event ID");
         dgvEvents.Columns.Add("ProviderName", "Provider Name");
         dgvEvents.Columns.Add("Level", "Level");
         dgvEvents.Columns.Add("Message", "Message");
         dgvEvents.Columns.Add("RecordId", "Record Number");
-        dgvEvents.Columns.Add("TimeCreated", "Time Created");
-        dgvEvents.Columns.Add("Capacity", "Capacity");
-        dgvEvents.Columns.Add("Action", "Action");
-        dgvEvents.Columns.Add("Manufacturer", "Manufacturer");
-        dgvEvents.Columns.Add("Model", "Model");
         dgvEvents.Columns.Add("Revision", "Revision");
-        dgvEvents.Columns.Add("SerialNumber", "Serial Number");
         dgvEvents.Columns.Add("ParentID", "Parent ID");
         dgvEvents.Columns.Add("ProcessId", "Process ID");
         dgvEvents.Columns.Add("ThreadId", "Thread ID");
         dgvEvents.Columns.Add("Channel", "Channel");
-        dgvEvents.Columns.Add("Computer", "Computer");
         dgvEvents.Columns.Add("UserId", "User ID");
-        dgvEvents.Columns.Add("Vbr0", "Vbr0");
+        dgvEvents.Columns.Add("VBR0", "VBR0");
+        dgvEvents.Columns.Add("FormattedVBR0", "Formatted VBR0");
+        dgvEvents.Columns.Add("MachineName", "Machine Name");
+        dgvEvents.Columns.Add("RegistryID", "RegistryID");
+        dgvEvents.Columns.Add("DiskID", "Disk ID");
 
         //Hide Columns
         dgvEvents.Columns["EventId"].Visible = false;
         dgvEvents.Columns["Message"].Visible = false;
         dgvEvents.Columns["ProviderName"].Visible = false;
         dgvEvents.Columns["Level"].Visible = false;
+        dgvEvents.Columns["Computer"].Visible = false;
+        dgvEvents.Columns["RecordId"].Visible = false;
+        dgvEvents.Columns["Revision"].Visible = false;
+        dgvEvents.Columns["ParentID"].Visible = false;
+        dgvEvents.Columns["ProcessId"].Visible = false;
+        dgvEvents.Columns["ThreadId"].Visible = false;
+        dgvEvents.Columns["Channel"].Visible = false;
+        dgvEvents.Columns["UserId"].Visible = false;
+        dgvEvents.Columns["VBR0"].Visible = false;
+        dgvEvents.Columns["FormattedVBR0"].Visible = false;
+        dgvEvents.Columns["MachineName"].Visible = false;
+        dgvEvents.Columns["RegistryID"].Visible = false;
+        dgvEvents.Columns["DiskID"].Visible = false;
+
 
         //neccesary for correct sorting/comparison by time
         dgvEvents.Columns["TimeCreated"].DefaultCellStyle.Format = "MM/dd/yyyy HH:mm:ss";
@@ -414,7 +449,7 @@ public partial class MainMenu : Form
 
 
         // Adjust column widths
-        dgvEvents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+        dgvEvents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
         dgvEvents.Height = splitContainer1.Panel2.ClientSize.Height - pathStatusStrip.Height - eventsStatusStrip.Height;
 
@@ -473,8 +508,58 @@ public partial class MainMenu : Form
                             logPropertiesWindow.Show();
                         }
                     };
+                    ToolStripMenuItem highlightEvent = new()
+                    {
+                        Text = "Highlight"
+                    };
+                    highlightEvent.Click += (obj, ea) =>
+                    {
+                        foreach (DataGridViewRow row in dgvEvents.SelectedRows)
+                        {
+                            dgvEvents.Rows[row.Index].DefaultCellStyle.BackColor = Color.LightSkyBlue;
+                        }
+                    };
+                    ToolStripMenuItem removeHighlight = new()
+                    {
+                        Text = "Unhighlight"
+                    };
+                    removeHighlight.Click += (obj, ea) =>
+                    {
+                        foreach (DataGridViewRow row in dgvEvents.SelectedRows)
+                        {
+                            dgvEvents.Rows[row.Index].DefaultCellStyle.BackColor = Color.White;
+                        }
+                    };
+                    ContextMenuStrip hiddenContextMenu = new();
+                    ToolStripMenuItem hideEvent = new()
+                    {
+                        Text = "Hide"
+                    };
+                    hideEvent.Click += (obj, ea) =>
+                    {
+                        foreach (DataGridViewRow row in dgvEvents.SelectedRows)
+                        {
+                            hiddenEvents.Add(customEvents[rowIndex]);
+
+                            dgvEvents.Rows.RemoveAt(row.Index);
+                        }
+                    };
+                    ToolStripMenuItem showHiddenEvents = new()
+                    {
+                        Text = "Show Hidden"
+                    };
+                    showHiddenEvents.Click += (obj, ea) =>
+                    {
+                        hiddenEvents.Clear();
+                        PopulatDGVEvents(customEvents);
+                    };
+
                     menu.Items.Add(eventProperties);
                     menu.Items.Add(logProperties);
+                    menu.Items.Add(highlightEvent);
+                    menu.Items.Add(removeHighlight);
+                    menu.Items.Add(hideEvent);
+                    menu.Items.Add(showHiddenEvents);
                     menu.Show(dgvEvents, e.Location);
                 }
             }
@@ -483,13 +568,27 @@ public partial class MainMenu : Form
 
     private void recordNumbersToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        if (selectedDevices.Count == currentDevices.Count)
+        if (selectedDevices.Count != currentDevices.Count)
         {
-            MessageBox.Show(Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")));
+            MessageBox.Show("Must select all devices in current timeframe.");
         }
         else
         {
-            MessageBox.Show("Must select all devices in current timeframe.");
+            if (hiddenEvents.Count > 0)
+            {
+                DialogResult result = MessageBox.Show("One or more events are hidden and could cause a false alarm or prevent anomoly detection.\nDo you want to show hidden events?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    hiddenEvents.Clear();
+                    PopulatDGVEvents(customEvents);
+                }
+            }
+            MessageBox.Show(Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")));
+            if ("No anomalies detected in event record numbers." != Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")))
+            {
+                dgvEvents.Columns["RecordId"].Visible = true;
+            }
         }
     }
 
@@ -506,6 +605,16 @@ public partial class MainMenu : Form
 
     private void timeCToolStripMenuItem_Click(object sender, EventArgs e)
     {
+        if (hiddenEvents.Count > 0)
+        {
+            DialogResult result = MessageBox.Show("One or more events are hidden and could cause a false alarm or prevent anomoly detection.\nDo you want to show hidden events?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                hiddenEvents.Clear();
+                PopulatDGVEvents(customEvents);
+            }
+        }
         MessageBox.Show(Analyze.TimeChange(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "TimeCreated")));
     }
 
@@ -583,11 +692,6 @@ public partial class MainMenu : Form
         }
     }
 
-    private void searchToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-        searchGB.Show();
-    }
-
     private void resetTimefreameButtom_Click(object sender, EventArgs e)
     {
         timeframe = false;
@@ -616,20 +720,26 @@ public partial class MainMenu : Form
 
     private void uncheckAllDevicesButton_Click(object sender, EventArgs e)
     {
+        dgvEvents.Rows.Clear();
+        dgvEvents.SuspendLayout();
         for (int i = 0; i < devicesCLB.Items.Count; i++)
         {
             devicesCLB.SetItemChecked(i, false);
         }
+        //dgvEvents.ResumeLayout();
         PopulatDGVEvents(customEvents);
+        dgvEvents.ResumeLayout();
     }
 
     private void checkAllDevicesButton_Click(object sender, EventArgs e)
     {
+        dgvEvents.SuspendLayout();
         for (int i = 0; i < devicesCLB.Items.Count; i++)
         {
             devicesCLB.SetItemChecked(i, true);
         }
         PopulatDGVEvents(customEvents);
+        dgvEvents.ResumeLayout();
     }
 
     private void chooseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -659,7 +769,8 @@ public partial class MainMenu : Form
             return;
         }
 
-        ListDirectory(dirTreeView, selectedFolderPath);
+        //ListDirectory(dirTreeView, selectedFolderPath);
+        ListAllDirectories(dirTreeView, filesOfInterest);
         InitializeDGVEvents();
         InitializeDevicesCLB();
         InitializeTimeControl();
@@ -667,7 +778,7 @@ public partial class MainMenu : Form
 
     private void columnsToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        ConfigureColumns configureColumns = new(dgvEvents);
+        ConfigureColumns configureColumns = new(dgvEvents, columnsTSSLabel);
         configureColumns.Show();
     }
 
@@ -717,5 +828,212 @@ public partial class MainMenu : Form
                 cell.Style.BackColor = Color.White;
             }
         }
+    }
+
+    private void MainMenu_Shown(object sender, EventArgs e)
+    {
+        if (Properties.Settings.Default.MainMenuFirstRun == true)
+        {
+            StartTutorial();
+        }
+        
+        if ("No anomalies detected in event record numbers." != Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")))
+        {
+            MessageBox.Show(Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")));
+            dgvEvents.Columns["RecordId"].Visible = true;
+        }
+        if ("No anomalies detected in event times." != Analyze.TimeChange(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "TimeCreated")))
+        {
+            MessageBox.Show(Analyze.TimeChange(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "TimeCreated")));
+        }
+    }
+
+    private void tutorialToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        StartTutorial();
+    }
+
+    private void StartTutorial()
+    {
+        TransparentPanel highlightPanel = new TransparentPanel();
+
+
+
+        DialogResult result = MessageBox.Show("Welcome To the Event Log Story Teller Main Menu.\nAt Any point during the tutorial press \"Cancel\" to end and \"OK\" to continue.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.MainMenuFirstRun = false;
+            Properties.Settings.Default.Save();
+            return;
+        }
+
+        highlightPanel.Size = dgvEvents.Size;
+        highlightPanel.Location = dgvEvents.Location;
+        this.splitContainer1.Panel2.Controls.Add(highlightPanel);
+        highlightPanel.BringToFront();
+        DialogResult result0 = MessageBox.Show("This section displays parsed information from each event in the log.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result0 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.MainMenuFirstRun = false;
+            Properties.Settings.Default.Save();
+            this.splitContainer1.Panel2.Controls.Remove(highlightPanel);
+            return;
+        }
+        this.splitContainer1.Panel2.Controls.Remove(highlightPanel);
+
+        devicesCLB.BackColor = Color.Yellow;
+        DialogResult result1 = MessageBox.Show("Devices\nThis section displays each of the unique serial numbers.\n " +
+                                               "Check or uncheck the devices to show/hide all events associaded with " +
+                                               "that sn.\nYou can click individual devices or use the \"Check All\" " +
+                                               "or \"Uncheck All\" buttons.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result1 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.MainMenuFirstRun = false;
+            Properties.Settings.Default.Save();
+            devicesCLB.BackColor = SystemColors.Control;
+            return;
+        }
+        devicesCLB.BackColor = SystemColors.Control;
+
+        dirTreeView.BackColor = Color.Yellow;
+        DialogResult result2 = MessageBox.Show("Directory Tree\nThis section shows the parent folder of the log " +
+                                               "file(s)", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.MainMenuFirstRun = false;
+            Properties.Settings.Default.Save();
+            dirTreeView.BackColor = SystemColors.Control;
+            return;
+        }
+        dirTreeView.BackColor = SystemColors.Control;
+
+        MainMenuStrip.BackColor = Color.Yellow;
+        DialogResult result3 = MessageBox.Show("Menu Strip\nThe menu strip contains many helpful tools that allow you to" +
+                                               " better analyze and export your findings.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result3 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.MainMenuFirstRun = false;
+            Properties.Settings.Default.Save();
+            MainMenuStrip.BackColor = SystemColors.Control;
+            return;
+        }
+        mainMenuStrip.BackColor = SystemColors.Control;
+
+        fileToolStripMenuItem.ShowDropDown();
+        openLogToolStripMenuItem.BackColor = Color.Yellow;
+        logPropertiesToolStripMenuItem.BackColor = Color.Yellow;
+        exportToolStripMenuItem.BackColor = Color.Yellow;
+        exitToolStripMenuItem.BackColor = Color.Yellow;
+
+        DialogResult result4 = MessageBox.Show("File\nHere you can view log properties, Export the parsed log and exit this page.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result4 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.MainMenuFirstRun = false;
+            Properties.Settings.Default.Save();
+            openLogToolStripMenuItem.BackColor = SystemColors.Control;
+            logPropertiesToolStripMenuItem.BackColor = SystemColors.Control;
+            exportToolStripMenuItem.BackColor = SystemColors.Control;
+            exitToolStripMenuItem.BackColor = SystemColors.Control;
+            fileToolStripMenuItem.HideDropDown();
+            return;
+        }
+        openLogToolStripMenuItem.BackColor = SystemColors.Control;
+        logPropertiesToolStripMenuItem.BackColor = SystemColors.Control;
+        exportToolStripMenuItem.BackColor = SystemColors.Control;
+        exitToolStripMenuItem.BackColor = SystemColors.Control;
+        fileToolStripMenuItem.HideDropDown();
+
+        aboutToolStripMenuItem.ShowDropDown();
+        infoToolStripMenuItem.BackColor = Color.Yellow;
+        aboutToolStripMenuItem1.BackColor = Color.Yellow;
+        tutorialToolStripMenuItem.BackColor = Color.Yellow;
+        DialogResult result5 = MessageBox.Show("Help\nHere you can view more information about this application and view the tutorial again.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result5 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.MainMenuFirstRun = false;
+            Properties.Settings.Default.Save();
+            infoToolStripMenuItem.BackColor = SystemColors.Control;
+            aboutToolStripMenuItem1.BackColor = SystemColors.Control;
+            tutorialToolStripMenuItem.BackColor = SystemColors.Control;
+            aboutToolStripMenuItem.HideDropDown();
+            return;
+        }
+        infoToolStripMenuItem.BackColor = SystemColors.Control;
+        aboutToolStripMenuItem1.BackColor = SystemColors.Control;
+        tutorialToolStripMenuItem.BackColor = SystemColors.Control;
+        aboutToolStripMenuItem.HideDropDown();
+
+        analyzeToolStripMenuItem.ShowDropDown();
+        recordNumbersToolStripMenuItem.BackColor = Color.Yellow;
+        timeCToolStripMenuItem.BackColor = Color.Yellow;
+        DialogResult result6 = MessageBox.Show("Analyze\nHere you can analyze Record Numbers and Times of events. This is automatically done when you open a log file.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result6 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.MainMenuFirstRun = false;
+            Properties.Settings.Default.Save();
+            recordNumbersToolStripMenuItem.BackColor = SystemColors.Control;
+            timeCToolStripMenuItem.BackColor = SystemColors.Control;
+            analyzeToolStripMenuItem.HideDropDown();
+            return;
+        }
+        recordNumbersToolStripMenuItem.BackColor = SystemColors.Control;
+        timeCToolStripMenuItem.BackColor = SystemColors.Control;
+        analyzeToolStripMenuItem.HideDropDown();
+
+        resetToolStripMenuItem.ShowDropDown();
+        resetCellsToolStripMenuItem1.BackColor = Color.Yellow;
+        DialogResult result7 = MessageBox.Show("Reset\nHere you can reset any highlighting or other formatting to cells.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result7 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.MainMenuFirstRun = false;
+            Properties.Settings.Default.Save();
+            resetCellsToolStripMenuItem1.BackColor = SystemColors.Control;
+            resetToolStripMenuItem.HideDropDown();
+            return;
+        }
+        resetCellsToolStripMenuItem1.BackColor = SystemColors.Control;
+        resetToolStripMenuItem.HideDropDown();
+
+        searchToolStripMenuItem.ShowDropDown();
+        searchTSMI.BackColor = Color.Yellow;
+        DialogResult result8 = MessageBox.Show("Use this control to search through all displayed data.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result8 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.MainMenuFirstRun = false;
+            Properties.Settings.Default.Save();
+            searchTSMI.BackColor = SystemColors.Control;
+            searchToolStripMenuItem.HideDropDown();
+        }
+        searchTSMI.BackColor = SystemColors.Control;
+        searchToolStripMenuItem.HideDropDown();
+
+        timeArrowLabel.BackColor = Color.Yellow;
+        applyTimeframeButton.BackColor = Color.Yellow;
+        resetTimefreameButtom.BackColor = Color.Yellow;
+        DialogResult result9 = MessageBox.Show("Time Scope\nUse these controlls to time scpoe the events and devices displayed.\n" +
+                                               "Pick a start and end time and then press \"Aplly\" to activate the filter and \"Reset\"" +
+                                               "to remove the filter.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result9 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.MainMenuFirstRun = false;
+            Properties.Settings.Default.Save();
+            timeArrowLabel.BackColor = SystemColors.Control;
+            applyTimeframeButton.BackColor = SystemColors.Control;
+            resetTimefreameButtom.BackColor = SystemColors.Control;
+        }
+        timeArrowLabel.BackColor = SystemColors.Control;
+        applyTimeframeButton.BackColor = SystemColors.Control;
+        resetTimefreameButtom.BackColor = SystemColors.Control;
+
+        DialogResult result10 = MessageBox.Show("End of Tutorial\nDo you want to see the tutorial again?", "Tutorial", MessageBoxButtons.YesNo);
+        if (result10 == DialogResult.Yes)
+        {
+            StartTutorial();
+        }
+    }
+
+    private void searchTSMI_Click(object sender, EventArgs e)
+    {
+        searchGB.Show();
     }
 }

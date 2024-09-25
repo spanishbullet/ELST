@@ -13,4 +13,10 @@
     <PackageReference Include="NPOI" Version="2.7.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="event.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

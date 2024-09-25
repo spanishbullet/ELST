@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace ELSTWinFormsLibrary;
 
@@ -62,7 +63,7 @@ public class Analyze
         }
 
         if (message.Length == 0)
-            message = "No anomalies detected.";
+            message = "No anomalies detected in event record numbers.";
 
         return message;
     }
@@ -99,8 +100,26 @@ public class Analyze
 
         }
         if (message.Length == 0)
-            message = "No anomalies detected.";
+            message = "No anomalies detected in event times.";
         return message;
+    }
+
+    public static string Device(Device selectedDevice, List<Device> allDevices)
+    {
+        string message;
+        Device completeDevice = allDevices.FirstOrDefault(d => d.serialNumber == selectedDevice.serialNumber);
+
+        if (selectedDevice.Equals(completeDevice))
+        {
+            message = $"No other events for {selectedDevice.serialNumber} outside current timeframe.";
+            return message;
+        }
+        else
+        {
+            message = $"{completeDevice.events.Count - selectedDevice.events.Count} events for {selectedDevice.serialNumber} outside current timeframe.";
+            return message;
+        }
+
     }
 }
 

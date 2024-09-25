@@ -37,6 +37,9 @@
             fieldsLabel = new Label();
             exportButton = new Button();
             closeButton = new Button();
+            moveUpButton = new Button();
+            moveDownButton = new Button();
+            helpButton = new Button();
             typeGB.SuspendLayout();
             scopeGB.SuspendLayout();
             SuspendLayout();
@@ -101,7 +104,6 @@
             fieldsCLB.Name = "fieldsCLB";
             fieldsCLB.Size = new Size(232, 224);
             fieldsCLB.TabIndex = 3;
-            fieldsCLB.MouseDown += fieldsCLB_MouseDown;
             // 
             // fieldsLabel
             // 
@@ -132,11 +134,44 @@
             closeButton.UseVisualStyleBackColor = true;
             closeButton.Click += closeButton_Click;
             // 
+            // moveUpButton
+            // 
+            moveUpButton.Location = new Point(514, 44);
+            moveUpButton.Name = "moveUpButton";
+            moveUpButton.Size = new Size(104, 29);
+            moveUpButton.TabIndex = 7;
+            moveUpButton.Text = "Move Up";
+            moveUpButton.UseVisualStyleBackColor = true;
+            moveUpButton.Click += moveUpButton_Click;
+            // 
+            // moveDownButton
+            // 
+            moveDownButton.Location = new Point(514, 79);
+            moveDownButton.Name = "moveDownButton";
+            moveDownButton.Size = new Size(104, 29);
+            moveDownButton.TabIndex = 8;
+            moveDownButton.Text = "Move Down";
+            moveDownButton.UseVisualStyleBackColor = true;
+            moveDownButton.Click += moveDownButton_Click;
+            // 
+            // helpButton
+            // 
+            helpButton.Location = new Point(514, 239);
+            helpButton.Name = "helpButton";
+            helpButton.Size = new Size(104, 29);
+            helpButton.TabIndex = 9;
+            helpButton.Text = "Help";
+            helpButton.UseVisualStyleBackColor = true;
+            helpButton.Click += helpButton_Click;
+            // 
             // ExportPage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(522, 281);
+            ClientSize = new Size(625, 281);
+            Controls.Add(helpButton);
+            Controls.Add(moveDownButton);
+            Controls.Add(moveUpButton);
             Controls.Add(closeButton);
             Controls.Add(exportButton);
             Controls.Add(fieldsLabel);
@@ -165,5 +200,8 @@
         private Button closeButton;
         private CheckedListBox typeCLB;
         private CheckedListBox scopeCLB;
+        private Button moveUpButton;
+        private Button moveDownButton;
+        private Button helpButton;
     }
 }

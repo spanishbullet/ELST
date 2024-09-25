@@ -45,11 +45,17 @@ public class CustomEvent
 
     public string vbr0 { get; set; }
 
-    public string extractedVbr0 { get; set; }
+    public string formattedVbr0 { get; set; }
 
     public string xml {  get; }
 
     public string formattedXml { get; }
+
+    public string machineName { get; }
+
+    public string registryID { get; }
+
+    public string diskID { get; }
 
     public CustomEvent()
     {
@@ -70,6 +76,7 @@ public class CustomEvent
         TimeCreated = record.TimeCreated.HasValue ? record.TimeCreated.Value : DateTime.MinValue;
         Level = record.LevelDisplayName;
         recordNumber = record.RecordId.ToString();
+        machineName = record.MachineName;
         xml = record.ToXml();
         formattedXml = XmlExtract.FormatXml(xml);
 
@@ -81,16 +88,30 @@ public class CustomEvent
         serialNumber = XmlExtract.GetField(xml, "SerialNumber");
         parentId = XmlExtract.GetField(xml, "ParentId");
         vbr0 = XmlExtract.GetField(xml, "Vbr0");
-        extractedVbr0 = FormatVbr0.Extract(vbr0);
+        formattedVbr0 = FormatVbr0.Extract(vbr0);
+        registryID = XmlExtract.GetField(xml, "RegistryId");
+        diskID = XmlExtract.GetField(xml, "DiskId");
 
-        if (long.Parse(capacity) != 0)
+        if (string.IsNullOrEmpty(capacity))
         {
-            action = "Plugged In";
+            action = "Unknown";  // Handle the null/empty case
+        }
+        else if (long.TryParse(capacity, out long capacityValue))
+        {
+            if (capacityValue != 0)
+            {
+                action = "Plugged In";  // Handle non-zero numbers
+            }
+            else
+            {
+                action = "Ejected";  // Handle when capacity is exactly 0
+            }
         }
         else
         {
-            action = "Ejected";
+            action = "Invalid";  // Handle when capacity is not a valid number
         }
+        
     }
 
     public string Display()
@@ -102,25 +123,29 @@ public class CustomEvent
     {
         //orders matter**************************
         List<object> result = new List<object>();
+        result.Add(TimeCreated);
+        result.Add(manufacturer);
+        result.Add(model);
+        result.Add(serialNumber);
+        result.Add(action);
+        result.Add(capacity);
+        result.Add(computer);
         result.Add(Id);
         result.Add(ProviderName);
         result.Add(Level);
         result.Add(Message);
         result.Add(recordNumber);
-        result.Add(TimeCreated);
-        result.Add(capacity);
-        result.Add(action);
-        result.Add(manufacturer);
-        result.Add(model);
         result.Add(revision);
-        result.Add(serialNumber);
         result.Add(parentId);
         result.Add(processId);
         result.Add(threadID);
         result.Add(channel);
-        result.Add(computer);
         result.Add(userID);
-        result.Add(extractedVbr0);
+        result.Add(vbr0);
+        result.Add(formattedVbr0);
+        result.Add(machineName);
+        result.Add(registryID);
+        result.Add(diskID);
 
         return result;
     }
@@ -135,7 +160,7 @@ public class CustomEvent
         result.Add(recordNumber);
         result.Add(TimeCreated.ToString());
         result.Add(action);
-        result.Add(extractedVbr0);
+        result.Add(formattedVbr0);
 
         return result;
     }

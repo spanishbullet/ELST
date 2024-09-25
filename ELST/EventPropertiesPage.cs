@@ -86,7 +86,7 @@ public partial class EventPropertiesPage : Form
             dgv.Rows[index].Selected = false;
             index++;
             dgv.Rows[index].Selected = true;
-            if (friendlyViewCB.Checked = true)
+            if (friendlyViewCB.Checked == true)
             {
                 detailsLabel.Text = XmlExtract.FormatFriendly(events[index].formattedXml);
             }
@@ -104,7 +104,7 @@ public partial class EventPropertiesPage : Form
             dgv.Rows[index].Selected = false;
             index--;
             dgv.Rows[index].Selected = true;
-            if (friendlyViewCB.Checked = true)
+            if (friendlyViewCB.Checked == true)
             {
                 detailsLabel.Text = XmlExtract.FormatFriendly(events[index].formattedXml);
             }

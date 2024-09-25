@@ -34,14 +34,18 @@
             infoLabelDriveSearch = new Label();
             openFileButtonDriveSearch = new Button();
             driveSearchGB = new GroupBox();
+            removeAllButton = new Button();
             openTogetherButtonDriveSearch = new Button();
             foundFilesCLB = new CheckedListBox();
             foundFilesLabel = new Label();
             manualOpenGB = new GroupBox();
             openFileButtonManual = new Button();
             helpButton = new Button();
+            groupBox1 = new GroupBox();
+            removeSelectedButton = new Button();
             driveSearchGB.SuspendLayout();
             manualOpenGB.SuspendLayout();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // searchButtonDriveSearch
@@ -84,7 +88,8 @@
             // 
             // openFileButtonDriveSearch
             // 
-            openFileButtonDriveSearch.Location = new Point(6, 227);
+            openFileButtonDriveSearch.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            openFileButtonDriveSearch.Location = new Point(6, 132);
             openFileButtonDriveSearch.Name = "openFileButtonDriveSearch";
             openFileButtonDriveSearch.Size = new Size(111, 29);
             openFileButtonDriveSearch.TabIndex = 4;
@@ -94,25 +99,32 @@
             // 
             // driveSearchGB
             // 
-            driveSearchGB.Controls.Add(openTogetherButtonDriveSearch);
-            driveSearchGB.Controls.Add(foundFilesCLB);
-            driveSearchGB.Controls.Add(foundFilesLabel);
             driveSearchGB.Controls.Add(searchButtonDriveSearch);
             driveSearchGB.Controls.Add(drivePathLabelDriveSearh);
             driveSearchGB.Controls.Add(selectDriveButtonDriveSearch);
-            driveSearchGB.Controls.Add(openFileButtonDriveSearch);
             driveSearchGB.Controls.Add(infoLabelDriveSearch);
-            driveSearchGB.Dock = DockStyle.Top;
             driveSearchGB.Location = new Point(0, 0);
             driveSearchGB.Name = "driveSearchGB";
-            driveSearchGB.Size = new Size(762, 299);
+            driveSearchGB.Size = new Size(380, 121);
             driveSearchGB.TabIndex = 11;
             driveSearchGB.TabStop = false;
             driveSearchGB.Text = "Drive Search";
             // 
+            // removeAllButton
+            // 
+            removeAllButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            removeAllButton.Location = new Point(449, 132);
+            removeAllButton.Name = "removeAllButton";
+            removeAllButton.Size = new Size(94, 29);
+            removeAllButton.TabIndex = 12;
+            removeAllButton.Text = "Remove All";
+            removeAllButton.UseVisualStyleBackColor = true;
+            removeAllButton.Click += removeAllButton_Click;
+            // 
             // openTogetherButtonDriveSearch
             // 
-            openTogetherButtonDriveSearch.Location = new Point(133, 227);
+            openTogetherButtonDriveSearch.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            openTogetherButtonDriveSearch.Location = new Point(134, 132);
             openTogetherButtonDriveSearch.Name = "openTogetherButtonDriveSearch";
             openTogetherButtonDriveSearch.Size = new Size(140, 29);
             openTogetherButtonDriveSearch.TabIndex = 11;
@@ -122,17 +134,19 @@
             // 
             // foundFilesCLB
             // 
+            foundFilesCLB.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             foundFilesCLB.FormattingEnabled = true;
-            foundFilesCLB.Location = new Point(6, 148);
+            foundFilesCLB.Location = new Point(6, 53);
             foundFilesCLB.Name = "foundFilesCLB";
             foundFilesCLB.Size = new Size(750, 70);
             foundFilesCLB.TabIndex = 10;
             foundFilesCLB.ItemCheck += foundFilesCLB_ItemCheck;
+            foundFilesCLB.SelectedIndexChanged += foundFilesCLB_SelectedIndexChanged;
             // 
             // foundFilesLabel
             // 
             foundFilesLabel.AutoSize = true;
-            foundFilesLabel.Location = new Point(6, 119);
+            foundFilesLabel.Location = new Point(6, 24);
             foundFilesLabel.Name = "foundFilesLabel";
             foundFilesLabel.Size = new Size(155, 20);
             foundFilesLabel.TabIndex = 9;
@@ -140,29 +154,29 @@
             // 
             // manualOpenGB
             // 
-            manualOpenGB.Controls.Add(helpButton);
+            manualOpenGB.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             manualOpenGB.Controls.Add(openFileButtonManual);
-            manualOpenGB.Dock = DockStyle.Fill;
-            manualOpenGB.Location = new Point(0, 299);
+            manualOpenGB.Location = new Point(386, 0);
             manualOpenGB.Name = "manualOpenGB";
-            manualOpenGB.Size = new Size(762, 64);
+            manualOpenGB.Size = new Size(377, 121);
             manualOpenGB.TabIndex = 12;
             manualOpenGB.TabStop = false;
             manualOpenGB.Text = "Open Manually";
             // 
             // openFileButtonManual
             // 
-            openFileButtonManual.Location = new Point(6, 26);
+            openFileButtonManual.Location = new Point(12, 49);
             openFileButtonManual.Name = "openFileButtonManual";
-            openFileButtonManual.Size = new Size(94, 29);
+            openFileButtonManual.Size = new Size(167, 29);
             openFileButtonManual.TabIndex = 5;
-            openFileButtonManual.Text = "Open File";
+            openFileButtonManual.Text = "Manually Select File";
             openFileButtonManual.UseVisualStyleBackColor = true;
             openFileButtonManual.Click += openFileButtonManual_Click;
             // 
             // helpButton
             // 
-            helpButton.Location = new Point(662, 26);
+            helpButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            helpButton.Location = new Point(662, 132);
             helpButton.Name = "helpButton";
             helpButton.Size = new Size(94, 29);
             helpButton.TabIndex = 6;
@@ -170,19 +184,51 @@
             helpButton.UseVisualStyleBackColor = true;
             helpButton.Click += helpButton_Click;
             // 
+            // groupBox1
+            // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox1.Controls.Add(removeSelectedButton);
+            groupBox1.Controls.Add(removeAllButton);
+            groupBox1.Controls.Add(foundFilesLabel);
+            groupBox1.Controls.Add(helpButton);
+            groupBox1.Controls.Add(openFileButtonDriveSearch);
+            groupBox1.Controls.Add(openTogetherButtonDriveSearch);
+            groupBox1.Controls.Add(foundFilesCLB);
+            groupBox1.Location = new Point(0, 122);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(763, 169);
+            groupBox1.TabIndex = 13;
+            groupBox1.TabStop = false;
+            // 
+            // removeSelectedButton
+            // 
+            removeSelectedButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            removeSelectedButton.Location = new Point(291, 132);
+            removeSelectedButton.Name = "removeSelectedButton";
+            removeSelectedButton.Size = new Size(141, 29);
+            removeSelectedButton.TabIndex = 13;
+            removeSelectedButton.Text = "Remove Selected";
+            removeSelectedButton.UseVisualStyleBackColor = true;
+            removeSelectedButton.Click += removeSelectedButton_Click;
+            // 
             // StartupPage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(762, 363);
+            ClientSize = new Size(763, 291);
+            Controls.Add(groupBox1);
             Controls.Add(manualOpenGB);
             Controls.Add(driveSearchGB);
+            MinimumSize = new Size(781, 338);
             Name = "StartupPage";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ELST - Startup";
+            Shown += StartupPage_Shown;
             driveSearchGB.ResumeLayout(false);
             driveSearchGB.PerformLayout();
             manualOpenGB.ResumeLayout(false);
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -200,5 +246,8 @@
         private CheckedListBox foundFilesCLB;
         private Button openTogetherButtonDriveSearch;
         private Button helpButton;
+        private Button removeAllButton;
+        private GroupBox groupBox1;
+        private Button removeSelectedButton;
     }
 }

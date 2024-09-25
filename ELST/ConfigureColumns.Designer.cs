@@ -33,15 +33,17 @@
             moveUpButton = new Button();
             moveDownButton = new Button();
             applyButton = new Button();
+            checkAllButton = new Button();
+            uncheckAllButton = new Button();
             SuspendLayout();
             // 
             // cancelButton
             // 
-            cancelButton.Location = new Point(206, 158);
+            cancelButton.Location = new Point(206, 254);
             cancelButton.Name = "cancelButton";
             cancelButton.Size = new Size(108, 29);
             cancelButton.TabIndex = 4;
-            cancelButton.Text = "Cancel";
+            cancelButton.Text = "Close";
             cancelButton.UseVisualStyleBackColor = true;
             cancelButton.Click += cancelButton_Click;
             // 
@@ -75,7 +77,7 @@
             // 
             // applyButton
             // 
-            applyButton.Location = new Point(206, 110);
+            applyButton.Location = new Point(206, 206);
             applyButton.Name = "applyButton";
             applyButton.Size = new Size(108, 29);
             applyButton.TabIndex = 8;
@@ -83,11 +85,33 @@
             applyButton.UseVisualStyleBackColor = true;
             applyButton.Click += applyButton_Click;
             // 
+            // checkAllButton
+            // 
+            checkAllButton.Location = new Point(206, 110);
+            checkAllButton.Name = "checkAllButton";
+            checkAllButton.Size = new Size(108, 29);
+            checkAllButton.TabIndex = 9;
+            checkAllButton.Text = "Check All";
+            checkAllButton.UseVisualStyleBackColor = true;
+            checkAllButton.Click += checkAllButton_Click;
+            // 
+            // uncheckAllButton
+            // 
+            uncheckAllButton.Location = new Point(206, 158);
+            uncheckAllButton.Name = "uncheckAllButton";
+            uncheckAllButton.Size = new Size(108, 29);
+            uncheckAllButton.TabIndex = 10;
+            uncheckAllButton.Text = "Uncheck All";
+            uncheckAllButton.UseVisualStyleBackColor = true;
+            uncheckAllButton.Click += uncheckAllButton_Click;
+            // 
             // ConfigureColumns
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(331, 447);
+            Controls.Add(uncheckAllButton);
+            Controls.Add(checkAllButton);
             Controls.Add(applyButton);
             Controls.Add(moveDownButton);
             Controls.Add(moveUpButton);
@@ -106,5 +130,7 @@
         private Button moveUpButton;
         private Button moveDownButton;
         private Button applyButton;
+        private Button checkAllButton;
+        private Button uncheckAllButton;
     }
 }

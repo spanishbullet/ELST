@@ -1,14 +1,4 @@
 ﻿using ELSTWinFormsLibrary;
-using NPOI.SS.Formula.Functions;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace ELST;
 
@@ -18,7 +8,7 @@ public partial class StartupPage : Form
     private string drive;
     private List<string> filesOfInterest = new List<string>();
     private List<string> selectedFilesOfInterest = new List<string>();
-
+    //private TutorialManager tutorialManager;
 
     public StartupPage()
     {
@@ -38,11 +28,21 @@ public partial class StartupPage : Form
 
         var progress = new Progress<int>(percent => searchingWindow.UpdateProgress(percent));
 
+        int newFileCount = 0;
         Task.Run(() =>
         {
             try
             {
-                filesOfInterest = Startup.Search(drive, "Microsoft-Windows-Partition%4Diagnostic.evtx", progress, cancellationToken);
+                List<string> files = Startup.Search(drive, "Microsoft-Windows-Partition%4Diagnostic.evtx", progress, cancellationToken);
+                foreach (string file in files)
+                {
+                    if (!filesOfInterest.Contains(file))
+                    {
+                        filesOfInterest.Add(file);
+                        newFileCount++;
+                    }
+                }
+
                 if (filesOfInterest.Count > 0)
                 {
                     this.Invoke(new Action(() =>
@@ -70,16 +70,31 @@ public partial class StartupPage : Form
                         }
 
                     }));
-                    MessageBox.Show("Search Successful");
-                }
-                else
-                {
-                    MessageBox.Show("No files found. Please use Manual Selection.");
+
+                    if (newFileCount > 0)
+                    {
+                        MessageBox.Show($"Search Complete. \n{newFileCount} new files found.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Search Complete.\nNo new files found.");
+                    }
                 }
             }
             catch (OperationCanceledException)
             {
-                MessageBox.Show("Search canceled.");
+                // Handle the cancellation case
+                this.Invoke(new Action(() =>
+                {
+                    if (newFileCount > 0)
+                    {
+                        MessageBox.Show($"Search Canceled. \n{newFileCount} new files found before cancellation.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Search Canceled.\nNo new files found.");
+                    }
+                }));
             }
             finally
             {
@@ -141,7 +156,7 @@ public partial class StartupPage : Form
         }
         else
         {
-            MessageBox.Show("No files found. \nSearch again or open file manually.");
+            MessageBox.Show("No files found. \nSearch again or add file manually.");
         }
 
     }
@@ -168,7 +183,7 @@ public partial class StartupPage : Form
         }
         else
         {
-            MessageBox.Show("No files found. \nSearch again or open file manually.");
+            MessageBox.Show("No files found. \nSearch again or add file manually.");
         }
     }
 
@@ -188,10 +203,26 @@ public partial class StartupPage : Form
 
         if (result == DialogResult.OK)
         {
+            
             // Get the selected file's path.
             string filePath = openFileDialog.FileName;
-            MainMenu mainMenu = new MainMenu(filePath);
-            mainMenu.Show();
+
+            if (!filePath.Contains("Microsoft-Windows-Partition%4Diagnostic.evtx"))
+            {
+                MessageBox.Show("This type of log or file type is not yet supported. Please select another file.");
+                return;
+            }
+
+            if (!filesOfInterest.Contains(filePath))
+            {
+                filesOfInterest.Add(filePath);
+                foundFilesLabel.Text = $"{filesOfInterest.Count} files of interest found:";
+                foundFilesCLB.Items.Add(filePath);
+            }
+            else
+            {
+                MessageBox.Show("File already present");
+            }
         }
     }
 
@@ -217,6 +248,142 @@ public partial class StartupPage : Form
                              "Open Manually:" +
                              " - Click the \"Open File\" button to launch a folder dialog.\n" +
                              " - Select the drive/directory you want to search and it will open in it's own window.\n";
-        MessageBox.Show(helpMessage);
+        DialogResult result = MessageBox.Show(helpMessage, "Press \"Yes\" to see tutorial again, Press \"No\" to close this window.", MessageBoxButtons.YesNo);
+        if (result == DialogResult.Yes)
+        {
+            StartTutorial();
+        }
+    }
+
+    private void foundFilesCLB_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    private void removeAllButton_Click(object sender, EventArgs e)
+    {
+        filesOfInterest.Clear();
+        selectedFilesOfInterest.Clear();
+        foundFilesCLB.Items.Clear();
+        foundFilesLabel.Text = $"{filesOfInterest.Count} files of interest found:";
+    }
+
+    private void removeSelectedButton_Click(object sender, EventArgs e)
+    {
+        // Create a list to hold the checked items
+        var itemsToRemove = new List<object>();
+
+        // Add the checked items to the new list
+        foreach (var item in foundFilesCLB.CheckedItems)
+        {
+            itemsToRemove.Add(item);
+        }
+
+        // Remove items from the CheckedListBox and filesOfInterest
+        foreach (var item in itemsToRemove)
+        {
+            filesOfInterest.Remove(item.ToString());
+            foundFilesCLB.Items.Remove(item);
+        }
+        foundFilesLabel.Text = $"{filesOfInterest.Count} files of interest found:";
+    }
+
+    private void StartTutorial()
+    {
+        DialogResult result = MessageBox.Show("Welcome To the Event Log Story Teller Startup Menu.\nAt Any point during the tutorial press \"Cancel\" to end and \"OK\" to continue.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.StartupFirstRun = false;
+            Properties.Settings.Default.Save();
+            return;
+        }
+
+        driveSearchGB.BackColor = Color.Yellow;
+        DialogResult result0 = MessageBox.Show("Use these controlls to search a drive", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result0 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.StartupFirstRun = false;
+            Properties.Settings.Default.Save();
+            driveSearchGB.BackColor = SystemColors.Control;
+            return;
+        }
+        driveSearchGB.BackColor = SystemColors.Control;
+
+        manualOpenGB.BackColor = Color.Yellow;
+        DialogResult result1 = MessageBox.Show("Use these controlls to manually select a file", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result1 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.StartupFirstRun = false;
+            Properties.Settings.Default.Save();
+            manualOpenGB.BackColor = SystemColors.Control;
+            return;
+        }
+        manualOpenGB.BackColor = SystemColors.Control;
+
+        foundFilesCLB.BackColor = Color.Yellow;
+        DialogResult result2 = MessageBox.Show("Files found during a search and files selected manually will apear here with their full file path.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result2 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.StartupFirstRun = false;
+            Properties.Settings.Default.Save();
+            foundFilesCLB.BackColor = SystemColors.Control;
+            return;
+        }
+        foundFilesCLB.BackColor = SystemColors.Control;
+
+        openFileButtonDriveSearch.BackColor = Color.Yellow;
+        DialogResult result3 = MessageBox.Show("This button will open the selected file(s) in their own window.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result3 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.StartupFirstRun = false;
+            Properties.Settings.Default.Save();
+            openFileButtonDriveSearch.BackColor = SystemColors.Control;
+            return;
+        }
+        openFileButtonDriveSearch.BackColor = SystemColors.Control;
+
+        openTogetherButtonDriveSearch.BackColor = Color.Yellow;
+        DialogResult result4 = MessageBox.Show("This Button will open the selected files(s) in the same window.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result4 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.StartupFirstRun = false;
+            Properties.Settings.Default.Save();
+            openTogetherButtonDriveSearch.BackColor = SystemColors.Control;
+            return;
+        }
+        openTogetherButtonDriveSearch.BackColor = SystemColors.Control;
+
+        removeSelectedButton.BackColor = Color.Yellow;
+        removeAllButton.BackColor = Color.Yellow;
+        DialogResult result5 = MessageBox.Show("Use these buttons to remove files from the files of interest box.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result5 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.StartupFirstRun = false;
+            Properties.Settings.Default.Save();
+            removeAllButton.BackColor = SystemColors.Control;
+            removeSelectedButton.BackColor = SystemColors.Control;
+            return;
+        }
+        removeAllButton.BackColor = SystemColors.Control;
+        removeSelectedButton.BackColor = SystemColors.Control;
+
+        helpButton.BackColor = Color.Yellow;
+        DialogResult result6 = MessageBox.Show("Use this button for more help or to see the tutorial again.", "Tutorial", MessageBoxButtons.OKCancel);
+        if (result6 == DialogResult.Cancel)
+        {
+            Properties.Settings.Default.StartupFirstRun = false;
+            Properties.Settings.Default.Save();
+            helpButton.BackColor = SystemColors.Control;
+            return;
+        }
+        helpButton.BackColor = SystemColors.Control;
+    }
+
+    private void StartupPage_Shown(object sender, EventArgs e)
+    {
+        if (Properties.Settings.Default.StartupFirstRun == true)
+        {
+            StartTutorial();
+        }
     }
 }

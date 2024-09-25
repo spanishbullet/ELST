@@ -21,7 +21,9 @@ public partial class SearchingWindow : Form
         _cancellationTokenSource = cancellationTokenSource;
     }
 
-    public void UpdateProgress(int percent)
+    /*For use with Startup.Search w/ total directory count
+     * 
+     * public void UpdateProgress(int percent)
     {
         if (InvokeRequired)
         {
@@ -31,6 +33,18 @@ public partial class SearchingWindow : Form
         {
             searchPB.Value = percent;
             progressLabel.Text = $"Progress: {percent}%";
+        }
+    }*/
+
+    public void UpdateProgress(int numDirs)
+    {
+        if (InvokeRequired)
+        {
+            Invoke(new Action<int>(UpdateProgress), numDirs);
+        }
+        else
+        {
+            numDirectoriesLB.Text = numDirs.ToString();
         }
     }
 
