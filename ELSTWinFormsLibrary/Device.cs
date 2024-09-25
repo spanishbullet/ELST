@@ -48,8 +48,8 @@ public class Device
     {
         events.Add(customEvent);
         appearances++;
-        if (long.Parse(capacity) == 0)
-            capacity = customEvent.capacity;
+        //if (long.Parse(capacity) == 0)
+        //    capacity = customEvent.capacity;
         if (firstInOut >= customEvent.TimeCreated)
             firstInOut = (DateTime)customEvent.TimeCreated;
         else 
