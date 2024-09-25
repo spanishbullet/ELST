@@ -64,54 +64,72 @@ public class CustomEvent
 
     public CustomEvent(EventRecord record)
     {
-        Id = (int)record.Id;
-        ProviderName = record.ProviderName;
-        guid = record.RelatedActivityId;
-        processId = record.ProcessId;
-        threadID = record.ThreadId;
-        channel = record.LogName;
-        computer = record.MachineName;
-        userID = record.UserId;
-        Message = record.FormatDescription();
-        TimeCreated = record.TimeCreated.HasValue ? record.TimeCreated.Value : DateTime.MinValue;
-        Level = record.LevelDisplayName;
-        recordNumber = record.RecordId.ToString();
-        machineName = record.MachineName;
         xml = record.ToXml();
-        formattedXml = XmlExtract.FormatXml(xml);
-
-        // Parse the XML to extract desired fields
-        capacity = XmlExtract.GetField(xml, "Capacity");
-        manufacturer = XmlExtract.GetField(xml, "Manufacturer");
-        model = XmlExtract.GetField(xml, "Model");
-        revision = XmlExtract.GetField(xml, "Revision");
-        serialNumber = XmlExtract.GetField(xml, "SerialNumber");
-        parentId = XmlExtract.GetField(xml, "ParentId");
-        vbr0 = XmlExtract.GetField(xml, "Vbr0");
-        formattedVbr0 = FormatVbr0.Extract(vbr0);
-        registryID = XmlExtract.GetField(xml, "RegistryId");
-        diskID = XmlExtract.GetField(xml, "DiskId");
-
-        if (string.IsNullOrEmpty(capacity))
+        if (!XmlValidator.ValidateXml(xml, "http://schemas.microsoft.com/win/2004/08/events/event"))
         {
-            action = "Unknown";  // Handle the null/empty case
-        }
-        else if (long.TryParse(capacity, out long capacityValue))
-        {
-            if (capacityValue != 0)
-            {
-                action = "Plugged In";  // Handle non-zero numbers
-            }
-            else
-            {
-                action = "Ejected";  // Handle when capacity is exactly 0
-            }
+            Id = (int)record.Id;
+            ProviderName = record.ProviderName;
+            guid = record.RelatedActivityId;
+            processId = record.ProcessId;
+            threadID = record.ThreadId;
+            channel = record.LogName;
+            computer = record.MachineName;
+            userID = record.UserId;
+            Message = record.FormatDescription();
+            TimeCreated = record.TimeCreated.HasValue ? record.TimeCreated.Value : DateTime.MinValue;
+            Level = record.LevelDisplayName;
+            recordNumber = record.RecordId.ToString();
+            machineName = record.MachineName;
         }
         else
         {
-            action = "Invalid";  // Handle when capacity is not a valid number
-        }
+            Id = (int)record.Id;
+            ProviderName = record.ProviderName;
+            guid = record.RelatedActivityId;
+            processId = record.ProcessId;
+            threadID = record.ThreadId;
+            channel = record.LogName;
+            computer = record.MachineName;
+            userID = record.UserId;
+            Message = record.FormatDescription();
+            TimeCreated = record.TimeCreated.HasValue ? record.TimeCreated.Value : DateTime.MinValue;
+            Level = record.LevelDisplayName;
+            recordNumber = record.RecordId.ToString();
+            machineName = record.MachineName;
+            formattedXml = XmlExtract.FormatXml(xml);
 
+            // Parse the XML to extract desired fields
+            capacity = XmlExtract.GetField(xml, "Capacity");
+            manufacturer = XmlExtract.GetField(xml, "Manufacturer");
+            model = XmlExtract.GetField(xml, "Model");
+            revision = XmlExtract.GetField(xml, "Revision");
+            serialNumber = XmlExtract.GetField(xml, "SerialNumber");
+            parentId = XmlExtract.GetField(xml, "ParentId");
+            vbr0 = XmlExtract.GetField(xml, "Vbr0");
+            formattedVbr0 = FormatVbr0.Extract(vbr0);
+            registryID = XmlExtract.GetField(xml, "RegistryId");
+            diskID = XmlExtract.GetField(xml, "DiskId");
+
+            if (string.IsNullOrEmpty(capacity))
+            {
+                action = "Unknown";  // Handle the null/empty case
+            }
+            else if (long.TryParse(capacity, out long capacityValue))
+            {
+                if (capacityValue != 0)
+                {
+                    action = "Plugged In";  // Handle non-zero numbers
+                }
+                else
+                {
+                    action = "Ejected";  // Handle when capacity is exactly 0
+                }
+            }
+            else
+            {
+                action = "Invalid";  // Handle when capacity is not a valid number
+            }
+        }
     }
 
     public string Display()
