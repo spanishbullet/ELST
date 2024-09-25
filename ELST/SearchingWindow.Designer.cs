@@ -36,8 +36,11 @@
             // 
             // searchLabel
             // 
+            searchLabel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             searchLabel.AutoSize = true;
             searchLabel.Location = new Point(129, 30);
+            searchLabel.MaximumSize = new Size(208, 20);
+            searchLabel.MinimumSize = new Size(208, 20);
             searchLabel.Name = "searchLabel";
             searchLabel.Size = new Size(208, 20);
             searchLabel.TabIndex = 0;
@@ -45,6 +48,7 @@
             // 
             // cancelButton
             // 
+            cancelButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             cancelButton.Location = new Point(186, 108);
             cancelButton.Name = "cancelButton";
             cancelButton.Size = new Size(94, 29);
@@ -55,6 +59,7 @@
             // 
             // directoriesLB
             // 
+            directoriesLB.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             directoriesLB.AutoSize = true;
             directoriesLB.Location = new Point(129, 67);
             directoriesLB.Name = "directoriesLB";
@@ -64,6 +69,7 @@
             // 
             // numDirectoriesLB
             // 
+            numDirectoriesLB.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             numDirectoriesLB.AutoSize = true;
             numDirectoriesLB.Location = new Point(289, 67);
             numDirectoriesLB.Name = "numDirectoriesLB";
@@ -81,6 +87,7 @@
             Controls.Add(cancelButton);
             Controls.Add(searchLabel);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            MaximizeBox = false;
             Name = "SearchingWindow";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Searching";

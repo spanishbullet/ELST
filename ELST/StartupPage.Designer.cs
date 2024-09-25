@@ -88,6 +88,7 @@
             // 
             // openFileButtonDriveSearch
             // 
+            openFileButtonDriveSearch.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             openFileButtonDriveSearch.Location = new Point(6, 132);
             openFileButtonDriveSearch.Name = "openFileButtonDriveSearch";
             openFileButtonDriveSearch.Size = new Size(111, 29);
@@ -111,6 +112,7 @@
             // 
             // removeAllButton
             // 
+            removeAllButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             removeAllButton.Location = new Point(449, 132);
             removeAllButton.Name = "removeAllButton";
             removeAllButton.Size = new Size(94, 29);
@@ -121,6 +123,7 @@
             // 
             // openTogetherButtonDriveSearch
             // 
+            openTogetherButtonDriveSearch.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             openTogetherButtonDriveSearch.Location = new Point(134, 132);
             openTogetherButtonDriveSearch.Name = "openTogetherButtonDriveSearch";
             openTogetherButtonDriveSearch.Size = new Size(140, 29);
@@ -131,6 +134,7 @@
             // 
             // foundFilesCLB
             // 
+            foundFilesCLB.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             foundFilesCLB.FormattingEnabled = true;
             foundFilesCLB.Location = new Point(6, 53);
             foundFilesCLB.Name = "foundFilesCLB";
@@ -150,6 +154,7 @@
             // 
             // manualOpenGB
             // 
+            manualOpenGB.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             manualOpenGB.Controls.Add(openFileButtonManual);
             manualOpenGB.Location = new Point(386, 0);
             manualOpenGB.Name = "manualOpenGB";
@@ -170,6 +175,7 @@
             // 
             // helpButton
             // 
+            helpButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             helpButton.Location = new Point(662, 132);
             helpButton.Name = "helpButton";
             helpButton.Size = new Size(94, 29);
@@ -180,6 +186,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox1.Controls.Add(removeSelectedButton);
             groupBox1.Controls.Add(removeAllButton);
             groupBox1.Controls.Add(foundFilesLabel);
@@ -187,7 +194,6 @@
             groupBox1.Controls.Add(openFileButtonDriveSearch);
             groupBox1.Controls.Add(openTogetherButtonDriveSearch);
             groupBox1.Controls.Add(foundFilesCLB);
-            groupBox1.Dock = DockStyle.Bottom;
             groupBox1.Location = new Point(0, 122);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(763, 169);
@@ -196,6 +202,7 @@
             // 
             // removeSelectedButton
             // 
+            removeSelectedButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             removeSelectedButton.Location = new Point(291, 132);
             removeSelectedButton.Name = "removeSelectedButton";
             removeSelectedButton.Size = new Size(141, 29);
@@ -212,6 +219,7 @@
             Controls.Add(groupBox1);
             Controls.Add(manualOpenGB);
             Controls.Add(driveSearchGB);
+            MinimumSize = new Size(781, 338);
             Name = "StartupPage";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ELST - Startup";
