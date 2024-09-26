@@ -126,7 +126,7 @@
             Controls.Add(friendlyViewCB);
             Controls.Add(panel1);
             Name = "EventPropertiesPage";
-            Text = "EventPropertiesPage";
+            Text = "Event Properties";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);

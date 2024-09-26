@@ -81,7 +81,7 @@ public partial class EventPropertiesPage : Form
 
     private void nextButton_Click(object sender, EventArgs e)
     {
-        if (index < dgv.RowCount-2)
+        if (index < dgv.RowCount-1)
         {
             dgv.Rows[index].Selected = false;
             index++;
