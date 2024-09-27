@@ -402,7 +402,7 @@ public partial class MainMenu : Form
         dgvEvents.Columns.Add("Manufacturer", "Manufacturer");
         dgvEvents.Columns.Add("Model", "Model");
         dgvEvents.Columns.Add("SerialNumber", "SCSI Serial Number");
-        dgvEvents.Columns.Add("Action", "Action");
+        dgvEvents.Columns.Add("InterpretedAction", "Interpreted Action");
         dgvEvents.Columns.Add("Capacity", "Capacity");
         dgvEvents.Columns.Add("Computer", "Computer");
         dgvEvents.Columns.Add("EventId", "Event ID");
