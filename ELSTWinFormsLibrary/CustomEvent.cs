@@ -57,6 +57,8 @@ public class CustomEvent
 
     public string diskID { get; }
 
+    private string partitionTableBytes { get; }
+
     public CustomEvent()
     {
 
@@ -91,6 +93,7 @@ public class CustomEvent
         formattedVbr0 = FormatVbr0.Extract(vbr0);
         registryID = XmlExtract.GetField(xml, "RegistryId");
         diskID = XmlExtract.GetField(xml, "DiskId");
+        partitionTableBytes = XmlExtract.GetField(xml, "PartitionTableBytes");
 
         if (string.IsNullOrEmpty(capacity))
         {
@@ -98,20 +101,33 @@ public class CustomEvent
         }
         else if (long.TryParse(capacity, out long capacityValue))
         {
-            if (capacityValue != 0)
+            if (capacityValue == 0)
             {
-                action = "Plugged In";  // Handle non-zero numbers
+                action = "Removed";  
             }
             else
             {
-                action = "Ejected";  // Handle when capacity is exactly 0
+                if (int.TryParse(partitionTableBytes, out int  ptbValue))
+                {
+                    if (ptbValue == 0)
+                    {
+                        action = "Safely Ejected";
+                    }
+                    else
+                    {
+                        action = "Recognized";
+                    }
+                }
+                else
+                {
+                    action = "Invalid";
+                }
             }
         }
         else
         {
             action = "Invalid";  // Handle when capacity is not a valid number
         }
-        
     }
 
     public string Display()
@@ -179,5 +195,23 @@ public class CustomEvent
         }
 
         return true;
+    }
+
+    private string InterpretAction(int capacity, int partitionTableBytes)
+    {
+        string action = null;
+
+        if (capacity == 0)
+        {
+            return "Removed";
+        }
+        else if (partitionTableBytes > 0)
+        {
+            return "Safely Ejected";
+        }
+        else
+        {
+            return "Recognized";
+        }
     }
 }
