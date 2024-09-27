@@ -443,7 +443,7 @@ public partial class MainMenu : Form
 
 
         //neccesary for correct sorting/comparison by time
-        dgvEvents.Columns["TimeCreated"].DefaultCellStyle.Format = "MM/dd/yyyy HH:mm:ss";
+        dgvEvents.Columns["TimeCreated"].DefaultCellStyle.Format = "yyyy/MM/dd HH:mm:ss";
         dgvEvents.Columns["TimeCreated"].ValueType = typeof(DateTime);
 
 
