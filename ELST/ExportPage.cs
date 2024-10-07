@@ -229,8 +229,5 @@ public partial class ExportPage : Form
                         "Use \"Configure Columns\" to change view and selection in the application.\n");
     }
 
-    private void ExportPage_Deactivate(object sender, EventArgs e)
-    {
-        this.Close();
-    }
+    
 }

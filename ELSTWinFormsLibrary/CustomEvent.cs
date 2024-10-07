@@ -59,10 +59,10 @@ public class CustomEvent
 
     public string diskID { get; }
 
-    private string partitionTableBytes { get; }
+    public string partitionTableBytes { get; }
 
-    private string path { get; } 
-
+    public string path { get; } 
+    
     public CustomEvent()
     {
 
