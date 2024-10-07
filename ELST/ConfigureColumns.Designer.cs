@@ -121,6 +121,7 @@
             Name = "ConfigureColumns";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Configure Columns";
+            Deactivate += ConfigureColumns_Deactivate;
             ResumeLayout(false);
         }
 

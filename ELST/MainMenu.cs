@@ -156,7 +156,7 @@ public partial class MainMenu : Form
         {
             ActualPathTSSLabel.Text += path + "\n";
         }
-        ActualPathTSSLabel.Text = ActualPathTSSLabel.Text.Remove(ActualPathTSSLabel.Text.Length - 2);
+        ActualPathTSSLabel.Text = ActualPathTSSLabel.Text.Remove(ActualPathTSSLabel.Text.Length - 1);
     }
 
     private void openLogToolStripMenuItem_Click(object sender, EventArgs e)
@@ -242,6 +242,7 @@ public partial class MainMenu : Form
     {
         customEvents.Clear();
 
+
         foreach (string file in filePaths)
         {
             try
@@ -257,7 +258,7 @@ public partial class MainMenu : Form
                 while ((eventRecord = reader.ReadEvent()) != null)
                 {
                     // Creat event object to store events.
-                    CustomEvent customEvent = new(eventRecord);
+                    CustomEvent customEvent = new(eventRecord, file);
                     customEvents.Add(customEvent);
 
                     eventRecord.Dispose(); // Release resources
@@ -398,11 +399,11 @@ public partial class MainMenu : Form
         dgvEvents.Columns.Clear();
         // Set up the DataGridView columns
         //ORDER MATTERS*******************
-        dgvEvents.Columns.Add("TimeCreated", "Time Created");
+        dgvEvents.Columns.Add("TimeCreated", "Time Created (Local)");
         dgvEvents.Columns.Add("Manufacturer", "Manufacturer");
         dgvEvents.Columns.Add("Model", "Model");
         dgvEvents.Columns.Add("SerialNumber", "SCSI Serial Number");
-        dgvEvents.Columns.Add("Action", "Action");
+        dgvEvents.Columns.Add("InterpretedAction", "Interpreted Action");
         dgvEvents.Columns.Add("Capacity", "Capacity");
         dgvEvents.Columns.Add("Computer", "Computer");
         dgvEvents.Columns.Add("EventId", "Event ID");
@@ -421,6 +422,7 @@ public partial class MainMenu : Form
         dgvEvents.Columns.Add("MachineName", "Machine Name");
         dgvEvents.Columns.Add("RegistryID", "RegistryID");
         dgvEvents.Columns.Add("DiskID", "Disk ID");
+        dgvEvents.Columns.Add("Path", "Path");
 
         //Hide Columns
         dgvEvents.Columns["EventId"].Visible = false;
@@ -440,10 +442,11 @@ public partial class MainMenu : Form
         dgvEvents.Columns["MachineName"].Visible = false;
         dgvEvents.Columns["RegistryID"].Visible = false;
         dgvEvents.Columns["DiskID"].Visible = false;
+        dgvEvents.Columns["Path"].Visible = false;
 
 
         //neccesary for correct sorting/comparison by time
-        dgvEvents.Columns["TimeCreated"].DefaultCellStyle.Format = "MM/dd/yyyy HH:mm:ss";
+        dgvEvents.Columns["TimeCreated"].DefaultCellStyle.Format = "yyyy/MM/dd HH:mm:ss";
         dgvEvents.Columns["TimeCreated"].ValueType = typeof(DateTime);
 
 
@@ -836,7 +839,7 @@ public partial class MainMenu : Form
         {
             StartTutorial();
         }
-        
+
         if ("No anomalies detected in event record numbers." != Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")))
         {
             MessageBox.Show(Analyze.RecordNumber(dgvEvents, dgvExtract.ExtractColumnData(dgvEvents, "recordId")));
@@ -1032,8 +1035,5 @@ public partial class MainMenu : Form
         }
     }
 
-    private void searchTSMI_Click(object sender, EventArgs e)
-    {
-        searchGB.Show();
-    }
+
 }

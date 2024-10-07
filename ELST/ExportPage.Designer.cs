@@ -183,6 +183,7 @@
             Name = "ExportPage";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Export Log";
+            Deactivate += ExportPage_Deactivate;
             typeGB.ResumeLayout(false);
             scopeGB.ResumeLayout(false);
             ResumeLayout(false);

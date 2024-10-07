@@ -90,7 +90,7 @@ public partial class ConfigureColumns : Form
             column.DisplayIndex = i; // Set DisplayIndex to reflect new order
         }
 
-        _toolStripStatusLabel.Text = $"Showing {visibleCount} of 23 Columns";
+        _toolStripStatusLabel.Text = $"Showing {visibleCount} of {columnsCLB.Items.Count} Columns";
 
         _dataGridView.ResumeLayout();
     }
@@ -114,5 +114,10 @@ public partial class ConfigureColumns : Form
         {
             columnsCLB.SetItemChecked(i, false);
         }
+    }
+
+    private void ConfigureColumns_Deactivate(object sender, EventArgs e)
+    {
+        this.Close();
     }
 }
