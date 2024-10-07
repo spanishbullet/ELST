@@ -34,4 +34,9 @@ public partial class LogPropertiesWindow : Form
     {
         this.Close();
     }
+
+    private void LogPropertiesWindow_Deactivate(object sender, EventArgs e)
+    {
+        this.Close();
+    }
 }

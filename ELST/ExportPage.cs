@@ -228,4 +228,9 @@ public partial class ExportPage : Form
                         "Changing oder and selection here will only affect the exproted document, not the application.\n" +
                         "Use \"Configure Columns\" to change view and selection in the application.\n");
     }
+
+    private void ExportPage_Deactivate(object sender, EventArgs e)
+    {
+        this.Close();
+    }
 }

@@ -62,6 +62,7 @@
             FormBorderStyle = FormBorderStyle.SizableToolWindow;
             Name = "HelpWindow";
             Text = "HelpWindow";
+            Deactivate += HelpWindow_Deactivate;
             ResumeLayout(false);
         }
 

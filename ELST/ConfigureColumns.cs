@@ -115,4 +115,9 @@ public partial class ConfigureColumns : Form
             columnsCLB.SetItemChecked(i, false);
         }
     }
+
+    private void ConfigureColumns_Deactivate(object sender, EventArgs e)
+    {
+        this.Close();
+    }
 }
