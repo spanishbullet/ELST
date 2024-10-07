@@ -2,14 +2,11 @@
 
 ## Overview
 
-Event Log Viewer is a Windows Forms application designed to read and display Windows Event Log (.evtx) files in a readable format the tells the story hidden in the log file. It provides an interface to load an event log file, extract relevant event information, and display it in a tabular format. To work on this code you must open Visual Studio as administrator.
-
-## WARNING
-**This is a prototype and is not ready for production. Do not use this on a single copy as there is a posibility it could damage files you upload. Only use this software on a copy or backup of the files you with to analyze. This software is not yet optimized for large files.**
+Event Log Viewer is a WinForms application designed to read and display Windows Event Log (.evtx) files in a readable format that tells the story hidden in the log file. It provides an interface to load an event log file, extract relevant event information, and display it in a tabular format. To work on this code you must open Visual Studio as administrator.
 
 ## Features
 
-- **Drive Searc**: Search for all "Microsoft-Windows-Partition%4Diagnostic.evtx" files in a drive or directory.
+- **Drive Search**: Search for all "Microsoft-Windows-Partition%4Diagnostic.evtx" files in a drive or directory.
 - **Load and Read .evtx Files**: Select and load miltiple Windows Event Log files in seperate windows or in the same window to see all events together.
 - **Display Event Data**: Show event details such as Event ID, Provider, Level, Time Created, and specific data fields in a DataGridView.
 - **Customizable View**: Easlily show or hide and reorder event propeties to your needs.
@@ -22,8 +19,7 @@ Event Log Viewer is a Windows Forms application designed to read and display Win
 
 ## Prerequisites
 
-- **.NET Framework**: This application requires .NET Framework 4.7.2 or later.
-- **Visual Studio**: It is recommended to use Visual Studio for development and testing.
+None - this is a standalone app and only needs the files found in the release .zip folder.
 
 ## Administrative Privileges
 
@@ -40,6 +36,10 @@ The application requires elevated permissions. Ensure the application manifest (
 
 
 ## Installation
+**Download** the .zip foler found in the Releases section of this GitHub repository.
+
+OR
+
 
 1. **Clone or Download the Repository**:
    ```bash
@@ -109,4 +109,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE.txt) 
 
 ##Contact
 
+Please open a new Issue on this repository.
 For further questions or support, please contact jon.carson.bradford@gmail.com.
