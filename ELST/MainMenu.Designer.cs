@@ -231,7 +231,6 @@
             searchTSMI.Name = "searchTSMI";
             searchTSMI.Size = new Size(136, 26);
             searchTSMI.Text = "&Search";
-            searchTSMI.Click += searchTSMI_Click;
             // 
             // configureToolStripMenuItem
             // 
@@ -516,7 +515,7 @@
             // eventsTSSLabel
             // 
             eventsTSSLabel.Name = "eventsTSSLabel";
-            eventsTSSLabel.Size = new Size(757, 20);
+            eventsTSSLabel.Size = new Size(718, 20);
             eventsTSSLabel.Spring = true;
             eventsTSSLabel.Text = "Showing # of # Events";
             eventsTSSLabel.TextAlign = ContentAlignment.MiddleLeft;
@@ -525,7 +524,7 @@
             // 
             columnsTSSLabel.Name = "columnsTSSLabel";
             columnsTSSLabel.Size = new Size(177, 20);
-            columnsTSSLabel.Text = "Showing 6 of 23 Columns";
+            columnsTSSLabel.Text = "Showing 6 of 24 Columns";
             // 
             // timeControlGB
             // 
