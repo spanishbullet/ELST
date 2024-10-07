@@ -162,7 +162,6 @@
             Name = "LogPropertiesWindow";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "LogPropertiesWindow";
-            Deactivate += LogPropertiesWindow_Deactivate;
             ResumeLayout(false);
             PerformLayout();
         }

@@ -56,9 +56,4 @@ public partial class HelpWindow : Form
     {
         this.Close();
     }
-
-    private void HelpWindow_Deactivate(object sender, EventArgs e)
-    {
-        this.Close();
-    }
 }

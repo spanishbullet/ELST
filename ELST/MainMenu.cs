@@ -399,7 +399,7 @@ public partial class MainMenu : Form
         dgvEvents.Columns.Clear();
         // Set up the DataGridView columns
         //ORDER MATTERS*******************
-        dgvEvents.Columns.Add("TimeCreated", "Time Created (Local)");
+        dgvEvents.Columns.Add("TimeCreated", "Time Created (UTC)");
         dgvEvents.Columns.Add("Manufacturer", "Manufacturer");
         dgvEvents.Columns.Add("Model", "Model");
         dgvEvents.Columns.Add("SerialNumber", "SCSI Serial Number");
