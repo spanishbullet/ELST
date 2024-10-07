@@ -36,7 +36,7 @@ The application requires elevated permissions. Ensure the application manifest (
 
 
 ## Installation
-**Download** the .zip foler found in the Releases section of this GitHub repository.
+**Download** the .zip folder found in the Releases section of this GitHub repository.
 
 OR
 
