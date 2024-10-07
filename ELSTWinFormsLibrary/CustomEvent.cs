@@ -31,6 +31,8 @@ public class CustomEvent
 
     public string capacity { get; set; }
 
+    public string formattedCapacity { get; set; }
+
     public string action { get; set; }
 
     public string manufacturer { get; set; }
@@ -59,13 +61,16 @@ public class CustomEvent
 
     private string partitionTableBytes { get; }
 
+    private string path { get; } 
+
     public CustomEvent()
     {
 
     }
 
-    public CustomEvent(EventRecord record)
+    public CustomEvent(EventRecord record, string _path)
     {
+        path = _path;
         Id = (int)record.Id;
         ProviderName = record.ProviderName;
         guid = record.RelatedActivityId;
@@ -107,7 +112,7 @@ public class CustomEvent
             }
             else
             {
-                if (int.TryParse(partitionTableBytes, out int  ptbValue))
+                if (long.TryParse(partitionTableBytes, out long  ptbValue))
                 {
                     if (ptbValue == 0)
                     {
@@ -128,7 +133,25 @@ public class CustomEvent
         {
             action = "Invalid";  // Handle when capacity is not a valid number
         }
+
+        if (long.TryParse(capacity, out long bytes))
+        {
+            // Convert bytes to gigabytes
+            double gigabytes = Math.Round(bytes / (1024.0 * 1024.0 * 1024.0),2);
+
+            // Format the result as a string with "GB" appended
+            string capacityInGB = $"{gigabytes} GB";
+
+            formattedCapacity = capacityInGB; // Output: "1 GB" for the example
+        }
+        else
+        {
+            formattedCapacity = capacity;
+        }
+
     }
+
+  
 
     public string Display()
     {
@@ -144,7 +167,7 @@ public class CustomEvent
         result.Add(model);
         result.Add(serialNumber);
         result.Add(action);
-        result.Add(capacity);
+        result.Add(formattedCapacity);
         result.Add(computer);
         result.Add(Id);
         result.Add(ProviderName);
@@ -162,6 +185,7 @@ public class CustomEvent
         result.Add(machineName);
         result.Add(registryID);
         result.Add(diskID);
+        result.Add(path);
 
         return result;
     }
